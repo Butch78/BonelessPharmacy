@@ -1,0 +1,30 @@
+{
+  "name": "bonelesspharmacy",
+  "version": "1.0.0",
+  "description": "A lightweight, barebones (get it) pharmaceutical solution",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Butch78/BonelessPharmacy.git"
+  },
+  "keywords": [
+    "pharmacy",
+    "eat",
+    "sleep",
+    "cricket"
+  ],
+  "author": "Eat, Sleep, Cricket",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Butch78/BonelessPharmacy/issues"
+  },
+  "homepage": "https://github.com/Butch78/BonelessPharmacy#readme",
+  "dependencies": {
+    "angular": "1.6.5",
+    "angular-route": "1.6.5",
+    "materialize-css": "0.100.1"
+  }
+}
