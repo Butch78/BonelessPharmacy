@@ -7,11 +7,7 @@ var angular = require('angular');
  * # HomeCtrl
  * Controller of the bonelessPharmacyApp
  */
-module.exports = angular.module('bonelessPharmacyApp')
+export default angular.module('bonelessPharmacyApp')
   .controller('HomeCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    console.log('Works');
   });
