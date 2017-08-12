@@ -25,6 +25,11 @@
   "dependencies": {
     "angular": "1.6.5",
     "angular-route": "1.6.5",
+    "lodash": "^4.17.4",
     "materialize-css": "0.100.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.4.1",
+    "webpack": "^3.5.3"
   }
 }
