@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "outFile": "./app/js/bundle.js",
+        "watch": true
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

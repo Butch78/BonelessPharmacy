@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="bonelessPharmacy">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Boneless Pharmacy</title>
+    <link rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.min.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Boneless Pharmacy</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#">Who</a></li>
+                    <li><a href="#">Dat</a></li>
+                    <li><a href="#">Boi</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <ng-view></ng-view>
+    </main>
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="./../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+<script src="./../node_modules/angular/angular.min.js"></script>
+<script src="./../node_modules/angular-route/angular-route.min.js"></script>
+<script src="./js/bundle.js"></script>
+
+</html>
