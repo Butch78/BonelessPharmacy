@@ -4,10 +4,10 @@
 
 ## Getting Started
 
-You'll need `nodejs` and `npm` to work with this solution
+You'll need `nodejs` and `npm` to work with the frontend solution
 and it's recommended you have `typescript` as well.
 
-If ya have chocolatey on Windows just run the following in an elevated shell;
+If you have chocolatey on Windows just run the following in an elevated shell;
 
 ```powershell
 choco install nodejs -y
@@ -22,8 +22,18 @@ to get typescript;
 npm install typescript -g
 ``` 
 
-## Building & Running the Solution
+For the backend, install [.NET Core and the SDK](https://www.microsoft.com/net/core#windowscmd).
 
-1. Run `npm install` in the root directory of the solution 
+## Building & Running the Solution (Frontend)
+
+1. Run `npm install` in the root directory of the  frontend solution 
 2. If you are using VSCode pressing *Ctrl + Shift + B* to run TypeScript's watcher compiler. If you are using the command line run : `tsc --watch`
 3. Once this command has been run you should see a file called `bundle.js` in the `js` folder of your application. Running a server in the root directory will now show the home page if you go to `http://localhost/app`
+
+## Building & Running the Solution (Backend)
+
+1. Run `dotnet restore` in the root directory of the backend solution
+2. Once restored, run `dotnet ef database update` to update the current state of the Entity Framework solution to the newest build
+3. To run the solution in the built in dev server, just use `dotnet run`
+    - Note that you can use `dotnet watch run` to have the code recompile on change rather than having to run the server again
+    
