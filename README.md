@@ -2,6 +2,8 @@
 
 > Pharmacy Software for the Modern Era
 
+[Further documentation can be found in our Wiki](https://github.com/Butch78/BonelessPharmacy/wiki)
+
 ## Getting Started
 
 You'll need `nodejs` and `npm` to work with the frontend solution
