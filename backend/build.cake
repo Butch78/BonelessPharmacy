@@ -4,6 +4,7 @@ Task("Production-Build")
     .Does(() => 
 {
     Information("Building Production Build...");
+    // Production Settings
     var settings = new DotNetCoreBuildSettings
     {
         Framework = "netcoreapp2.0",

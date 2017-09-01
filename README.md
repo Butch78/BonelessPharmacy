@@ -38,4 +38,8 @@ For the backend, install [.NET Core and the SDK](https://www.microsoft.com/net/c
 2. Once restored, run `dotnet ef database update` to update the current state of the Entity Framework solution to the newest build
 3. To run the solution in the built in dev server, just use `dotnet run`
     - Note that you can use `dotnet watch run` to have the code recompile on change rather than having to run the server again
-    
+
+## Running a Production Build (Backend)
+
+Production builds are handled by a build system known as [Cake](https://cakebuild.net/). To edit the build script, a series of steps explaining what needs to be done 
+for a build, just edit `backend/build.cake`. To build the solution using Cake just run the `build.ps1` script inside the backend folder.
