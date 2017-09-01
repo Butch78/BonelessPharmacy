@@ -24,6 +24,8 @@ npm install typescript -g
 
 For the backend, install [.NET Core and the SDK](https://www.microsoft.com/net/core#windowscmd).
 
+**Note that Boneless Pharmacy relies on ASP.Net Core 2.0, meaning that development at a minimum need .NET Core 2.0 installed**
+
 ## Building & Running the Solution (Frontend)
 
 1. Run `npm install` in the root directory of the  frontend solution 
