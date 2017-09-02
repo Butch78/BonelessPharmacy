@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BonelessPharmacyBackend
 {
     /// <summary>
-    /// A product in the BonlessPharmacy system
+    /// A product in the BonelessPharmacy system
     /// </summary>
     public class StoreItem
     {
