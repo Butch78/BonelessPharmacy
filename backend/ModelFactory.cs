@@ -11,6 +11,10 @@ namespace BonelessPharmacyBackend
     /// </summary>
     public class ModelFactory
     {
+        /// <summary>
+        /// Generate a fake SalesItem using contextually fitting data
+        /// </summary>
+        /// <returns></returns>
         public Faker<SalesItem> SalesItem => new Faker<SalesItem>()
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.Name, f => f.Commerce.ProductName())
@@ -18,5 +22,14 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.StockOnHand, f => (uint)(new Random().Next(1, 100)))
             .RuleFor(s => s.Price, f => double.Parse(f.Commerce.Price()))
             .RuleFor(s => s.SupplierCode, f => f.Finance.Iban());
+
+        /// <summary>
+        /// Generate a fake Measurement using contextuall fitting data
+        /// </summary>
+        /// <returns></returns>
+        public Faker<Measurement> Measurement => new Faker<Measurement>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Suffix, f => f.Company.CompanySuffix())
+            .RuleFor(s => s.Description, f => f.Company.Bs());
     }
 }
