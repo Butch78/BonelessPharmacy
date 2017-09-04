@@ -37,16 +37,24 @@ namespace backend_tests
 
 
         /// <summary>
-        /// Ensure that a SalesItem has a PLU associated with it
+        /// Ensure that a SalesItem has a Supplier Code associated with it
         /// </summary>
-        public void AssertSalesItemHasPLU()
+        [TestMethod]
+        public void AssertSalesItemHasSupplierCode()
         {
             SalesItem testItem = new SalesItem();
-            string plu = _gen.Finance.Iban();
-            testItem.PLU = plu;
-            Assert.AreEqual(plu, testItem.PLU);
+            string supplierCode = _gen.Finance.Iban();
+            testItem.SupplierCode = supplierCode;
+            Assert.AreEqual(supplierCode, testItem.SupplierCode);
         }
 
-
+        [TestMethod]
+        public void AssertSalesItemHasPrice()
+        {
+            SalesItem testItem = new SalesItem();
+            double price = double.Parse(_gen.Commerce.Price());
+            testItem.Price = price;
+            Assert.AreEqual(price, testItem.Price);
+        }
     }
 }
