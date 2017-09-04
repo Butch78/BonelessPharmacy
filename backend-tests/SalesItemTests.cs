@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bogus;
 using BonelessPharmacyBackend;
 using System;
+using System.Linq;
 
 namespace backend_tests
 {
@@ -86,6 +87,9 @@ namespace backend_tests
                 testItem.MeasurementId = testMeasurement.Id;
                 db.Measurements.Add(testMeasurement);
                 db.SalesItems.Add(testItem);
+                // Get the transaction state
+                var salesItems = (db.ChangeTracker.Context as Db).SalesItems.Local.ToList();
+                Assert.AreEqual(testMeasurement, salesItems.First().Measurement);
             }
             
         }
