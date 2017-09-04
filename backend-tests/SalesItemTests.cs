@@ -75,5 +75,19 @@ namespace backend_tests
             testItem.Amount = amount;
             Assert.AreEqual(amount, testItem.Amount);
         }
+
+        [TestMethod]
+        public void AssertSalesItemHasMeasurement()
+        {
+            using (var db = new Db())
+            {
+                SalesItem testItem = ModelFactory.SalesItem;
+                Measurement testMeasurement = ModelFactory.Measurement;
+                testItem.MeasurementId = testMeasurement.Id;
+                db.Measurements.Add(testMeasurement);
+                db.SalesItems.Add(testItem);
+            }
+            
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BonelessPharmacyBackend
 {
@@ -67,5 +68,19 @@ namespace BonelessPharmacyBackend
         /// </remarks>
         /// <returns></returns>
         public int Amount { get; set; }
+
+        [Required]
+        /// <summary>
+        /// The ID of the sale items measurement
+        /// </summary>
+        /// <returns></returns>
+        public int MeasurementId { get; set; }
+
+        [ForeignKey("MeasurementId")]
+        /// <summary>
+        /// The related measurement object
+        /// </summary>
+        /// <returns></returns>
+        public virtual Measurement Measurement { get; set; }
     }
 }
