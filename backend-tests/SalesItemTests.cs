@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Bogus;
 using BonelessPharmacyBackend;
+using System;
 
 namespace backend_tests
 {
@@ -55,6 +56,24 @@ namespace backend_tests
             double price = double.Parse(_gen.Commerce.Price());
             testItem.Price = price;
             Assert.AreEqual(price, testItem.Price);
+        }
+
+        [TestMethod]
+        public void AssertSalesItemHasSOH()
+        {
+            SalesItem testItem = new SalesItem();
+            uint soh = (uint)(new Random().Next(1, 100));
+            testItem.StockOnHand = soh;
+            Assert.AreEqual(soh, testItem.StockOnHand);
+        }
+
+        [TestMethod]
+        public void AssertSalesItemHasAmount()
+        {
+            SalesItem testItem = new SalesItem();
+            int amount = new Random().Next(1,100);
+            testItem.Amount = amount;
+            Assert.AreEqual(amount, testItem.Amount);
         }
     }
 }
