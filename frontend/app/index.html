@@ -7,21 +7,34 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Boneless Pharmacy</title>
     <link rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Boneless Pharmacy</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#">Who</a></li>
-                    <li><a href="#">Dat</a></li>
-                    <li><a href="#">Boi</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-wrapper indigo darken-2">
+                    <a href="#!" class="brand-logo">Boneless Pharmacy</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="#">Sales</a></li>
+                        <li><a href="#">Stock</a></li>
+                        <li><a href="#">Reports & Predictions</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="#">Sales</a></li>
+                        <li><a href="#">Stock</a></li>
+                        <li><a href="#">Reports & Predictions</a></li>
+                        <li><a href="#">Help</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    </div>
+
     <main>
         <ng-view></ng-view>
     </main>
@@ -31,5 +44,6 @@
 <script type="text/javascript" src="./../node_modules/angular/angular.min.js"></script>
 <script type="text/javascript" src="./../node_modules/angular-route/angular-route.min.js"></script>
 <script type="text/javascript" src="./js/bundle.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
 </html>
