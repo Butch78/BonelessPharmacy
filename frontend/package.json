@@ -4,7 +4,7 @@
   "description": "A lightweight pharmaceutical solution for the modern era",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "echo no testing script defined"
   },
   "repository": {
     "type": "git",
