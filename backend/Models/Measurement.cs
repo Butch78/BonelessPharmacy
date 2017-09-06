@@ -11,14 +11,23 @@ namespace BonelessPharmacyBackend
     {
         [Key]
         /// <summary>
-        /// The primary key of the SalesItem
+        /// The primary key of the Measurement
         /// </summary>
         /// <returns></returns>
         public int Id { get; set; }
 
         [Required]
+        /// <summary>
+        /// The suffix that will be appended to the sales item
+        /// when this measurement is applied
+        /// </summary>
+        /// <returns></returns>
         public string Suffix { get; set; }
 
+        /// <summary>
+        /// A description of the Measurement
+        /// </summary>
+        /// <returns></returns>
         public string Description { get; set; }
     }
 }
