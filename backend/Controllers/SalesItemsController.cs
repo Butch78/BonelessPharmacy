@@ -30,9 +30,21 @@ namespace BonelessPharmacyBackend.Controllers
 
         // POST api/SalesItems
         [HttpPost]
-        public void Post([FromBody]SalesItem value)
+        public async Task<IActionResult> Post([FromBody]SalesItem value)
         {
-            
+            if (ModelState.IsValid)
+            {
+                using (var db = new Db())
+                {
+                    await db.SalesItems.AddAsync(value);
+                    await db.SaveChangesAsync();
+                    return Created("api/SalesItems", value);
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         // PUT api/SalesItems/5
