@@ -30,8 +30,7 @@ namespace BonelessPharmacyBackend.Controllers
 
         // POST api/SalesItems
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]SalesItem value)
-        {
+        public async Task<IActionResult> Post([FromBody]SalesItem value) => await Task.Run<IActionResult>(async () => {
             if (ModelState.IsValid)
             {
                 using (var db = new Db())
@@ -42,21 +41,38 @@ namespace BonelessPharmacyBackend.Controllers
                 }
             }
             else
-            {
                 return BadRequest();
-            }
-        }
+        });
 
         // PUT api/SalesItems/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        public async Task<IActionResult> Put(int id, [FromBody]SalesItem value) => await Task.Run<IActionResult>(async () => {
+            if (ModelState.IsValid)
+            {
+                value.Id = id;
+                using (var db = new Db())
+                {
+                    db.SalesItems.Update(value);
+                    await db.SaveChangesAsync();
+                    return Accepted("api/SalesItems", value);
+                }
+            }
+            else
+                return BadRequest();
+        });
 
         // DELETE api/SalesItems/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async () => {
+            using (var db = new Db())
+            {
+                var value = db.SalesItems.Remove(db.SalesItems.FirstOrDefault(s => s.Id == id));
+                await db.SaveChangesAsync();
+                if (value != null)
+                    return Accepted("api/SalesItems", value);
+                else
+                    return NoContent();
+            }
+        });
     }
 }

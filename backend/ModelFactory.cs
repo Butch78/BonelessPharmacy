@@ -4,7 +4,7 @@ using Bogus;
 namespace BonelessPharmacyBackend
 {
     /// <summary>
-    /// Use ModelFactory to define 
+    /// Use ModelFactory to define fake data structures
     /// </summary>
     /// <remarks>
     /// Ignore the intellisense issue, it's fine
