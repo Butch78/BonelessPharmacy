@@ -33,6 +33,3 @@ msbuild.wrn
 
 # Cake
 tools/
-
-# Database files
-*.db

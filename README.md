@@ -2,6 +2,8 @@
 
 > Pharmacy Software for the Modern Era
 
+[Further documentation can be found in our Wiki](https://github.com/Butch78/BonelessPharmacy/wiki)
+
 ## Getting Started
 
 You'll need `nodejs` and `npm` to work with the frontend solution
@@ -24,6 +26,8 @@ npm install typescript -g
 
 For the backend, install [.NET Core and the SDK](https://www.microsoft.com/net/core#windowscmd).
 
+**Note that Boneless Pharmacy relies on ASP.Net Core 2.0, meaning that development at a minimum need .NET Core 2.0 installed**
+
 ## Building & Running the Solution (Frontend)
 
 1. Run `npm install` in the root directory of the  frontend solution 
@@ -36,4 +40,8 @@ For the backend, install [.NET Core and the SDK](https://www.microsoft.com/net/c
 2. Once restored, run `dotnet ef database update` to update the current state of the Entity Framework solution to the newest build
 3. To run the solution in the built in dev server, just use `dotnet run`
     - Note that you can use `dotnet watch run` to have the code recompile on change rather than having to run the server again
-    
+
+## Running a Production Build (Backend)
+
+Production builds are handled by a build system known as [Cake](https://cakebuild.net/). To edit the build script, a series of steps explaining what needs to be done 
+for a build, just edit `backend/build.cake`. To build the solution using Cake just run the `build.ps1` script inside the backend folder.
