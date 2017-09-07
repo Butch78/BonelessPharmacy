@@ -11,7 +11,8 @@ namespace BonelessPharmacyBackend.Controllers
     {
         // GET api/SalesItems
         [HttpGet]
-        public async Task<IEnumerable<SalesItem>> Get() => await Task.Run<IEnumerable<SalesItem>>(() => {
+        public async Task<IEnumerable<SalesItem>> Get() => await Task.Run<IEnumerable<SalesItem>>(() =>
+        {
             using (var db = new Db())
             {
                 // Ensure to call ToList so that the DB doesn't dispose itself
@@ -21,30 +22,59 @@ namespace BonelessPharmacyBackend.Controllers
 
         // GET api/SalesItems/5
         [HttpGet("{id}")]
-        public async Task<SalesItem> Get(int id) => await Task.Run<SalesItem>(() => {
-           using (var db = new Db())
-           {
-               return db.SalesItems.FirstOrDefault(s => s.Id == id);
-           } 
+        public async Task<SalesItem> Get(int id) => await Task.Run<SalesItem>(() =>
+        {
+            using (var db = new Db())
+            {
+                return db.SalesItems.FirstOrDefault(s => s.Id == id);
+            }
         });
 
         // POST api/SalesItems
         [HttpPost]
-        public void Post([FromBody]SalesItem value)
+        public async Task<IActionResult> Post([FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>
         {
-            
-        }
+            if (ModelState.IsValid)
+            {
+                using (var db = new Db())
+                {
+                    await db.SalesItems.AddAsync(value);
+                    await db.SaveChangesAsync();
+                    return Created("api/SalesItems", value);
+                }
+            }
+            else
+                return BadRequest();
+        });
 
         // PUT api/SalesItems/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put(int id, [FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>
         {
-        }
+            if (ModelState.IsValid)
+            {
+                value.Id = id;
+                using (var db = new Db())
+                {
+                    db.SalesItems.Update(value);
+                    await db.SaveChangesAsync();
+                    return Accepted("api/SalesItems", value);
+                }
+            }
+            else
+                return BadRequest();
+        });
 
         // DELETE api/SalesItems/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async () =>
         {
-        }
+            using (var db = new Db())
+            {
+                db.SalesItems.Remove(db.SalesItems.FirstOrDefault(s => s.Id == id));
+                await db.SaveChangesAsync();
+                return Accepted();
+            }
+        });
     }
 }
