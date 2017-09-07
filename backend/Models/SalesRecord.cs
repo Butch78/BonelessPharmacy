@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BonelessPharmacyBackend
 {
+    /// <summary>
+    /// A recording of an item which has been included in a sale
+    /// </summary>
     public class SalesRecord
     {
         [Key]
