@@ -1,8 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend
 {
+    /// <summary>
+    /// The main Database context for the BonelessPharmacy
+    /// </summary>
     public class Db : DbContext
     {
         public DbSet<SalesItem> SalesItems { get; set; }
@@ -15,4 +21,64 @@ namespace BonelessPharmacyBackend
             optionsBuilder.UseSqlite("Filename=./Main.db", x => x.SuppressForeignKeyEnforcement());
         }
     }
+
+    /// <summary>
+    /// Contains logic relating to the initial data of the Database
+    /// </summary>
+    public static class DbSeeders
+    {
+        /// <summary>
+        /// Default measurements that should be included in the database
+        /// </summary>
+        /// <returns></returns>
+        private static readonly List<Measurement> MEASUREMENT_DEFAULTS = new List<Measurement>()
+        {
+            new Measurement()
+            {
+                Suffix = "mg",
+                Description = "Milligrams"
+            },
+            new Measurement()
+            {
+                Suffix = "g",
+                Description = "Grams"
+            },
+            new Measurement()
+            {
+                Suffix = "ml",
+                Description = "Milliletres"
+            },
+            new Measurement()
+            {
+                Suffix = "tablet/s",
+                Description = "Tablets"
+            },
+            new Measurement()
+            {
+                Suffix = "capsule/s",
+                Description = "Capsules"
+            }
+        };
+        
+        /// <summary>
+        /// Used to seed the database with its initial data set
+        /// </summary>
+        /// <example>
+        /// app.SeedDb();
+        /// </example>
+        /// <param name="builder"></param>
+        public static void SeedDb(this IApplicationBuilder builder)
+        {
+            using (var db = new Db())
+            {
+                if (!db.Measurements.Any())
+                {
+                    Console.WriteLine("Seeding Measurements Table...");
+                    db.Measurements.AddRange(MEASUREMENT_DEFAULTS);
+                }
+                db.SaveChanges();
+            }
+        }
+    }
+    
 }
