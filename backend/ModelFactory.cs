@@ -31,5 +31,14 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.Suffix, f => f.Company.CompanySuffix())
             .RuleFor(s => s.Description, f => f.Company.Bs());
+
+        /// <summary>
+        /// Generate a fake ItemType using contextuall fitting data
+        /// </summary>
+        /// <returns></returns>
+        public static Faker<ItemType> ItemType => new Faker<ItemType>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Name, f => f.Commerce.ProductName())
+            .RuleFor(s => s.Description, f => f.Company.Bs());
     }
 }
