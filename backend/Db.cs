@@ -7,7 +7,7 @@ namespace BonelessPharmacyBackend
     {
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-
+        public DbSet<ItemType> ItemType{ get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=./Main.db", x => x.SuppressForeignKeyEnforcement());
