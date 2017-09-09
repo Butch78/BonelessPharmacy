@@ -37,14 +37,23 @@ namespace BonelessPharmacyBackend
                 {
                     opts.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
-            services.AddAuthentication()
-                .AddJwtBearer(cfg =>
+            services.AddAuthentication(opts =>
                 {
-                    cfg.RequireHttpsMetadata = false;
-                    cfg.SaveToken = true;
+                    opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(opts =>
+                {
+                    opts.Authority = "https://billson-development.au.auth0.com/";
+                    opts.Audience = "localhost:5000";
+                    opts.RequireHttpsMetadata = false;
+                    opts.SaveToken = true;
 
-                    cfg.TokenValidationParameters = new TokenValidationParameters()
+                    opts.TokenValidationParameters = new TokenValidationParameters()
                     {
+                        ValidateIssuer = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateAudience = false,
                         ValidIssuer = Configuration["Tokens:Issuer"],
                         ValidAudience = Configuration["Tokens:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
@@ -66,10 +75,11 @@ namespace BonelessPharmacyBackend
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            // Seed database
-            app.SeedDb();
+            app.UseAuthentication();
 
             app.UseMvc();
+            // Seed database
+            app.SeedDb();
         }
     }
 }

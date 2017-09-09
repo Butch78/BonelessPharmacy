@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BonelessPharmacyBackend.Controllers
 {
-    // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     public class MeasurementsController : Controller
     {
