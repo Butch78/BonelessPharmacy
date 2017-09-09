@@ -26,61 +26,37 @@ namespace BonelessPharmacyBackend
         /// <returns></returns>
         public string Name { get; set; }
 
+        [Required]
+
         /// <summary>
-        /// The supplier ID number for the product
+        /// The Role of the Employee 
         /// </summary>
         /// <remarks>
-        /// This may get overriden with each order if the supplier changes
+        /// This could potentially be an enum 
         /// </remarks>
         /// <returns></returns>
-        public string SupplierCode { get; set; }
+        public string Role { get; set; }
+
 
         [Required]
         /// <summary>
-        /// The price for the product, GST excluded
+        /// Staff's Phone Number 
         /// </summary>
         /// <example>
-        /// 23.60
-        /// </example>
-        /// <returns></returns>
-        public double Price { get; set; }
-
-        [Required]
-        /// <summary>
-        /// The stock of this item in store
-        /// </summary>
-        /// <example>
-        /// 16
-        /// </example>
-        /// <returns></returns>
-        public uint StockOnHand { get; set; }
-
-        [Required]
-        /// <summary>
-        /// How much individual parts of the item are in a single sale of it.!--
-        /// This can be a measurement of count, volume, size etc...
-        /// </summary>
-        /// <example>
-        /// 10
+        /// 0413554345
         /// </example>
         /// <remarks>
-        /// Maybe use "Size" instead?
+        /// Could include other information for more in-depth record keeping
         /// </remarks>
         /// <returns></returns>
-        public int Amount { get; set; }
+        public String PhoneNumber { get; set; }
 
         [Required]
         /// <summary>
-        /// The ID of the sale items measurement
+        /// The Staff member's Password to login into the system
         /// </summary>
         /// <returns></returns>
-        public int MeasurementId { get; set; }
+        public String Password{ get; set; }
 
-        [ForeignKey("MeasurementId")]
-        /// <summary>
-        /// The related measurement object
-        /// </summary>
-        /// <returns></returns>
-        public virtual Measurement Measurement { get; set; }
     }
 }

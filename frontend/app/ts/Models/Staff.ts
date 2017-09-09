@@ -15,7 +15,7 @@ name: string;
  * The Role of the Staff Member
 */
 
-role :string;
+role: string;
 
 /**
  * The Phone Number of the Staff Member

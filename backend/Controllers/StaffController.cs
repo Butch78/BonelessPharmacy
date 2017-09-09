@@ -11,16 +11,28 @@ namespace BonelessPharmacyBackend.Controllers
     public class StaffController : Controller
     {
         [HttpGet]
-        public async Task<IEnumerable<Staff>> Get() => await Task.Run<IEnumerable<Staff>>()) =>
+        public async Task<IEnumerable<Staff>> Get() => await Task.Run<IEnumerable<Staff>>(() =>
         {
             using (var db = new Db())
             {
             // Ensure to call toList so that the DB doesn't dispose itself
-            return db.Staff.toList();
+            return db.Staff.ToList();
             }
         });
  
-    //Get api/
-    [HttpGet("{}")]
+    //Get api/Staff/5
+    [HttpGet("{id}")]
+    public async Task<Staff> Get(int id) => await Task.Run<Staff>(()    =>
+    {
+        using (var db = new Db())
+        {
+            return db.Staff.FirstOrDefault(s => s.Id == id);
+        }
+    });
+
+    
+
+
+
     }
 }
