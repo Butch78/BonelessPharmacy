@@ -1,5 +1,4 @@
-interface Sale
-{
+interface Sale {
     /**
      * The Id/Key of the Sale
      */

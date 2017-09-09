@@ -1,5 +1,4 @@
-interface SalesRecord
-{
+interface SalesRecord {
     id: number;
 
     saleId: number;
