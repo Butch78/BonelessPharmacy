@@ -14,5 +14,5 @@ interface Measurement
     /**
      * A description of the Measurement
      */
-    description: string;    
+    description?: string;    
 }
