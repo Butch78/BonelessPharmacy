@@ -30,9 +30,50 @@ namespace BonelessPharmacyBackend.Controllers
         }
     });
 
-    
+    //  Post api/Staff/5
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody]Staff value) => await Task.Run<IActionResult>(async ()   =>
+    {
+        if(ModelState.IsValid)
+        {
+            using (var db = new Db())
+            {
+                await db.Staff.AddAsync(value); 
+                await db.SaveChangesAsync();
+                return Created("api/Staff", value);
+            }
+        }
+        else 
+            return BadRequest();
+    });
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, [FromBody]Staff value) => await Task.Run<IActionResult>(async () =>
+    {
+        if(ModelState.IsValid)
+        {
+            value.Id = id; 
+            using(var db = new Db())
+            {
+                db.Staff.Update(value);
+                await db.SaveChangesAsync();
+                return Accepted("api/Staff", value);
+            }
+        }
+        else 
+            return BadRequest();
+    });
 
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async ()   =>
+    {
+        using (var db = new Db())
+        {
+            db.Staff.Remove(db.Staff.FirstOrDefault(s => s.Id == id));
+            await db.SaveChangesAsync();
+            return Accepted();
+        }
+    });
 
     }
 }
