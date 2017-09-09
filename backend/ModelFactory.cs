@@ -32,6 +32,11 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Suffix, f => f.Company.CompanySuffix())
             .RuleFor(s => s.Description, f => f.Company.Bs());
 
+        public static Faker<Role> Role => new Faker<Role>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Name, f => f.Commerce.ProductName())
+            .RuleFor(s => s.Description, f => f.Company.Bs());
+
 
         public static Faker<Staff> Staff => new Faker<Staff>()    
             .RuleFor(s => s.Id, f => f.UniqueIndex)

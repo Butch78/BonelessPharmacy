@@ -14,6 +14,8 @@ namespace BonelessPharmacyBackend
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Sale> Sales { get; set; }
+
+        public DbSet<Role> Role {get; set;}
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff {get; set;}
 
@@ -60,6 +62,31 @@ namespace BonelessPharmacyBackend
                 Description = "Capsules"
             }
         };
+
+                /// <summary>
+        /// Default Roles that should be included in the database
+        /// </summary>
+        /// <returns></returns>
+        private static readonly List<Role> ROLE_DEFAULTS = new List<Role>()
+        {
+            new Role()
+            {
+                Name = "Manager",
+                Description = "In charge of the Staff of the Store "
+            },
+            new Role()
+            {
+                Name = "Pharmacist",
+                Description = "The person in charge of dispending Drugs"
+            },
+            new Role()
+            {
+                Name = "Sale Assistant",
+                Description = "Person who Make the point of sales"
+            }
+        };
+
+
         
         /// <summary>
         /// Used to seed the database with its initial data set
@@ -76,6 +103,12 @@ namespace BonelessPharmacyBackend
                 {
                     Console.WriteLine("Seeding Measurements Table...");
                     db.Measurements.AddRange(MEASUREMENT_DEFAULTS);
+                }
+
+                if(!db.Role.Any())
+                {
+                    Console.WriteLine("Seeding Roles Table...");
+                    db.Role.AddRange(ROLE_DEFAULTS);
                 }
                 db.SaveChanges();
             }
