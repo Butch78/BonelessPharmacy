@@ -51,11 +51,11 @@ namespace BonelessPharmacyBackend
 
                     opts.TokenValidationParameters = new TokenValidationParameters()
                     {
-                        ValidateIssuer = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidateAudience = false,
-                        ValidIssuer = Configuration["Tokens:Issuer"],
-                        ValidAudience = Configuration["Tokens:Issuer"],
+                        // ValidateIssuer = true,
+                        // ValidateIssuerSigningKey = true,
+                        // ValidateAudience = false,
+                        // ValidIssuer = Configuration["Tokens:Issuer"],
+                        // ValidAudience = Configuration["Tokens:Issuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Tokens:Key"]))
                     };
                 });
