@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BonelessPharmacyBackend.Migrations
 {
-    public partial class FreshMigrationState : Migration
+    public partial class FreshMigrationStatewithPluralNames : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,7 +23,7 @@ namespace BonelessPharmacyBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Role",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -33,7 +33,7 @@ namespace BonelessPharmacyBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Role", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,7 +50,7 @@ namespace BonelessPharmacyBackend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Supplier",
+                name: "Suppliers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -63,7 +63,7 @@ namespace BonelessPharmacyBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Supplier", x => x.Id);
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,9 +105,9 @@ namespace BonelessPharmacyBackend.Migrations
                 {
                     table.PrimaryKey("PK_Staff", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Staff_Role_RoleId",
+                        name: "FK_Staff_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Role",
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -169,7 +169,7 @@ namespace BonelessPharmacyBackend.Migrations
                 name: "Staff");
 
             migrationBuilder.DropTable(
-                name: "Supplier");
+                name: "Suppliers");
 
             migrationBuilder.DropTable(
                 name: "SalesItems");
@@ -178,7 +178,7 @@ namespace BonelessPharmacyBackend.Migrations
                 name: "Sales");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Measurements");

@@ -46,7 +46,7 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.Sale", b =>
@@ -151,7 +151,7 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.SalesItem", b =>

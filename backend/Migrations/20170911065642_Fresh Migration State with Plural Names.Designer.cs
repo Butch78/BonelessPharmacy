@@ -11,8 +11,8 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20170911065142_Fresh Migration State")]
-    partial class FreshMigrationState
+    [Migration("20170911065642_Fresh Migration State with Plural Names")]
+    partial class FreshMigrationStatewithPluralNames
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.Sale", b =>
@@ -152,7 +152,7 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Supplier");
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.SalesItem", b =>
