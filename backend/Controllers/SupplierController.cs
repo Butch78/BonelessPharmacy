@@ -8,39 +8,39 @@ namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
 
-    public class StaffController : Controller
+    public class SupplierController : Controller
     {
         [HttpGet]
-        public async Task<IEnumerable<Staff>> Get() => await Task.Run<IEnumerable<Staff>>(() =>
+        public async Task<IEnumerable<Supplier>> Get() => await Task.Run<IEnumerable<Supplier>>(() =>
         {
             using (var db = new Db())
             {
             // Ensure to call toList so that the DB doesn't dispose itself
-            return db.Staff.ToList();
+            return db.Supplier.ToList();
             }
         });
  
-    //Get api/Staff/5
+    //Get api/Supplier/5
     [HttpGet("{id}")]
-    public async Task<Staff> Get(int id) => await Task.Run<Staff>(()    =>
+    public async Task<Supplier> Get(int id) => await Task.Run<Supplier>(()    =>
     {
         using (var db = new Db())
         {
-            return db.Staff.FirstOrDefault(s => s.Id == id);
+            return db.Supplier.FirstOrDefault(s => s.Id == id);
         }
     });
 
-    //  Post api/Staff/5
+    //  Post api/Supplier/5
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody]Staff value) => await Task.Run<IActionResult>(async ()   =>
+    public async Task<IActionResult> Post([FromBody]Supplier value) => await Task.Run<IActionResult>(async ()   =>
     {
         if(ModelState.IsValid)
         {
             using (var db = new Db())
             {
-                await db.Staff.AddAsync(value); 
+                await db.Supplier.AddAsync(value); 
                 await db.SaveChangesAsync();
-                return Created("api/Staff", value);
+                return Created("api/Supplier", value);
             }
         }
         else 
@@ -48,16 +48,16 @@ namespace BonelessPharmacyBackend.Controllers
     });
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, [FromBody]Staff value) => await Task.Run<IActionResult>(async () =>
+    public async Task<IActionResult> Put(int id, [FromBody]Supplier value) => await Task.Run<IActionResult>(async () =>
     {
         if(ModelState.IsValid)
         {
             value.Id = id; 
             using(var db = new Db())
             {
-                db.Staff.Update(value);
+                db.Supplier.Update(value);
                 await db.SaveChangesAsync();
-                return Accepted("api/Staff", value);
+                return Accepted("api/Supplier", value);
             }
         }
         else 
@@ -69,7 +69,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         using (var db = new Db())
         {
-            db.Staff.Remove(db.Staff.FirstOrDefault(s => s.Id == id));
+            db.Supplier.Remove(db.Supplier.FirstOrDefault(s => s.Id == id));
             await db.SaveChangesAsync();
             return Accepted();
         }
