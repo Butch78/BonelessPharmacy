@@ -34,6 +34,21 @@ namespace BonelessPharmacyBackend.Migrations
                     b.ToTable("Measurements");
                 });
 
+            modelBuilder.Entity("BonelessPharmacyBackend.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("BonelessPharmacyBackend.Sale", b =>
                 {
                     b.Property<int>("Id")
@@ -105,12 +120,38 @@ namespace BonelessPharmacyBackend.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
-                    b.Property<string>("Role")
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.Supplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ABN")
+                        .IsRequired();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired();
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.SalesItem", b =>
@@ -131,6 +172,14 @@ namespace BonelessPharmacyBackend.Migrations
                     b.HasOne("BonelessPharmacyBackend.Sale", "Sale")
                         .WithMany()
                         .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.Staff", b =>
+                {
+                    b.HasOne("BonelessPharmacyBackend.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
