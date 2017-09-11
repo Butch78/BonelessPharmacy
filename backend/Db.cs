@@ -14,7 +14,6 @@ namespace BonelessPharmacyBackend
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Sale> Sales { get; set; }
-
         public DbSet<Role> Role {get; set;}
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff {get; set;}
