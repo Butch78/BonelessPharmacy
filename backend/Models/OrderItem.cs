@@ -16,21 +16,35 @@ namespace BonelessPharmacyBackend
         /// <returns></returns>
         public int Id { get; set; }
 
-        [ForeignKey("OrderId")]
+        ///[Required]
+        /// <summary>
+        /// The foreign key of the related order 
+        /// </summary>
+        /// <returns></returns>
+        ///public int OrderId { get; set; }
+
+        ///[ForeignKey("OrderId")]
         /// <summary>
         /// The related order object
         /// </summary>
         /// <returns></returns>
-        public virtual Order Order { get; set; }
+        ///public virtual Order Order { get; set; }
 
-        [ForeignKey("SupplierCode")]
+        ///[Required]
         /// <summary>
-        /// The related SalesItem object
+        /// The foreign key of the related Supplier
         /// </summary>
         /// <returns></returns>
-        public virtual SalesItem SalesItem { get; set; }
+        ///public int SupplierCodeID {get; set; }
+        
+        ///[ForeignKey("SupplierCodeID")]
+        /// <summary>
+        /// The related Supplier object
+        /// </summary>
+        /// <returns></returns>
+        ///public virtual Supplier Supplier { get; set; }
 
-       
+        [Required]
         /// <summary>
         /// The quantity of the Order
         /// </summary>
