@@ -16,7 +16,6 @@ namespace BonelessPharmacyBackend
         /// <returns></returns>
         public int Id { get; set; }
 
-        [Required]
         /// <summary>
         /// The quantity of the Order
         /// </summary>
