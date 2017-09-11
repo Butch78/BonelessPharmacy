@@ -19,6 +19,8 @@ namespace BonelessPharmacyBackend
         public DbSet<Staff> Staff {get; set;}
         public DbSet<Supplier> Suppliers {get; set;}
 
+        public DbSet<Customer> Customers {get; set;}
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=./Main.db", x => x.SuppressForeignKeyEnforcement());

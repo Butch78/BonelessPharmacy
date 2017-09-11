@@ -15,6 +15,6 @@ name: string;
  * The Phone number of the Customer
 */
 
-phonenumber: number;
+phoneNumber: number;
 }
 
