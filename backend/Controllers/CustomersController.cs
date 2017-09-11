@@ -11,6 +11,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         // GET api/Customers
         [HttpGet]
+        public async Task<IEnumerable<Customer>> Get() => await Task.Run<IEnumerable<Customer>>(() =>
         {
             using (var db = new Db())
             {
@@ -21,6 +22,7 @@ namespace BonelessPharmacyBackend.Controllers
 
         // GET api/Customers/5
         [HttpGet("{id}")]
+        public async Task<Customer> Get(int id) => await Task.Run<Customer>(() =>
         {
             using (var db = new Db())
             {
@@ -30,6 +32,7 @@ namespace BonelessPharmacyBackend.Controllers
 
         // POST api/Customers
         [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Customer value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
             {
@@ -46,6 +49,7 @@ namespace BonelessPharmacyBackend.Controllers
 
         // PUT api/Customers/5
         [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody]Customer value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
             {

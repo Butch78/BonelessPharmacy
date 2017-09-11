@@ -8,8 +8,10 @@ namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
 
+    public class SuppliersController : Controller
     {
         [HttpGet]
+        public async Task<IEnumerable<Supplier>> Get() => await Task.Run<IEnumerable<Supplier>>(() =>
         {
             using (var db = new Db())
             {
@@ -20,6 +22,7 @@ namespace BonelessPharmacyBackend.Controllers
  
     //Get api/Supplier/5
     [HttpGet("{id}")]
+    public async Task<Supplier> Get(int id) => await Task.Run<Supplier>(()    =>
     {
         using (var db = new Db())
         {
@@ -29,6 +32,7 @@ namespace BonelessPharmacyBackend.Controllers
 
     //  Post api/Supplier/5
     [HttpPost]
+    public async Task<IActionResult> Post([FromBody]Supplier value) => await Task.Run<IActionResult>(async ()   =>
     {
         if(ModelState.IsValid)
         {
@@ -44,6 +48,7 @@ namespace BonelessPharmacyBackend.Controllers
     });
 
     [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, [FromBody]Supplier value) => await Task.Run<IActionResult>(async () =>
     {
         if(ModelState.IsValid)
         {
