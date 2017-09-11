@@ -19,6 +19,7 @@ namespace BonelessPharmacyBackend
         public DbSet<Role> Role {get; set;}
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff {get; set;}
+        public DbSet<Supplier> Supplier {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

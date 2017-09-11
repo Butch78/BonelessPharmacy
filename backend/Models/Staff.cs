@@ -26,16 +26,15 @@ namespace BonelessPharmacyBackend
         /// <returns></returns>
         public string Name { get; set; }
 
-        [Required]
-
+        [ForeignKey("RoleId")]
         /// <summary>
         /// The Role of the Employee 
         /// </summary>
         /// <remarks>
-        /// This could potentially be an enum 
+        /// Enum for different Roles 
         /// </remarks>
         /// <returns></returns>
-        public string Role { get; set; }
+        public Role Role { get; set; }
 
 
         [Required]
