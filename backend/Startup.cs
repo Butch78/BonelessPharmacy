@@ -50,6 +50,9 @@ namespace BonelessPharmacyBackend
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            // Seed database
+            app.SeedDb();
+            
             app.UseMvc();
         }
     }

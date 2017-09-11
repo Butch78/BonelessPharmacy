@@ -11,9 +11,10 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    partial class DbModelSnapshot : ModelSnapshot
+    [Migration("20170907112007_Sales and SalesRecords")]
+    partial class SalesandSalesRecords
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,28 +90,6 @@ namespace BonelessPharmacyBackend.Migrations
                     b.HasIndex("SaleId");
 
                     b.ToTable("SalesRecords");
-                });
-
-            modelBuilder.Entity("BonelessPharmacyBackend.Staff", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<string>("Password")
-                        .IsRequired();
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired();
-
-                    b.Property<string>("Role")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.SalesItem", b =>
