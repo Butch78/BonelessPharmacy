@@ -22,7 +22,7 @@ namespace BonelessPharmacyBackend.Controllers
  
     //Get api/Staff/5
     [HttpGet("{id}")]
-    public async Task<Staff> Get(int id) => await Task.Run<Staff>(()    =>
+    public async Task<Staff> Get(int id) => await Task.Run<Staff>(() =>
     {
         using (var db = new Db())
         {
