@@ -13,7 +13,7 @@ namespace BonelessPharmacyBackend
     {
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-        public DbSet<ItemType> ItemType{ get; set; }
+        public DbSet<ItemType> ItemTypes{ get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<OrderItem> OrderItems {get; set; }
         public DbSet<Role> Role {get; set;}

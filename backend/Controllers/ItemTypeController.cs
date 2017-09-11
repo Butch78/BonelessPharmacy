@@ -9,27 +9,27 @@ namespace BonelessPharmacyBackend.Controller
     [Route("api/[controller]")]
     public class ItemTypeController: Controller
     {
-        // GET api/ItemType
+        // GET api/ItemTypes
         [HttpGet]
         public async Task<IEnumerable<ItemType>> Get() => await Task.Run<IEnumerable<SalesItem>>(() =>
         {
             using (var db = new Db())
             {
-                return db.ItemType.ToList();
+                return db.ItemTypes.ToList();
             }
         });
         
-        //GET api/ItemType
+        //GET api/ItemTypes/5
         [HttpGet("{id}")]
         public async Task<ItemType> Get(int id) => await Task.Run<ItemType>(() =>
         {
             using (var db = new Db())
             {
-                return db.ItemType.FirstOrDefault(s => s.Id == id);
+                return db.ItemTypes.FirstOrDefault(s => s.Id == id);
             }
         });
 
-        //POST api/ItemType
+        //POST api/ItemTypes
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]ItemType value) => await Task.Run<IActionResult>(async () =>
         {
@@ -46,7 +46,7 @@ namespace BonelessPharmacyBackend.Controller
                 return BadRequest();
         });
 
-        //PUT api/ItemType
+        //PUT api/ItemTypes/5
         public async Task<IActionResult> Put(int id, [FromBody]ItemType value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
@@ -54,21 +54,21 @@ namespace BonelessPharmacyBackend.Controller
                 value.Id = id;
                 using (var db = new Db())
                 {
-                    db.ItemType.Update(value);
+                    db.ItemTypes.Update(value);
                     await db.SaveChangesAsync();
-                    return Accepted("api/ItemType", value);
+                    return Accepted("api/ItemTypes", value);
                 }
             }
             else
                 return BadRequest();
         });
 
-        // DELETE api/ItemType
+        // DELETE api/ItemTypes/5
         public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async () =>
         {
             using (var db = new Db())
             {
-                db.ItemType.Remove(db.ItemType.FirstOrDefault(s => s.Id == id));
+                db.ItemTypes.Remove(db.ItemTypes.FirstOrDefault(s => s.Id == id));
                 await db.SaveChangesAsync();
                 return Accepted();
             }
