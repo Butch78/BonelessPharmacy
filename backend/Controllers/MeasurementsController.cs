@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BonelessPharmacyBackend.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     public class MeasurementsController : Controller
     {

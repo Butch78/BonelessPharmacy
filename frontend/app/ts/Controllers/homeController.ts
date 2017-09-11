@@ -4,8 +4,6 @@
  */
 app.controller("homeCtrl", ($scope, $http) => {
     $scope.name = "Alex";
-    $http({
-        method: 'GET',
-        url: `${Boneless.API_ENDPOINT}Measurements`,
-    }).then((res) => console.log(res));
+    // Example request
+    $http(Boneless.CreateRequest('api/Measurements', 'GET')).then((res) => console.log(res.data));
 });

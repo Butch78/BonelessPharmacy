@@ -1,7 +1,7 @@
 /**
  * The application global used for Angular directives
  */
-const app = angular.module("bonelessPharmacy", ['ngRoute', 'http']);
+const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 // Hashprefix config
 app.config(['$locationProvider', ($locationProvider) => {
