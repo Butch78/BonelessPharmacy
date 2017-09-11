@@ -16,7 +16,7 @@ namespace BonelessPharmacyBackend.Controllers
             using (var db = new Db())
             {
             // Ensure to call toList so that the DB doesn't dispose itself
-            return db.Supplier.ToList();
+            return db.Suppliers.ToList();
             }
         });
  
@@ -26,7 +26,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         using (var db = new Db())
         {
-            return db.Supplier.FirstOrDefault(s => s.Id == id);
+            return db.Suppliers.FirstOrDefault(s => s.Id == id);
         }
     });
 
@@ -38,7 +38,7 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                await db.Supplier.AddAsync(value); 
+                await db.Suppliers.AddAsync(value); 
                 await db.SaveChangesAsync();
                 return Created("api/Supplier", value);
             }
@@ -55,7 +55,7 @@ namespace BonelessPharmacyBackend.Controllers
             value.Id = id; 
             using(var db = new Db())
             {
-                db.Supplier.Update(value);
+                db.Suppliers.Update(value);
                 await db.SaveChangesAsync();
                 return Accepted("api/Supplier", value);
             }
@@ -69,7 +69,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         using (var db = new Db())
         {
-            db.Supplier.Remove(db.Supplier.FirstOrDefault(s => s.Id == id));
+            db.Suppliers.Remove(db.Suppliers.FirstOrDefault(s => s.Id == id));
             await db.SaveChangesAsync();
             return Accepted();
         }

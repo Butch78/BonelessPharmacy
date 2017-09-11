@@ -26,6 +26,12 @@ namespace BonelessPharmacyBackend
         /// <returns></returns>
         public string Name { get; set; }
 
+        /// <summary>
+        /// The ID of the related role
+        /// </summary>
+        /// <returns></returns>
+        public int RoleId { get; set; }
+
         [ForeignKey("RoleId")]
         /// <summary>
         /// The Role of the Employee 

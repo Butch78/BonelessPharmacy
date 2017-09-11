@@ -14,11 +14,10 @@ namespace BonelessPharmacyBackend
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Sale> Sales { get; set; }
-
-        public DbSet<Role> Role {get; set;}
+        public DbSet<Role> Roles {get; set;}
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff {get; set;}
-        public DbSet<Supplier> Supplier {get; set;}
+        public DbSet<Supplier> Suppliers {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -106,10 +105,10 @@ namespace BonelessPharmacyBackend
                     db.Measurements.AddRange(MEASUREMENT_DEFAULTS);
                 }
 
-                if(!db.Role.Any())
+                if(!db.Roles.Any())
                 {
                     Console.WriteLine("Seeding Roles Table...");
-                    db.Role.AddRange(ROLE_DEFAULTS);
+                    db.Roles.AddRange(ROLE_DEFAULTS);
                 }
                 db.SaveChanges();
             }
