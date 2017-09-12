@@ -17,21 +17,6 @@ namespace BonelessPharmacyBackend
         public int Id { get; set; }
 
         //TODO: Add properties for OrderId and SupplierCode
-
-        // [ForeignKey("OrderId")]
-        /// <summary>
-        /// The related order object
-        /// </summary>
-        /// <returns></returns>
-        // public virtual Order Order { get; set; }
-
-        [ForeignKey("SupplierCode")]
-        /// <summary>
-        /// The related SalesItem object
-        /// </summary>
-        /// <returns></returns>
-        public virtual SalesItem SalesItem { get; set; }
-
        
         /// <summary>
         /// The quantity of the Order
