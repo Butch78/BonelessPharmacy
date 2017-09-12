@@ -56,12 +56,18 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.Price, f => double.Parse(f.Commerce.Price()))
             .RuleFor(s => s.Quantity, f => new Random().Next(1, 100));
-        public static Faker<Supplier> Supplier => new Faker<Supplier>()
+
+        public static Faker<Supplier> Suppliers => new Faker<Supplier>()
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.Name, f => f.Company.CompanyName())
             .RuleFor(s => s.ABN, f => f.Finance.Bic())
             .RuleFor(s => s.Address, f => f.Address.FullAddress())
             .RuleFor(s => s.Email, f => f.Internet.Email())
+            .RuleFor(s => s.PhoneNumber, f => f.Person.Phone);
+
+        public static Faker<Customer> Customers => new Faker<Customer>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Name, f => f.Name.FindName())
             .RuleFor(s => s.PhoneNumber, f => f.Person.Phone);
     }
 }
