@@ -4,14 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BonelessPharmacyBackend.Controller
+namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
-    public class ItemTypeController: Controller
+    public class ItemTypesController: Controller
     {
         // GET api/ItemTypes
         [HttpGet]
-        public async Task<IEnumerable<ItemType>> Get() => await Task.Run<IEnumerable<SalesItem>>(() =>
+        public async Task<IEnumerable<ItemType>> Get() => await Task.Run<IEnumerable<ItemType>>(() =>
         {
             using (var db = new Db())
             {
@@ -37,9 +37,9 @@ namespace BonelessPharmacyBackend.Controller
             {
                 using (var db = new Db())
                 {
-                    await db.ItemType.AddAsync(value);
+                    await db.ItemTypes.AddAsync(value);
                     await db.SaveChangesAsync();
-                    return Created("api/ItemType", value);
+                    return Created("api/ItemTypes", value);
                 }
             }
             else
