@@ -7,10 +7,11 @@ interface Customer {
     /**
      * The Name the Customer
      */
+
     name: string;
 
     /**
      * The Phone number of the Customer
      */
-    phonenumber: number;
+    phoneNumber: number;
 }

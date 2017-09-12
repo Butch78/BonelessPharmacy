@@ -8,7 +8,7 @@ namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
 
-    public class SupplierController : Controller
+    public class SuppliersController : Controller
     {
         [HttpGet]
         public async Task<IEnumerable<Supplier>> Get() => await Task.Run<IEnumerable<Supplier>>(() =>
