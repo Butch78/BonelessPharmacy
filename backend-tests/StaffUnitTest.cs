@@ -53,9 +53,8 @@ namespace backend_tests
 
                 //Get the staff's State
                 var roles = (db.ChangeTracker.Context as Db).Roles.Local.ToList();
-                Assert.AreEqual(testRole, roles.First().Name);
-            }
-            
+                Assert.AreEqual(testRole.Id, roles.First().Id);
+            }   
         }
 
         /// <summary>
@@ -69,10 +68,5 @@ namespace backend_tests
             testItem.Password = password;
             Assert.AreEqual(password, testItem.Password);
         }
-
-
-
-
-
     }
 }
