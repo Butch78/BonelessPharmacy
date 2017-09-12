@@ -8,7 +8,8 @@
         "interface-name": false,
         "quotemark": [
             false
-        ]
+        ],
+        "no-console": false
     },
     "rulesDirectory": []
 }
