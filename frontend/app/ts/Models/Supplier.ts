@@ -1,39 +1,37 @@
-interface Supplier{
-/**
- * The primary key of the Supplier
-*/
+interface Supplier {
+    /**
+     * The primary key of the Supplier
+     */
 
-id: number; 
+    id: number;
 
-/**
- * The Name of the Supplier member 
-*/
+    /**
+     * The Name of the Supplier member
+     */
 
-name: string; 
+    name: string;
 
-/**
- * The ABN of the Supplier
-*/
+    /**
+     * The ABN of the Supplier
+     */
 
-abn: string;
+    abn: string;
 
-/**
- * The Address of the Supplier Member
-*/
+    /**
+     * The Address of the Supplier Member
+     */
 
-address: string; 
+    address: string;
 
-/**
- * The Email of the Supplier Member
-*/
+    /**
+     * The Email of the Supplier Member
+     */
 
-email: string; 
+    email: string;
 
-/**
- * The Phone Number of the Supplier Member
-*/
-
-phoneNumber: number; 
+    /**
+     * The Phone Number of the Supplier Member
+     */
+    phoneNumber: number;
 
 }
-		

@@ -6,7 +6,6 @@ interface SalesItem {
 
     /**
      * The name of the item
-     * 
      * @example Panadol Paracetamol
      */
     name: string;
@@ -18,14 +17,12 @@ interface SalesItem {
 
     /**
      * The price of the product, GST excluded
-     * 
      * @example 23.60
      */
     price: number;
 
     /**
      * The stock of this item in store
-     * 
      * @example 16
      */
     stockOnHand: number;

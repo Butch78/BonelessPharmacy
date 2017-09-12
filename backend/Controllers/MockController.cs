@@ -25,6 +25,9 @@ namespace BonelessPharmacyBackend.Controllers
                 case "measurement":
                     return ModelFactory.Measurement.Generate();
 
+                case "staff":
+                    return ModelFactory.Staff.Generate();
+
                 default:
                     return new {Error = "Invalid Type"};
             }

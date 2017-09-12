@@ -1,5 +1,4 @@
-interface ItemType 
-{
+interface ItemType {
     /**
      * The primary key of the ItemType
      */
