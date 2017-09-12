@@ -14,16 +14,16 @@ namespace BonelessPharmacyBackend
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Sale> Sales { get; set; }
-        public DbSet<Role> Roles {get; set;}
+        public DbSet<Role> Roles { get; set; }
         public DbSet<SalesRecord> SalesRecords { get; set; }
-        public DbSet<Staff> Staff {get; set;}
-        public DbSet<Supplier> Suppliers {get; set;}
+        public DbSet<Staff> Staff { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
         public DbSet<Customer> Customers {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Filename=./Main.db", x => x.SuppressForeignKeyEnforcement());
+            optionsBuilder.UseSqlite("Filename=./Main.db");
         }
     }
 
@@ -65,7 +65,7 @@ namespace BonelessPharmacyBackend
             }
         };
 
-                /// <summary>
+        /// <summary>
         /// Default Roles that should be included in the database
         /// </summary>
         /// <returns></returns>
@@ -89,7 +89,7 @@ namespace BonelessPharmacyBackend
         };
 
 
-        
+
         /// <summary>
         /// Used to seed the database with its initial data set
         /// </summary>
@@ -107,7 +107,7 @@ namespace BonelessPharmacyBackend
                     db.Measurements.AddRange(MEASUREMENT_DEFAULTS);
                 }
 
-                if(!db.Roles.Any())
+                if (!db.Roles.Any())
                 {
                     Console.WriteLine("Seeding Roles Table...");
                     db.Roles.AddRange(ROLE_DEFAULTS);
@@ -116,5 +116,5 @@ namespace BonelessPharmacyBackend
             }
         }
     }
-    
+
 }
