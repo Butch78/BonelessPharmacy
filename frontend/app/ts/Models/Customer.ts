@@ -1,20 +1,16 @@
-interface Customer{
-/**
- * The primary key of the Customer
-*/
+interface Customer {
+    /**
+     * The primary key of the Customer
+     */
+    id: number;
 
-id: number;
+    /**
+     * The Name the Customer
+     */
+    name: string;
 
-/**
- * The Name the Customer
-*/
-
-name: string;
-
-/**
- * The Phone number of the Customer
-*/
-
-phonenumber: number;
+    /**
+     * The Phone number of the Customer
+     */
+    phonenumber: number;
 }
-
