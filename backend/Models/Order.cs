@@ -7,6 +7,13 @@ namespace BonelessPharmacyBackend
     /// <summary>
     /// An order placed which contains order items
     /// </summary>
+
+    public enum OrderStatus
+    {
+        In_progress,
+        Complete
+    }
+
     public class Order
     {
         [Key]
@@ -15,13 +22,9 @@ namespace BonelessPharmacyBackend
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        public enum Status {
-            In progress,
-            Complete
-        }
-        
+
         [Required]
-        public Status Status { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
         //TODO: Implement Staff and Supplier Foreign Key relationship
         // public int StaffId { get; set; }

@@ -1,3 +1,8 @@
+enum OrderStatus {
+    In_progress,
+    Complete
+}
+
 interface Order 
 {
     /**
@@ -12,6 +17,6 @@ interface Order
 
     /**
      * The Order status
-     * status: enum;
      */
+    OrderStatus: OrderStatus
 }

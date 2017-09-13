@@ -20,7 +20,7 @@ namespace BonelessPharmacyBackend
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-
+        public DbSet<Order> Orders {get; set; }
         public DbSet<Customer> Customers {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
