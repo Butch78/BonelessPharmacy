@@ -1,5 +1,4 @@
-interface Role
-{
+interface Role {
     /**
      * The primary key of the Role
      */
@@ -14,5 +13,5 @@ interface Role
     /**
      * A description of the Role
      */
-    description: string;    
+    description: string;
 }
