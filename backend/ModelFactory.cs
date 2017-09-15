@@ -33,7 +33,7 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Description, f => f.Company.Bs());
 
         /// <summary>
-        /// Generate a fake ItemType using contextuall fitting data
+        /// Generate a fake ItemType using contextual fitting data
         /// </summary>
         /// <returns></returns>
         public static Faker<ItemType> ItemType => new Faker<ItemType>()
