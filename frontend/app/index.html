@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-ng-app="bonelessPharmacy">
+<html lang="en" data-ng-app="bonelessPharmacy" data-ng-controller="homeCtrl">
 
 <head>
     <meta charset="UTF-8">
@@ -19,16 +19,16 @@
                     <a href="#!" class="brand-logo">Boneless Pharmacy</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Stock</a></li>
-                        <li><a href="#">Reports & Predictions</a></li>
-                        <li><a href="#">Help</a></li>
+                        <li><a href="#/sales">Sales</a></li>
+                        <li><a href="#/stock">Stock</a></li>
+                        <li><a href="#/reports">Reports & Predictions</a></li>
+                        <li><a href="#/help">Help</a></li>
                     </ul>
                     <ul class="side-nav" id="mobile-demo">
-                        <li><a href="#">Sales</a></li>
-                        <li><a href="#">Stock</a></li>
-                        <li><a href="#">Reports & Predictions</a></li>
-                        <li><a href="#">Help</a></li>
+                        <li><a href="#/sales">Sales</a></li>
+                        <li><a href="#/stock">Stock</a></li>
+                        <li><a href="#/reports">Reports & Predictions</a></li>
+                        <li><a href="#/help">Help</a></li>
                     </ul>
                 </div>
             </nav>
@@ -44,6 +44,5 @@
 <script type="text/javascript" src="./../node_modules/angular/angular.min.js"></script>
 <script type="text/javascript" src="./../node_modules/angular-route/angular-route.min.js"></script>
 <script type="text/javascript" src="./js/bundle.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
 
 </html>

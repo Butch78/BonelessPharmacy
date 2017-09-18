@@ -3,6 +3,8 @@
  * 
  * Controller associated with the home page of the application
  */
-app.controller("homeCtrl", ($scope) => {
+app.controller("salesCtrl", ($scope) => {
     $scope.name = "Alex";
 });
+
+$(".button-collapse").sideNav();
