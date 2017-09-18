@@ -6,5 +6,3 @@
 app.controller("helpCtrl", ($scope) => {
     
 });
-
-$(".button-collapse").sideNav();

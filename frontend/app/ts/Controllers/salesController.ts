@@ -6,5 +6,3 @@
 app.controller("salesCtrl", ($scope) => {
     $scope.name = "Alex";
 });
-
-$(".button-collapse").sideNav();

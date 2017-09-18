@@ -4,7 +4,7 @@
 var app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 app.controller("homeCtrl", ($scope, $location) => {
-   $location.path('/sales');
+    $location.path('/sales');
 });
 
 // Hashprefix config
@@ -31,4 +31,12 @@ app.config(($routeProvider) => {
         controller: 'helpCtrl'
     });
 });
+
+
+$(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+    $(".button-collapse").sideNav();
+});
+
 

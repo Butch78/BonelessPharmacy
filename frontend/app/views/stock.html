@@ -1,1 +1,54 @@
-Stock ay lmao
+<div class="container">
+    <h2>Stock Management</h2>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Order Price</th>
+                <th>Selling Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Panamax</td>
+                <td>$0.45</td>
+                <td>$2.00</td>
+                <td>69</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+
+    <div class="fixed-action-btn">
+        <a class="waves-effect waves-light btn-floating btn-large red" data-ng-click="openModalAddStock()">
+      <i class="large material-icons">add</i>
+    </a>
+    </div>
+
+    <div id="modalAddStock" class="modal bottom-sheet">
+        <div class="modal-content grey lighten-3">
+            <h4>New Stock Item</h4>
+            <div class="row input-field">
+                <i class="material-icons prefix">text_fields</i>
+                <label for="stockNameInput">Stock Name</label>
+                <input type="text" id="stockNameInput">
+            </div>
+            <div class="row input-field">
+                <i class="material-icons prefix">poll</i>
+                <label for="stockQtyInput">Stock Quantity</label>
+                <input type="number" id="stockQtyInput">
+            </div>
+        </div>
+        <div class="modal-footer grey lighten-3">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
+        </div>
+
+    </div>
+
+
+</div>
