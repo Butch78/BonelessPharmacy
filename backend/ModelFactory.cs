@@ -69,7 +69,7 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.Name, f => f.Name.FindName())
             .RuleFor(s => s.PhoneNumber, f => f.Person.Phone);
-
+            
         public static Faker<Order> Order => new Faker<Order>()
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.CreatedAt, f => f.Date.Recent())
