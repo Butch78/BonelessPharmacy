@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend.Controllers
 {
@@ -15,22 +16,39 @@ namespace BonelessPharmacyBackend.Controllers
             return "Error";
         }
         // GET api/Mock/salesitem
-        [HttpGet("{type}")]
-        public async Task<object> Get(string type) => await Task.Run<object>(() => {
+        [HttpGet("{type}/{fill?}")]
+        public async Task<object> Get(string type, int fill = 0) => await Task.Run<object>(async () =>
+        {
+            object result;
+            bool isFilling = fill == 1;
             switch (type.ToLower())
             {
                 case "salesitem":
-                    return ModelFactory.SalesItem.Generate();
-                
+                    result = ModelFactory.SalesItem.Generate();
+                    // Foreign key Constraint
+                    (result as SalesItem).MeasurementId = new Random().Next(1, 5);
+                    break;
+
                 case "measurement":
-                    return ModelFactory.Measurement.Generate();
+                    result = ModelFactory.Measurement.Generate();
+                    break;
 
                 case "staff":
-                    return ModelFactory.Staff.Generate();
+                    result = ModelFactory.Staff.Generate();
+                    break;
 
                 default:
-                    return new {Error = "Invalid Type"};
+                    throw new Exception("Invalid Type");
             }
+            if (isFilling)
+            {
+                using (var db = new Db())
+                {
+                    await db.AddAsync(result);
+                    await db.SaveChangesAsync();
+                }
+            }
+            return result;
         });
     }
 }
