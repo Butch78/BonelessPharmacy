@@ -3,6 +3,10 @@
  */
 const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
+app.controller("homeCtrl", ($scope, $location) => {
+    $location.path('/sales');
+});
+
 // Hashprefix config
 app.config(['$locationProvider', ($locationProvider) => {
     $locationProvider.hashPrefix('');
@@ -10,8 +14,35 @@ app.config(['$locationProvider', ($locationProvider) => {
 
 // Routing logic
 app.config(($routeProvider) => {
+<<<<<<< HEAD
     $routeProvider.when('/', {
         controller: 'homeCtrl',
         templateUrl: './views/home.html',
+=======
+    $routeProvider.when('/sales', {
+        templateUrl: './views/sales.html',
+        controller: 'salesCtrl'
+    });
+    $routeProvider.when('/reports', {
+        templateUrl: './views/reports.html',
+        controller: 'reportsCtrl'
+    });
+    $routeProvider.when('/stock', {
+        templateUrl: './views/stock.html',
+        controller: 'stockCtrl'
+    });
+    $routeProvider.when('/help', {
+        templateUrl: './views/help.html',
+        controller: 'helpCtrl'
+>>>>>>> 24ac39b30deaeb5520d2053155a8f96d6d5f6235
     });
 });
+
+
+$(document).ready(function () {
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+    $(".button-collapse").sideNav();
+});
+
+
