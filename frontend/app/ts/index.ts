@@ -14,11 +14,10 @@ app.config(['$locationProvider', ($locationProvider) => {
 
 // Routing logic
 app.config(($routeProvider) => {
-<<<<<<< HEAD
     $routeProvider.when('/', {
         controller: 'homeCtrl',
         templateUrl: './views/home.html',
-=======
+    });
     $routeProvider.when('/sales', {
         templateUrl: './views/sales.html',
         controller: 'salesCtrl'
@@ -34,7 +33,6 @@ app.config(($routeProvider) => {
     $routeProvider.when('/help', {
         templateUrl: './views/help.html',
         controller: 'helpCtrl'
->>>>>>> 24ac39b30deaeb5520d2053155a8f96d6d5f6235
     });
 });
 
