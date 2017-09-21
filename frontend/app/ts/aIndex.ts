@@ -26,6 +26,12 @@ app.config(($routeProvider) => {
         controller: 'reportsCtrl',
         templateUrl: './views/reports.html',
     });
+    $routeProvider.when('/staff',{
+        controller: 'staffCtrl',
+        templateUrl: './views/staff.html',        
+        // controller: 'staffCtrl',
+        // templateUrl: './views/staff.html',
+    });
     $routeProvider.when('/stock', {
         controller: 'stockCtrl',
         templateUrl: './views/stock.html',

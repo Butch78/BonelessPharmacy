@@ -1,0 +1,20 @@
+<div class="container">
+        <h2>Staff Central</h2>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Staff ID</th>
+                    <th>Full Name</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr data-ng-repeat="s in staff track by s.id">
+                    <td>{{s.id}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{s.role.name}}</td>
+                </tr>
+            </tbody>
+        </table>   
+</div>
