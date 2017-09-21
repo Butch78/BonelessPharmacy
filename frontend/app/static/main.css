@@ -1,0 +1,15 @@
+.full-screen-modal
+{
+    max-height: 85% !important;
+    height: 85% !important; 
+}
+
+.full-screen-modal .modal-content
+{
+    height: 85% !important;
+}
+
+.full-screen-modal .modal-footer
+{
+    height: 15% !important;
+}

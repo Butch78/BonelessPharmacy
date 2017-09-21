@@ -8,6 +8,7 @@
                 <th>Retail Price</th>
                 <th>Size</th>
                 <th>Stock On Hand</th>
+                <th></th>
             </tr>
         </thead>
 
@@ -18,6 +19,7 @@
                 <td>{{s.price}}</td>
                 <td>{{s.amount}} {{s.measurement.suffix}}</td>
                 <td>{{s.stockOnHand}}</td>
+                <td><a class="waves-effect waves-light btn">Edit</a></td>
             </tr>
         </tbody>
     </table>
@@ -36,26 +38,37 @@
             <div class="row input-field">
                 <i class="material-icons prefix">text_fields</i>
                 <label for="stockNameInput">Name</label>
-                <input type="text" id="stockNameInput">
+                <input type="text" id="stockNameInput" data-ng-model="newStock.name">
             </div>
             <div class="row input-field">
                 <i class="material-icons prefix">attach_money</i>
                 <label for="stockPrice">Retail Price</label>
-                <input type="number" id="stockPrice">
+                <input type="number" id="stockPrice" data-ng-model="newStock.price">
             </div>
             <div class="row input-field">
                 <i class="material-icons prefix">poll</i>
                 <label for="stockQtyInput">Quantity</label>
-                <input type="number" id="stockQtyInput">
+                <input type="number" id="stockQtyInput" data-ng-model="newStock.stockOnHand">
+            </div>
+            <div class="row input-field">
+                <i class="material-icons prefix">poll</i>
+                <label for="stockQtyInput">Item Amount</label>
+                <input type="number" id="stockQtyInput" data-ng-model="newStock.amount">
             </div>
             <!-- TODO: Fix This -->
-            <!-- <div class="row input-field">
+            <div class="row input-field">
                 <i class="material-icons prefix">assignment</i>
+                <div class="select-wrapper">
+                    <select id="stockMeasureInput" data-ng-model="newStock.measurementId">
+                        <option value="1" selected>Milligrams (mg)</option>
+                        <option value="2">Grams (mg)</option>
+                        <option value="3">Milliletres (ml)</option>
+                        <option value="4">Tablets (tablet/s)</option>
+                        <option value="5">Capsules (capsule/s)</option>
+                    </select>
+                </div>
                 <label for="stockMeasureInput">Measurement</label>
-                <select id="stockMeasureInput">
-                    <option data-ng-repeat="m in measurements track by m.id" value="{{m.id}}">{{m.description}} ({{m.suffix}})</option>
-                </select>
-            </div> -->
+            </div>
         </div>
         <div class="modal-footer grey lighten-3">
             <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
