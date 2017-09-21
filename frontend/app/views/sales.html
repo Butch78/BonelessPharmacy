@@ -3,36 +3,23 @@
     <table class="striped">
         <thead>
             <tr>
+                <th>Order Number</th>
                 <th>Date</th>
-                <th>Stock Names</th>
-                <th>Stock Quantities</th>
                 <th>Total Amount</th>
+                <th>More</th>
             </tr>
         </thead>
 
         <tbody>
             <tr>
-                <td>Some date</td>
-                <td>Names</td>
-                <td>Numbers</td>
+                <td>#1</td>
+                <td>19/9/2017</td>
                 <td>$69.00</td>
+                <td><a class="blue waves-effect waves-light btn" data-ng-click="openModalSaleDetails()">More</a></td>
             </tr>
 
         </tbody>
     </table>
-
-    <ul class="collapsible" data-collapsible="accordion">
-        <li>
-            <div class="collapsible-header">Date - Time - Staff Member</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header">Date - Time - Staff Member</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-       
-    </ul>
-
 
 
     <div class="fixed-action-btn">
@@ -53,6 +40,17 @@
         <div class="modal-footer grey lighten-3">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewSale()">Add</a>
+        </div>
+
+    </div>
+
+    <div id="modalSaleDetails" class="modal">
+        <div class="modal-content grey lighten-3">
+            <h4>Details</h4>
+            <p>Details and whatnot</p>
+        </div>
+        <div class="modal-footer grey lighten-3">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
 
     </div>
