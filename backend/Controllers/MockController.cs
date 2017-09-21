@@ -40,6 +40,20 @@ namespace BonelessPharmacyBackend.Controllers
 
                 case "salesrecord":
                     result = ModelFactory.SalesRecord.Generate();
+                    using (var db = new Db())
+                    {
+                        var item = ModelFactory.SalesItem.Generate();
+                        (item as SalesItem).MeasurementId = new Random().Next(1, 5);
+                        await db.SalesItems.AddAsync(item);
+                        await db.SaveChangesAsync();
+                        (result as SalesRecord).ItemId = item.Id;
+
+                        var sale = new Sale() {CreatedAt = DateTime.Now};
+                        await db.Sales.AddAsync(sale);
+                        await db.SaveChangesAsync();
+
+                        (result as SalesRecord).SaleId = sale.Id;
+                    }
                     break;
 
                 default:
