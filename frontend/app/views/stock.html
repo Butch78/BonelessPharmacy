@@ -3,21 +3,22 @@
     <table class="striped">
         <thead>
             <tr>
+                <th>PLU</th>
                 <th>Item</th>
-                <th>Order Price</th>
-                <th>Selling Price</th>
-                <th>Quantity</th>
+                <th>Retail Price</th>
+                <th>Size</th>
+                <th>Stock On Hand</th>
             </tr>
         </thead>
 
         <tbody>
-            <tr>
-                <td>Panamax</td>
-                <td>$0.45</td>
-                <td>$2.00</td>
-                <td>69</td>
+            <tr data-ng-repeat="s in salesItems track by s.id">
+                <td>{{s.id}}</td>
+                <td>{{s.name}}</td>
+                <td>{{s.price}}</td>
+                <td>{{s.amount}} {{s.measurement.suffix}}</td>
+                <td>{{s.stockOnHand}}</td>
             </tr>
-
         </tbody>
     </table>
 
@@ -31,17 +32,30 @@
 
     <div id="modalAddStock" class="modal bottom-sheet">
         <div class="modal-content grey lighten-3">
-            <h4>New Stock Item</h4>
+            <h4>New Item</h4>
             <div class="row input-field">
                 <i class="material-icons prefix">text_fields</i>
-                <label for="stockNameInput">Stock Name</label>
+                <label for="stockNameInput">Name</label>
                 <input type="text" id="stockNameInput">
             </div>
             <div class="row input-field">
+                <i class="material-icons prefix">attach_money</i>
+                <label for="stockPrice">Retail Price</label>
+                <input type="number" id="stockPrice">
+            </div>
+            <div class="row input-field">
                 <i class="material-icons prefix">poll</i>
-                <label for="stockQtyInput">Stock Quantity</label>
+                <label for="stockQtyInput">Quantity</label>
                 <input type="number" id="stockQtyInput">
             </div>
+            <!-- TODO: Fix This -->
+            <!-- <div class="row input-field">
+                <i class="material-icons prefix">assignment</i>
+                <label for="stockMeasureInput">Measurement</label>
+                <select id="stockMeasureInput">
+                    <option data-ng-repeat="m in measurements track by m.id" value="{{m.id}}">{{m.description}} ({{m.suffix}})</option>
+                </select>
+            </div> -->
         </div>
         <div class="modal-footer grey lighten-3">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
