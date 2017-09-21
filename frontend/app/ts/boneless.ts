@@ -10,8 +10,9 @@ class Boneless {
     /**
      * Create a request object with the necessary token auth
      */
-    public static CreateRequest = (endpoint: string, method: string) => {
+    public static CreateRequest = (endpoint: string, method: string, data = {}) => {
         return {
+            data,
             headers: {
                 Authorization: `Bearer ${Boneless.GetToken()}`,
             },
