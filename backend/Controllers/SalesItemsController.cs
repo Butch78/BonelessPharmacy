@@ -41,7 +41,9 @@ namespace BonelessPharmacyBackend.Controllers
                 {
                     await db.SalesItems.AddAsync(value);
                     await db.SaveChangesAsync();
-                    return Created("api/SalesItems", value);
+                    return Created("api/SalesItems", 
+                        await db.SalesItems.Include(s => s.Measurement).FirstAsync(s => s.Id == value.Id)
+                    );
                 }
             }
             else
