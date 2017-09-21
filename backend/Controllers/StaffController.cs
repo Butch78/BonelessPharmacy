@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend.Controllers
 {
@@ -16,7 +17,7 @@ namespace BonelessPharmacyBackend.Controllers
             using (var db = new Db())
             {
             // Ensure to call toList so that the DB doesn't dispose itself
-            return db.Staff.ToList();
+            return db.Staff.Include(s => s.Role).ToList();
             }
         });
  
@@ -26,7 +27,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         using (var db = new Db())
         {
-            return db.Staff.FirstOrDefault(s => s.Id == id);
+            return db.Staff.Include(s => s.Role).FirstOrDefault(s => s.Id == id);
         }
     });
 

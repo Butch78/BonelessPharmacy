@@ -1,0 +1,69 @@
+<div class="container">
+    <h2>Sales Management</h2>
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Date</th>
+                <th>Total Amount</th>
+                <th>More</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr data-ng-repeat="x in salesRecords track by $id">
+                <td>{{x.number}}</td>
+                <td>{{x.saleId}}</td>
+                <td>{{x.itemId}}</td>
+                <td>{{x.quantity}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <!-- <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header  ">Date - Time - Staff Member</div>
+            <div class="collapsible-body "><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+            <div class="collapsible-header">Date - Time - Staff Member</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+    </ul>-->
+
+    <div class="fixed-action-btn">
+        <a class="waves-effect waves-light btn-floating btn-large red" data-ng-click="openModalNewSale()">
+      <i class="large material-icons">add</i>
+    </a>
+    </div>
+
+    <div id="modalNewSale" class="modal bottom-sheet full-screen-modal">
+        <div class="modal-content grey lighten-3">
+            <h4>New Stock Item</h4>
+            <div class="row input-field">
+                <i class="material-icons prefix">account_circle</i>
+                <label for="stockNameInput">Employee Name</label>
+                <input type="text" id="stockNameInput">
+            </div>
+        </div>
+        <div class="modal-footer grey lighten-3">
+            <a href="#/sales" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewSale()">Add</a>
+        </div>
+
+    </div>
+
+    <div id="modalSaleDetails" class="modal">
+        <div class="modal-content grey lighten-3">
+            <h4>Details</h4>
+            <p>Details and whatnot</p>
+        </div>
+        <div class="modal-footer grey lighten-3">
+            <a href="#/sales" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+
+    </div>
+
+
+</div>
