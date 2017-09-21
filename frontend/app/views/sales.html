@@ -11,22 +11,32 @@
         </thead>
 
         <tbody>
-            <tr>
-                <td>#1</td>
-                <td>19/9/2017</td>
-                <td>$69.00</td>
-                <td><a class="blue waves-effect waves-light btn" data-ng-click="openModalSaleDetails()">More</a></td>
+            <tr data-ng-repeat="x in salesRecords track by $id">
+                <td>{{x.number}}</td>
+                <td>{{x.saleId}}</td>
+                <td>{{x.itemId}}</td>
+                <td>{{x.quantity}}</td>
             </tr>
 
         </tbody>
     </table>
 
+    <!-- <ul class="collapsible popout" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header  ">Date - Time - Staff Member</div>
+            <div class="collapsible-body "><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+            <div class="collapsible-header">Date - Time - Staff Member</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+    </ul>
 
     <div class="fixed-action-btn">
         <a class="waves-effect waves-light btn-floating btn-large red" data-ng-click="openModalNewSale()">
       <i class="large material-icons">add</i>
     </a>
-    </div>
+    </div> -->
 
     <div id="modalNewSale" class="modal bottom-sheet">
         <div class="modal-content grey lighten-3">

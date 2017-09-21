@@ -24,6 +24,14 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.SupplierCode, f => f.Finance.Iban());
 
         /// <summary>
+        /// Generate a fake SalesRecord using contextually fitting data
+        /// </summary>
+        /// <returns></returns>
+        public static Faker<SalesRecord> SalesRecord => new Faker<SalesRecord>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Quantity, f=> new Random().Next(1, 50));
+
+        /// <summary>
         /// Generate a fake Measurement using contextual fitting data
         /// </summary>
         /// <returns></returns>
@@ -74,5 +82,9 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.Id, f => f.UniqueIndex)
             .RuleFor(s => s.CreatedAt, f => f.Date.Recent())
             .RuleFor(s => s.OrderStatus, f => (OrderStatus)(Enum.GetValues(typeof(OrderStatus)).GetValue(new Random().Next(Enum.GetValues(typeof(OrderStatus)).Length))));
+
+        public static Faker<Sale> Sale => new Faker<Sale>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.CreatedAt, f => DateTime.Now);
     }
 }
