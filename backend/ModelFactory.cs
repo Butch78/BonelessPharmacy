@@ -24,6 +24,14 @@ namespace BonelessPharmacyBackend
             .RuleFor(s => s.SupplierCode, f => f.Finance.Iban());
 
         /// <summary>
+        /// Generate a fake SalesRecord using contextually fitting data
+        /// </summary>
+        /// <returns></returns>
+        // public static Faker<SalesRecord> SalesRecord => new Faker<SalesRecord>()
+        //     .RuleFor(s => s.Id, f => f.UniqueIndex)
+        //     .RuleFor(s => s.SalesId, f => f.)
+
+        /// <summary>
         /// Generate a fake Measurement using contextual fitting data
         /// </summary>
         /// <returns></returns>
