@@ -35,6 +35,7 @@ namespace BonelessPharmacyBackend.Controllers
 
                 case "staff":
                     result = ModelFactory.Staff.Generate();
+                    (result as Staff).RoleId = new Random().Next(1, 4);
                     break;
 
                 default:
