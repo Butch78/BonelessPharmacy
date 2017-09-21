@@ -38,6 +38,10 @@ namespace BonelessPharmacyBackend.Controllers
                     (result as Staff).RoleId = new Random().Next(1, 4);
                     break;
 
+                case "salesrecord":
+                    result = ModelFactory.SalesRecord.Generate();
+                    break;
+
                 default:
                     throw new Exception("Invalid Type");
             }

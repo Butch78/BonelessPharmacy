@@ -27,9 +27,9 @@ namespace BonelessPharmacyBackend
         /// Generate a fake SalesRecord using contextually fitting data
         /// </summary>
         /// <returns></returns>
-        // public static Faker<SalesRecord> SalesRecord => new Faker<SalesRecord>()
-        //     .RuleFor(s => s.Id, f => f.UniqueIndex)
-        //     .RuleFor(s => s.SalesId, f => f.)
+        public static Faker<SalesRecord> SalesRecord => new Faker<SalesRecord>()
+            .RuleFor(s => s.Id, f => f.UniqueIndex)
+            .RuleFor(s => s.Quantity, f=> new Random().Next(1, 50));
 
         /// <summary>
         /// Generate a fake Measurement using contextual fitting data
