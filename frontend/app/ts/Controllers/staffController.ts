@@ -13,4 +13,7 @@ app.controller("staffCtrl", ($scope, $http) => {
             alert(errorRes.data);
         });
 
+    $(document).ready(function(){
+        $('.collapsible').collapsible();
+        });
 });

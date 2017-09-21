@@ -1,20 +1,15 @@
-<div class="container">
-        <h2>Staff Central</h2>
-        <table class="striped">
-            <thead>
-                <tr>
-                    <th>Staff ID</th>
-                    <th>Full Name</th>
-                    <th>Title</th>
-                </tr>
-            </thead>
-    
-            <tbody>
-                <tr data-ng-repeat="s in staff track by s.id">
-                    <td>{{s.id}}</td>
-                    <td>{{s.name}}</td>
-                    <td>{{s.role.name}}</td>
-                </tr>
-            </tbody>
-        </table>   
+<div class="containter">
+    <h2>Staff Central</h2>
+    <ul class="collapsible popout" data-collapsible="accordion" >
+        <li data-ng-repeat="x in staff">
+            <div class="collapsible-header"><i class="material-icons">add</i>
+                {{x.name}}
+                ({{x.role.name}})
+            </div>   
+            <div class="collapsible-body">
+                <span>More information :D</span>
+                <p>E.g."Phone Number: {{x.phoneNumber}}"</p>
+            </div>         
+        </li>
+    </ul>
 </div>
