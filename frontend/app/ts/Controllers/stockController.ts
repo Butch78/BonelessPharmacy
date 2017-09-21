@@ -25,8 +25,12 @@ app.controller("stockCtrl", ($scope, $http) => {
         (errorRes) => {
             alert(errorRes.data);
         });
-    $scope.openModalAddStock = () => {
-        $('#modalAddStock').modal('open');
+
+    $scope.openModalAddStock = () => $('#modalAddStock').modal('open');
+
+    $scope.openModalStockDetails = (index: number) => {
+        $scope.editingStock = $scope.salesItems[index];
+        $("#modalStockDetails").modal("open");
     };
 
     $scope.addNewStockItem = () => {
@@ -42,5 +46,17 @@ app.controller("stockCtrl", ($scope, $http) => {
             }
         }, (err) => Materialize.toast(`Error Adding Item,
         ensure you are connected and all fields are valid`, 4000));
+    };
+
+    $scope.updateStockItem = () => {
+        const updatedObject = $scope.editingStock as SalesItem;
+        $http(Boneless.CreateRequest(`api/SalesItems/${updatedObject.id}`, "put", updatedObject))
+            .then((res) => {
+                const data = res.data as SalesItem;
+                $('#modalStockDetails').modal('close');
+                Materialize.toast(`${data.name} Updated`, 4000);
+                $scope.editingStock = {};
+            }, (err) => Materialize.toast(`Error Updating Item,
+            ensure you are connected and all fields are valid`, 4000));
     };
 });
