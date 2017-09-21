@@ -27,6 +27,10 @@ namespace BonelessPharmacyBackend
         {
             optionsBuilder.UseSqlite("Filename=./Main.db");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+        }
     }
 
     /// <summary>

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace BonelessPharmacyBackend
 {
@@ -57,6 +58,7 @@ namespace BonelessPharmacyBackend
         public String PhoneNumber { get; set; }
 
         [Required]
+        [JsonIgnore]
         /// <summary>
         /// The Staff member's Password to login into the system
         /// </summary>

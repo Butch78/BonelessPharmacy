@@ -8,73 +8,78 @@ using Microsoft.EntityFrameworkCore;
 namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
-    public class SalesItemsController : Controller
+    public class SalesRecordsController : Controller
     {
-        // GET api/SalesItems
+        // GET api/SalesRecords
         [HttpGet]
-        public async Task<IEnumerable<SalesItem>> Get() => await Task.Run<IEnumerable<SalesItem>>(() =>
+        public async Task<IEnumerable<SalesRecord>> Get() => await Task.Run<IEnumerable<SalesRecord>>(() =>
         {
             using (var db = new Db())
             {
                 // Ensure to call ToList so that the DB doesn't dispose itself
-                return db.SalesItems.Include(s => s.Measurement).ToList();
+                return db.SalesRecords
+                    .Include(s => s.SalesItem)
+                    .Include(s => s.Sale)
+                    .ToList();
             }
         });
 
-        // GET api/SalesItems/5
+        // GET api/SalesRecords/5
         [HttpGet("{id}")]
-        public async Task<SalesItem> Get(int id) => await Task.Run<SalesItem>(() =>
+        public async Task<SalesRecord> Get(int id) => await Task.Run<SalesRecord>(() =>
         {
             using (var db = new Db())
             {
-                return db.SalesItems.Include(s => s.Measurement).FirstOrDefault(s => s.Id == id);
+                return db.SalesRecords
+                        .Include(s => s.SalesItem)
+                        .Include(s => s.Sale)
+                        .ToList()
+                        .FirstOrDefault(s => s.Id == id);
             }
         });
 
-        // POST api/SalesItems
+        // POST api/SalesRecords
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>
+        public async Task<IActionResult> Post([FromBody]SalesRecord value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
             {
                 using (var db = new Db())
                 {
-                    await db.SalesItems.AddAsync(value);
+                    await db.SalesRecords.AddAsync(value);
                     await db.SaveChangesAsync();
-                    return Created("api/SalesItems", 
-                        await db.SalesItems.Include(s => s.Measurement).FirstAsync(s => s.Id == value.Id)
-                    );
+                    return Created("api/SalesRecords", value);
                 }
             }
             else
                 return BadRequest();
         });
 
-        // PUT api/SalesItems/5
+        // PUT api/SalesRecords/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>
+        public async Task<IActionResult> Put(int id, [FromBody]SalesRecord value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
             {
                 value.Id = id;
                 using (var db = new Db())
                 {
-                    db.SalesItems.Update(value);
+                    db.SalesRecords.Update(value);
                     await db.SaveChangesAsync();
-                    return Accepted("api/SalesItems", value);
+                    return Accepted("api/SalesRecords", value);
                 }
             }
             else
                 return BadRequest();
         });
 
-        // DELETE api/SalesItems/5
+        // DELETE api/SalesRecords/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async () =>
         {
             using (var db = new Db())
             {
-                db.SalesItems.Remove(db.SalesItems.FirstOrDefault(s => s.Id == id));
+                db.SalesRecords.Remove(db.SalesRecords.FirstOrDefault(s => s.Id == id));
                 await db.SaveChangesAsync();
                 return Accepted();
             }
