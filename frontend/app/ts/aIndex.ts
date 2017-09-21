@@ -1,42 +1,43 @@
 /**
  * The application global used for Angular directives
  */
-var app = angular.module("bonelessPharmacy", ['ngRoute']);
+const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 app.controller("homeCtrl", ($scope, $location) => {
     $location.path('/sales');
 });
 
 // Hashprefix config
-app.config(['$locationProvider', function ($locationProvider) {
+app.config(['$locationProvider', ($locationProvider) => {
     $locationProvider.hashPrefix('');
 }]);
 
 // Routing logic
 app.config(($routeProvider) => {
+    $routeProvider.when('/', {
+        controller: 'homeCtrl',
+        templateUrl: './views/home.html',
+    });
     $routeProvider.when('/sales', {
+        controller: 'salesCtrl',
         templateUrl: './views/sales.html',
-        controller: 'salesCtrl'
     });
     $routeProvider.when('/reports', {
+        controller: 'reportsCtrl',
         templateUrl: './views/reports.html',
-        controller: 'reportsCtrl'
     });
     $routeProvider.when('/stock', {
+        controller: 'stockCtrl',
         templateUrl: './views/stock.html',
-        controller: 'stockCtrl'
     });
     $routeProvider.when('/help', {
+        controller: 'helpCtrl',
         templateUrl: './views/help.html',
-        controller: 'helpCtrl'
     });
 });
 
-
-$(document).ready(function () {
+$(document).ready(() => {
     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
     $('.modal').modal();
     $(".button-collapse").sideNav();
 });
-
-

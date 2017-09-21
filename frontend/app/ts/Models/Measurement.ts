@@ -1,5 +1,4 @@
-interface Measurement
-{
+interface Measurement {
     /**
      * The primary key of the Measurement
      */
@@ -14,5 +13,5 @@ interface Measurement
     /**
      * A description of the Measurement
      */
-    description?: string;    
+    description?: string;
 }
