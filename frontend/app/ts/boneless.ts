@@ -29,4 +29,22 @@ class Boneless {
         // tslint:disable-next-line:max-line-length
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3ZGY4OTYwNy05OTE1LTQ5MjAtOTA0YS1hZTk2MzBmYTA5Y2YiLCJleHAiOjE1MDUxMTY5NTUsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NTAwMCJ9.3ZXAE6Bnq76-LiCvw_VObPRBO7SD-ri3pfFeQybd2Xo'
     )
+
+    /**
+     * Easily show a standard toast alert using a custom message
+     */
+    public static readonly NotifyCustom = (message: string) => Materialize.toast(message, 4000);
+
+    /**
+     * Easily show a standard toast alert using a pre-defined message
+     */
+    public static readonly Notify = (type: BonelessStatusMessage) => Materialize.toast(type, 4000);
+}
+
+/**
+ * Standard status messages to be used in the application
+ */
+enum BonelessStatusMessage {
+    INVALID_GET = "Error retrieving data, please ensure you are connected to the internet.",
+    INVALID_POST = "Error processing data, please ensure fields are correct and you are connected to internet.",
 }

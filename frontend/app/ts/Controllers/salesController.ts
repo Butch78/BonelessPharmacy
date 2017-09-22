@@ -6,7 +6,7 @@ app.controller("salesCtrl", ($scope, $http) => {
     $('.modal').modal();
     $('.collapsible').collapsible();
 
-    // GET SalesItems
+    // GET SalesRecords
     $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
         (res) => {
             $scope.salesRecords = res.data as SalesRecord[];
@@ -14,7 +14,11 @@ app.controller("salesCtrl", ($scope, $http) => {
         (errorRes) => {
             alert(errorRes.data);
     });
-
+    // GET SalesItems
+    $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
+        (res) => ($scope.salesItems = res.data as SalesItem[]),
+        (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
+    );
     $scope.openModalNewSale = () => {
         $('#modalNewSale').modal('open');
     };
