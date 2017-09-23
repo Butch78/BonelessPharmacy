@@ -19,6 +19,7 @@ namespace BonelessPharmacyBackend.Controllers
                 // Ensure to call ToList so that the DB doesn't dispose itself
                 return db.Sales
                     .Include(s => s.Contents)
+                    .ThenInclude(sr => sr.SalesItem)
                     .ToList();
             }
         });
@@ -31,6 +32,7 @@ namespace BonelessPharmacyBackend.Controllers
             {
                 return db.Sales
                     .Include(s => s.Contents)
+                    .ThenInclude(sr => sr.SalesItem)
                     .FirstOrDefault(s => s.Id == id);
             }
         });
