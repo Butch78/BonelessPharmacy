@@ -20,6 +20,7 @@ namespace BonelessPharmacyBackend.Controllers
                 return db.Sales
                     .Include(s => s.Contents)
                     .ThenInclude(sr => sr.SalesItem)
+                    .ThenInclude(si => si.Measurement)
                     .ToList();
             }
         });
@@ -33,6 +34,7 @@ namespace BonelessPharmacyBackend.Controllers
                 return db.Sales
                     .Include(s => s.Contents)
                     .ThenInclude(sr => sr.SalesItem)
+                    .ThenInclude(si => si.Measurement)
                     .FirstOrDefault(s => s.Id == id);
             }
         });
