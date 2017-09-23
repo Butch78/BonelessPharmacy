@@ -1,13 +1,13 @@
 interface SalesRecord {
-    id: number;
+    id?: number;
 
     saleId: number;
 
-    sale: Sale;
+    sale?: Sale;
 
     itemId: number;
 
-    salesItem: SalesItem;
+    salesItem?: SalesItem;
 
     quantity: number;
 }

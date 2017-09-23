@@ -2,7 +2,7 @@ interface Sale {
     /**
      * The Id/Key of the Sale
      */
-    id: number;
+    id?: number;
 
     /**
      * The time the sale was created

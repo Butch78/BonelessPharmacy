@@ -13,3 +13,13 @@
 {
     height: 15% !important;
 }
+
+.fake-link:hover
+{
+    cursor: help;
+}
+
+.number-small
+{
+    width: 120px !important;
+}
