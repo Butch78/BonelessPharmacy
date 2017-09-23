@@ -5,9 +5,15 @@
 app.controller("salesCtrl", ($scope, $http) => {
     $('.modal').modal();
     $('.collapsible').collapsible();
-    $scope.newSale = {};
-    $scope.newSaleRecords = [];
-    $scope.searchItems = [];
+
+    $scope.initValues = () => {
+        $scope.newSale = {};
+        $scope.sales = [];
+        $scope.newSaleRecords = [];
+        $scope.searchItems = [];
+    };
+    $scope.initValues();
+
     // GET SalesRecords
     // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
     //     (res) => {
@@ -16,6 +22,22 @@ app.controller("salesCtrl", ($scope, $http) => {
     //     (errorRes) => {
     //         alert(errorRes.data);
     //     });
+    $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
+        (res) => {
+            $scope.sales = res.data;
+            $scope.$apply();
+        },
+        (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
+    );
+    $scope.getSales();
+    /**
+     * Retrieve the total value of a sales contents
+     */
+    $scope.totalValue = (sale: Sale) => `$${
+        sale.contents
+        .map((sr) => sr.quantity * sr.salesItem.price)
+        .reduce((prev, curr) => prev + curr)}`;
+
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
         (res) => ($scope.salesItems = res.data as SalesItem[]),
@@ -72,6 +94,7 @@ app.controller("salesCtrl", ($scope, $http) => {
     };
 
     $scope.addNewSale = () => {
+        let postSuccess = true;
         const successfullPosts: SalesRecord[] = [];
         for (const sr of $scope.newSaleRecords as SalesRecord[]) {
             if (sr.quantity === undefined) {
@@ -81,10 +104,14 @@ app.controller("salesCtrl", ($scope, $http) => {
             sr.salesItem = sr.sale = undefined;
             $http(Boneless.CreateRequest("api/SalesRecords", "post", sr)).then(
                 (res) => successfullPosts.push(sr as SalesRecord),
+                (errorRes) => postSuccess = false,
             );
         }
-        if (successfullPosts.length === $scope.newSaleRecords.length) {
+        if (postSuccess) {
             Boneless.NotifyCustom(`Sale #${$scope.newSale.id} (${successfullPosts.length} items)`);
+            $scope.initValues();
+            $scope.getSales();
+            $('#modalNewSale').modal('close');
         } else {
             Boneless.Notify(BonelessStatusMessage.INVALID_POST);
             for (const sr of successfullPosts) {

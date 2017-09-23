@@ -8,4 +8,9 @@ interface Sale {
      * The time the sale was created
      */
     createdAt: string;
+
+    /**
+     * The contents of the sale
+     */
+    contents?: SalesRecord[];
 }

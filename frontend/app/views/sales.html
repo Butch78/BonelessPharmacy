@@ -11,11 +11,11 @@
         </thead>
 
         <tbody>
-            <tr data-ng-repeat="x in salesRecords track by $id">
-                <td>{{x.number}}</td>
-                <td>{{x.saleId}}</td>
-                <td>{{x.itemId}}</td>
-                <td>{{x.quantity}}</td>
+            <tr data-ng-repeat="x in sales track by x.id">
+                <td>{{x.id}}</td>
+                <td>{{x.createdAt}}</td>
+                <td>{{totalValue(x)}}</td>
+                <td></td>
             </tr>
 
         </tbody>
