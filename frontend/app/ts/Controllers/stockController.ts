@@ -30,4 +30,5 @@ app.controller("stockCtrl", ($scope, $http) => {
     $scope.addNewStockItem = () => {
         alert("Will add a new stock item, is not currently functioning");
     };
+
 });
