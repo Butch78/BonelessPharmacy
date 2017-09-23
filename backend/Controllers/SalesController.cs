@@ -89,5 +89,6 @@ namespace BonelessPharmacyBackend.Controllers
                     .ThenInclude(si => si.Measurement)
                     .Where(s => s.Contents != null && s.Contents.Count > 0)
                     .ToList();
+
     }
 }

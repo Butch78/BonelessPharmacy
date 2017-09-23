@@ -47,6 +47,7 @@ namespace BonelessPharmacyBackend.Controllers
                 using (var db = new Db())
                 {
                     await db.SalesRecords.AddAsync(value);
+                    await updateStockOnHandAsync(db, value.ItemId, value.Quantity);
                     await db.SaveChangesAsync();
                     return Created("api/SalesRecords", value);
                 }
@@ -83,6 +84,20 @@ namespace BonelessPharmacyBackend.Controllers
                 await db.SaveChangesAsync();
                 return Accepted();
             }
+        });
+
+        /// <summary>
+        /// Update the stock on hand for a certain salesitem
+        /// </summary>
+        /// <param name="db">database context</param>
+        /// <param name="id">the id of the salesitem</param>
+        /// <param name="amount">The amount to change</param>
+        /// <returns></returns>
+        private async Task updateStockOnHandAsync (Db db, int id, int amount) => await Task.Run(async () => {
+            var item = await db.SalesItems.FirstOrDefaultAsync(s => s.Id == id);
+            item.StockOnHand -= amount;
+            db.SalesItems.Update(item);
+            await db.SaveChangesAsync();
         });
     }
 }
