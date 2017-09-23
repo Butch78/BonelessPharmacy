@@ -30,6 +30,10 @@ namespace BonelessPharmacyBackend
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SalesRecord>()
+                        .HasOne(sr => sr.Sale)
+                        .WithMany(s => s.Contents)
+                        .HasForeignKey(s => s.SaleId);
         }
     }
 

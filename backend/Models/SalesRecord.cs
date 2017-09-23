@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace BonelessPharmacyBackend
 {
@@ -24,6 +25,7 @@ namespace BonelessPharmacyBackend
         public int SaleId { get; set; }
 
         [ForeignKey("SaleId")]
+        [JsonIgnore]
         /// <summary>
         /// The foreign object for the Sale
         /// </summary>
