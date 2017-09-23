@@ -108,7 +108,7 @@ app.controller("salesCtrl", ($scope, $http) => {
             );
         }
         if (postSuccess) {
-            Boneless.NotifyCustom(`Sale #${$scope.newSale.id} (${successfullPosts.length} items)`);
+            Boneless.NotifyCustom(`Sale #${$scope.newSale.id} (${$scope.newSaleRecords.length} Item/s)`);
             $scope.initValues();
             $scope.getSales();
             $('#modalNewSale').modal('close');
