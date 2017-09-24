@@ -11,9 +11,13 @@
                         <i class="material-icons prefix">lock_outline</i>
                         <input id="password" type="password" class="validate" autofocus>
                         <label for="password">Password - Enter here</label>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
+                        <div>
+                            <!-- Can put this in a form and make the button "submit" -->
+                            <a href="#/sales"><button class="btn waves-effect waves-light" data-ng-click="changeStaffButton(x.name)" type="btn">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
+                            </a>
+                        </div>
                 </div> 
                 <!-- Add required and/or validate (materialize) tag above later -->
             </div>        

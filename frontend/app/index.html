@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <header class="navbar-fixed">
         <nav>
             <div class="nav-wrapper indigo darken-2">
@@ -23,8 +22,19 @@
                     <li><a href="#/stock">Stock</a></li>
                     <li><a href="#/reports">Reports & Predictions</a></li>
                     <li><a href="#/help">Help</a></li>
-                    <li><a class="btn waves-effect waves-light" href="#/staff">Staff</a></li>
+                    <li><a id="staffTitle" class="btn waves-effect waves-light" href="#/staff">Staff</a></li>
+                    <!-- Drop down code below -->
+                    <a class='dropdown-button btn' id="dropDown" style="display: none;" href='#' data-activates='dropdown1'>###</a>
+                    <!-- These are the actions -->
+                    <ul id='dropdown1' class='right hide-on-med-and-down dropdown-content'>
+                            <li><a href="#">Something</a></li>
+                            <li><a href="#">Whatever</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#/sales" data-ng-click="initiateLogout()"><i class="material-icons">security</i>Logout</a></li>
+                    </ul>
                 </ul>
+
+
                 <ul class="side-nav" id="mobile-demo">
                     <li><a href="#/sales">Sales</a></li>
                     <li><a href="#/stock">Stock</a></li>
@@ -41,6 +51,7 @@
     </main>
 
 </body>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="./../node_modules/materialize-css/dist/js/materialize.min.js"></script>
 <script type="text/javascript" src="./../node_modules/angular/angular.min.js"></script>
