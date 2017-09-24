@@ -16,9 +16,7 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                // Ensure to call ToList so that the DB doesn't dispose itself
-                return db.Sales
-                    .ToList();
+                return validSales(db);
             }
         });
 
@@ -28,7 +26,8 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                return db.Sales.FirstOrDefault(s => s.Id == id);
+                return validSales(db)
+                    .FirstOrDefault(s => s.Id == id);
             }
         });
 
@@ -78,5 +77,18 @@ namespace BonelessPharmacyBackend.Controllers
                 return Accepted();
             }
         });
+
+        /// <summary>
+        /// Retrieve the valid sales from the database
+        /// </summary>
+        /// <param name="db">an active database context</param>
+        /// <returns></returns>
+        private List<Sale> validSales (Db db) => db.Sales
+                    .Include(s => s.Contents)
+                    .ThenInclude(sr => sr.SalesItem)
+                    .ThenInclude(si => si.Measurement)
+                    .Where(s => s.Contents != null && s.Contents.Count > 0)
+                    .ToList();
+
     }
 }
