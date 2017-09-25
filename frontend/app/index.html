@@ -21,7 +21,7 @@
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li><a href="#/sales">Sales</a></li>
-                        <li><a href="#/stock">Stock</a></li>
+                        <li><a href="#/stock">Stock<span data-ng-show="lowStock > 0" class="red new badge" data-badge-caption="low">{{lowStock}}</span></a></li>
                         <li><a href="#/reports">Reports & Predictions</a></li>
                         <li><a href="#/help">Help</a></li>
                     </ul>

@@ -3,8 +3,19 @@
  */
 const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
-app.controller("homeCtrl", ($scope, $location) => {
+app.controller("homeCtrl", ($scope, $location, $http) => {
     $location.path('/sales');
+
+    $scope.lowStock = 0;
+
+    $http(Boneless.CreateRequest("api/SalesItems", "GetLowStock")).then(
+        (res) => {
+            $scope.lowStock = res.data;
+        },
+        (errorRes) => {
+            alert(errorRes.data);
+    });
+
 });
 
 // Hashprefix config
