@@ -31,8 +31,8 @@ namespace backend_tests
         public void AssertItemTypeHasDescription()
         {
             ItemType testItemType = new ItemType();
-            string typeDesc = _gen.Company.Bs());
-            testItemType.Description= typeDesc;
+            string typeDesc = _gen.Company.Bs();
+            testItemType.Description = typeDesc;
             Assert.AreEqual(typeDesc, testItemType.Description);
         }
     }

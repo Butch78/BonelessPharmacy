@@ -31,8 +31,8 @@ namespace backend_tests
         public void AssertRoleHasDescription()
         {
             Role testRole = new Role();
-            string roleDesc = _gen.Company.Bs());
-            testRole.Description= roleDesc;
+            string roleDesc = _gen.Company.Bs();
+            testRole.Description = roleDesc;
             Assert.AreEqual(roleDesc, testRole.Description);
         }
     }
