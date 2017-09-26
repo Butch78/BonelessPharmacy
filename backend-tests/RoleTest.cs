@@ -19,18 +19,18 @@ namespace backend_tests
         }
 
         [TestMethod]
-        public void AssertItemTypeHasName()
+        public void AssertRoleHasName()
         {
-            ItemType testRole = new ItemType();
+            Role testRole = new Role();
             string roleName = _gen.Commerce.ProductName();
             testRole.Name = roleName;
             Assert.AreEqual(roleName, testRole.Name);
         }
 
         [TestMethod]
-        public void AssertItemTypeHasDescription()
+        public void AssertRoleHasDescription()
         {
-            ItemType testRole = new ItemType();
+            Role testRole = new Role();
             string roleDesc = _gen.Company.Bs());
             testRole.Description= roleDesc;
             Assert.AreEqual(roleDesc, testRole.Description);
