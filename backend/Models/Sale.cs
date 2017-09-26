@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,6 +15,8 @@ namespace BonelessPharmacyBackend
 
         [Required]
         public DateTime CreatedAt { get; set; }
+
+        public List<SalesRecord> Contents { get; set; }
 
         //TODO: Implement Staff and customer Foreign Key relationship
         // public int StaffId { get; set; }

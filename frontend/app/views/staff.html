@@ -1,0 +1,15 @@
+<div class="containter">
+    <h2>Staff Central</h2>
+    <ul class="collapsible popout" data-collapsible="accordion" >
+        <li data-ng-repeat="x in staff">
+            <div class="collapsible-header"><i class="material-icons">add</i>
+                {{x.name}}
+                ({{x.role.name}})
+            </div>   
+            <div class="collapsible-body">
+                <span>More information :D</span>
+                <p>E.g."Phone Number: {{x.phoneNumber}}"</p>
+            </div>         
+        </li>
+    </ul>
+</div>

@@ -53,7 +53,7 @@ namespace BonelessPharmacyBackend
         /// 16
         /// </example>
         /// <returns></returns>
-        public uint StockOnHand { get; set; }
+        public int StockOnHand { get; set; }
 
         [Required]
         /// <summary>

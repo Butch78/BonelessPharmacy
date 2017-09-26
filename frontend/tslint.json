@@ -9,7 +9,8 @@
         "quotemark": [
             false
         ],
-        "no-console": false
+        "no-console": false,
+        "prefer-const": false
     },
     "rulesDirectory": []
 }

@@ -13,28 +13,28 @@
 
 <body>
 
-    <div class="container">
-        <header>
-            <nav>
-                <div class="nav-wrapper indigo darken-2">
-                    <a href="#!" class="brand-logo">Boneless Pharmacy</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul class="right hide-on-med-and-down">
-                        <li><a href="#/sales">Sales</a></li>
-                        <li><a href="#/stock">Stock</a></li>
-                        <li><a href="#/reports">Reports & Predictions</a></li>
-                        <li><a href="#/help">Help</a></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="#/sales">Sales</a></li>
-                        <li><a href="#/stock">Stock</a></li>
-                        <li><a href="#/reports">Reports & Predictions</a></li>
-                        <li><a href="#/help">Help</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </header>
-    </div>
+    <header class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper indigo darken-2">
+                <a href="#!" class="brand-logo">Boneless Pharmacy</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#/sales">Sales</a></li>
+                    <li><a href="#/stock">Stock</a></li>
+                    <li><a href="#/reports">Reports & Predictions</a></li>
+                    <li><a href="#/help">Help</a></li>
+                    <li><a class="btn waves-effect waves-light" href="#/staff">Staff</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="#/sales">Sales</a></li>
+                    <li><a href="#/stock">Stock</a></li>
+                    <li><a href="#/reports">Reports & Predictions</a></li>
+                    <li><a href="#/help">Help</a></li>
+                    <li><a href="#/staff">Staff</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
     <main class="container">
         <ng-view></ng-view>
