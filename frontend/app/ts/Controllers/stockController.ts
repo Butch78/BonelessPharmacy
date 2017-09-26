@@ -59,4 +59,5 @@ app.controller("stockCtrl", ($scope, $http) => {
             }, (err) => Materialize.toast(`Error Updating Item,
             ensure you are connected and all fields are valid`, 4000));
     };
+
 });

@@ -9,32 +9,33 @@
     <link rel="stylesheet" href="./../node_modules/materialize-css/dist/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./static/main.css">
+    <link rel="stylesheet" href="css/mainStyle.css">
 </head>
 
-<body>
+<body class="blue-grey darken-4 white-text">
 
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper indigo darken-2">
-                <a href="#!" class="brand-logo">Boneless Pharmacy</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#/sales">Sales</a></li>
-                    <li><a href="#/stock">Stock</a></li>
-                    <li><a href="#/reports">Reports & Predictions</a></li>
-                    <li><a href="#/help">Help</a></li>
-                    <li><a class="btn waves-effect waves-light" href="#/staff">Staff</a></li>
-                </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="#/sales">Sales</a></li>
-                    <li><a href="#/stock">Stock</a></li>
-                    <li><a href="#/reports">Reports & Predictions</a></li>
-                    <li><a href="#/help">Help</a></li>
-                    <li><a href="#/staff">Staff</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <div class="container ">
+        <header>
+            <nav>
+                <div class="nav-wrapper  cyan darken-3">
+                    <a id="pageTitle" class="brand-logo">Boneless Pharmacy</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="#/sales">Sales</a></li>
+                        <li><a href="#/stock">Stock<span data-ng-show="lowStock > 0" class="red new badge" data-badge-caption="low">{{lowStock}}</span></a></li>
+                        <li><a href="#/reports">Reports & Predictions</a></li>
+                        <li><a href="#/help">Help</a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="#/sales">Sales</a></li>
+                        <li><a href="#/stock">Stock</a></li>
+                        <li><a href="#/reports">Reports & Predictions</a></li>
+                        <li><a href="#/help">Help</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+    </div>
 
     <main class="container">
         <ng-view></ng-view>

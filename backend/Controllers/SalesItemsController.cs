@@ -31,6 +31,21 @@ namespace BonelessPharmacyBackend.Controllers
             }
         });
 
+        //return how many stock items are low (for now, we'll say this is a quantity of less than 5)
+        [HttpGet()]
+        public async int GetLowStock() => await Task.Run<SalesItem>(() =>
+        {
+            int count = 0;
+            using (var db = new Db())
+            {
+                foreach(SalesItem item in db.SalesItems) {
+                    if (item.quantity < 5)
+                        count++;
+                }
+                return count;
+            }
+        });
+
         // POST api/SalesItems
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>
