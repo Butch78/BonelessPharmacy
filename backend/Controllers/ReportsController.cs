@@ -11,7 +11,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         // GET api/Reports
         [HttpPost]
-        public async Task<string> Post([FromBody]Dictionary<string, string> options) => await Task.Run<string>(() =>
+        public async Task<IActionResult> Post([FromBody]Dictionary<string, string> options) => await Task.Run<IActionResult>( async() =>
         {
             IReportFactory factory;
             string type = options.ContainsKey("type") ? options["type"] : "sales";
@@ -34,7 +34,7 @@ namespace BonelessPharmacyBackend.Controllers
                     throw new Exception("Invalid Report Type");
             }
 
-            return factory.GenerateCsv();
+            return Content(isJson ? await factory.GenerateJson() : await factory.GenerateCsv());
         });
     }
 }
