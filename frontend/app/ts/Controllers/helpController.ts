@@ -4,4 +4,4 @@
  */
 app.controller("helpCtrl", ($scope) => {
     
-};
+});
