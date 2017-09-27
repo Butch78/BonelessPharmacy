@@ -8,12 +8,12 @@ app.controller("homeCtrl", ($scope, $location, $http) => {
 
     $scope.lowStock = 0;
 
-    $http(Boneless.CreateRequest("api/SalesItems", "GetLowStock")).then(
+    $http(Boneless.CreateRequest("api/SalesItemsLow", "GET")).then(
         (res) => {
             $scope.lowStock = res.data;
         },
         (errorRes) => {
-            alert(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
     });
 
 });
@@ -37,9 +37,9 @@ app.config(($routeProvider) => {
         controller: 'reportsCtrl',
         templateUrl: './views/reports.html',
     });
-    $routeProvider.when('/staff',{
+    $routeProvider.when('/staff', {
         controller: 'staffCtrl',
-        templateUrl: './views/staff.html',        
+        templateUrl: './views/staff.html',
         // controller: 'staffCtrl',
         // templateUrl: './views/staff.html',
     });
