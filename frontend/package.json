@@ -24,6 +24,7 @@
     "materialize-css": "0.100.1"
   },
   "devDependencies": {
+    "@types/csv-parse": "^1.1.10",
     "@types/jquery": "^3.2.12",
     "@types/materialize-css": "^0.100.0",
     "eslint": "4.4.1",

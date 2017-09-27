@@ -13,7 +13,6 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItems = [];
     };
     $scope.initValues();
-
     // GET SalesRecords
     // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
     //     (res) => {
@@ -30,6 +29,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
     $scope.getSales();
+
     /**
      * Retrieve the total value of a sales contents
      */
