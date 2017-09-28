@@ -12,6 +12,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.newSaleRecords = [];
         $scope.searchItems = [];
     };
+
     $scope.initValues();
     // GET SalesRecords
     // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
@@ -37,6 +38,12 @@ app.controller("salesCtrl", ($scope, $http) => {
         sale.contents
         .map((sr) => sr.quantity * sr.salesItem.price)
         .reduce((prev, curr) => prev + curr)}`;
+
+    $scope.niceDate = (sale: Sale) => `${
+        new Date(sale.createdAt).toDateString()}`;
+
+    $scope.getTime = (sale: Sale) => `${
+        new Date(sale.createdAt).toLocaleTimeString()}`;
 
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
