@@ -92,9 +92,26 @@ class Boneless {
     public static readonly IsLoggedIn = () => Boneless.Login() !== null;
 
     /**
+     * Generate a new URL based file for text
+     */
+    public static readonly CreateFile =
+        (value: string,
+         filename: string = "report.csv",
+         type: string = "text/plain") => {
+            let data = new Blob([value], {type});
+            if (Boneless.currentFile !== null) {
+                window.URL.revokeObjectURL(Boneless.currentFile);
+            }
+            Boneless.currentFile = window.URL.createObjectURL(data);
+            return Boneless.currentFile;
+        }
+
+    private static currentFile = null;
+    /**
      * Used to define whether a user has attempted a login
      */
     private static loggedIn = false;
+
 }
 
 /**

@@ -29,9 +29,9 @@ namespace BonelessPharmacyBackend.Controllers
         {
             bool isAuthenticated = false;
             //TODO: Properly use Identity
-            using (var db = new Db())
+            using (var db = new Db(true))
             {
-                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["name"]);
+                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["name"] && s.Password == staffDetails["password"]);
             }
             if (!isAuthenticated)
                 return Unauthorized();
