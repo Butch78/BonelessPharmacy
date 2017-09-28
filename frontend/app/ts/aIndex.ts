@@ -6,6 +6,14 @@ const app = angular.module("bonelessPharmacy", ['ngRoute']);
 app.controller("homeCtrl", ($scope, $location, $http) => {
     $location.path('/sales');
 
+    $scope.initiateLogout = () => {
+        let oldStaffBtn = document.getElementById("dropDown");
+        let staffBtn = document.getElementById("staffTitle");
+        staffBtn.innerText = "STAFF";
+        oldStaffBtn.style.display = 'none';
+        staffBtn.style.display = 'inline-block';
+        BtnClick = true;
+    };
     $scope.lowStock = 0;
 
     $http(Boneless.CreateRequest("api/SalesItemsLow", "GET")).then(
