@@ -21,13 +21,17 @@ app.controller("staffCtrl", ($scope, $http) => {
     });
 
     $scope.changeStaffButton = (StaffName) => {
-        let oldStaffBtn = document.getElementById("staffTitle");
-        let staffBtn = document.getElementById("dropDown");
-        staffBtn.innerText = StaffName;
-        oldStaffBtn.style.display = 'none';
-        staffBtn.style.display = 'inline-block';
-        staffBtn.setAttribute("href", "#!"); // Maybe this can be imporved??
-        BtnClick = true;
+        $http(Boneless.CreateRequest("auth", "post", { name: "Shaylee Reynolds V" })).then((res) => {
+            let oldStaffBtn = document.getElementById("staffTitle");
+            let staffBtn = document.getElementById("dropDown");
+            staffBtn.innerText = StaffName;
+            oldStaffBtn.style.display = 'none';
+            staffBtn.style.display = 'inline-block';
+            staffBtn.setAttribute("href", "#!"); // Maybe this can be imporved??
+            BtnClick = true;
+            Boneless.NotifyCustom(`Welcome`);
+            Boneless.SetToken(res.data.token);
+        }, (errorRes) => Boneless.NotifyCustom("Login Failed"));
     };
 });
 

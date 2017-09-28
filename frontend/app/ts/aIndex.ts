@@ -4,7 +4,7 @@
 const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 app.controller("homeCtrl", ($scope, $location, $http) => {
-    $location.path('/sales');
+    $location.path(Boneless.GetToken() !== null ? '/sales' : '/staff');
 
     $scope.initiateLogout = () => {
         let oldStaffBtn = document.getElementById("dropDown");
@@ -16,13 +16,13 @@ app.controller("homeCtrl", ($scope, $location, $http) => {
     };
     $scope.lowStock = 0;
 
-    $http(Boneless.CreateRequest("api/SalesItemsLow", "GET")).then(
-        (res) => {
-            $scope.lowStock = res.data;
-        },
-        (errorRes) => {
-            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
-    });
+    // $http(Boneless.CreateRequest("api/SalesItemsLow", "GET")).then(
+    //     (res) => {
+    //         $scope.lowStock = res.data;
+    //     },
+    //     (errorRes) => {
+    //         Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+    //     });
 
 });
 

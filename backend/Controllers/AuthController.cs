@@ -31,7 +31,7 @@ namespace BonelessPharmacyBackend.Controllers
             //TODO: Properly use Identity
             using (var db = new Db())
             {
-                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["Name"] && s.Password == staffDetails["Password"]);
+                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["name"]);
             }
             if (!isAuthenticated)
                 return Unauthorized();
@@ -48,7 +48,7 @@ namespace BonelessPharmacyBackend.Controllers
                 issuer: _configuration["Tokens:Issuer"],
                 audience: _configuration["Tokens:Issuer"],
                 claims: claims,
-                expires: DateTime.Now,
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds
                 );
 
