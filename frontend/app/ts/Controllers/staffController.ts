@@ -20,16 +20,11 @@ app.controller("staffCtrl", ($scope, $http) => {
         $('.collapsible').collapsible();
     });
 
-    $scope.changeStaffButton = (StaffName) => {
-        $http(Boneless.CreateRequest("auth", "post", { name: "Shaylee Reynolds V" })).then((res) => {
-            let oldStaffBtn = document.getElementById("staffTitle");
-            let staffBtn = document.getElementById("dropDown");
-            staffBtn.innerText = StaffName;
-            oldStaffBtn.style.display = 'none';
-            staffBtn.style.display = 'inline-block';
-            staffBtn.setAttribute("href", "#!"); // Maybe this can be imporved??
+    $scope.changeStaff = (staff: Staff) => {
+        $http(Boneless.CreateRequest("auth", "post", { name: staff.name })).then((res) => {
             BtnClick = true;
             Boneless.NotifyCustom(`Welcome`);
+            Boneless.Login(staff);
             Boneless.SetToken(res.data.token);
         }, (errorRes) => Boneless.NotifyCustom("Login Failed"));
     };

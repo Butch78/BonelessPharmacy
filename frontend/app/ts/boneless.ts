@@ -26,17 +26,40 @@ class Boneless {
      * @todo actually implement the token shit
      */
     public static readonly GetToken = (): string => {
-        return localStorage.getItem('token');
+        return localStorage.getItem('boneless-token');
     }
 
     /**
      * Add the token to the localstorage
      */
     public static readonly SetToken = (token) => {
-        localStorage.setItem('token', token);
+        localStorage.setItem('boneless-token', token);
         Boneless.loggedIn = true;
         console.log(token);
         return token;
+    }
+
+    /**
+     * Retrieve or update the logged in user of Boneless pharmacy
+     */
+    public static readonly Login = (staff: Staff = null): Staff => {
+        let res: Staff;
+        if (staff !== null) {
+            localStorage.setItem('boneless-user', JSON.stringify(staff));
+            res = staff;
+        } else {
+            res = localStorage.getItem('boneless-user') !== null
+                ? JSON.parse(localStorage.getItem('boneless-user')) as Staff : null;
+        }
+        if (res != null) {
+            let oldStaffBtn = document.getElementById("staffTitle");
+            let staffBtn = document.getElementById("dropDown");
+            staffBtn.innerText = res.name;
+            oldStaffBtn.style.display = 'none';
+            staffBtn.style.display = 'inline-block';
+            staffBtn.setAttribute("href", "#!"); // Maybe this can be imporved??
+        }
+        return res;
     }
 
     /**
