@@ -63,6 +63,15 @@ class Boneless {
     }
 
     /**
+     * Logout of the application
+     */
+    public static readonly Logout = () => {
+        localStorage.removeItem('boneless-user');
+        localStorage.removeItem('boneless-token');
+        window.location.reload();
+    }
+
+    /**
      * Easily show a standard toast alert using a custom message
      */
     public static readonly NotifyCustom = (message: string) => Materialize.toast(message, 4000);
@@ -80,7 +89,7 @@ class Boneless {
     /**
      * Getter for logged in status
      */
-    public static readonly IsLoggedIn = () => Boneless.loggedIn;
+    public static readonly IsLoggedIn = () => Boneless.Login() !== null;
 
     /**
      * Used to define whether a user has attempted a login

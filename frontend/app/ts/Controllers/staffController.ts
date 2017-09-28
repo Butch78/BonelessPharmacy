@@ -26,6 +26,7 @@ app.controller("staffCtrl", ($scope, $http) => {
             Boneless.NotifyCustom(`Welcome`);
             Boneless.Login(staff);
             Boneless.SetToken(res.data.token);
+            window.location.reload();
         }, (errorRes) => Boneless.NotifyCustom("Login Failed"));
     };
 });

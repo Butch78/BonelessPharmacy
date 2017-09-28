@@ -5,14 +5,10 @@ const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 app.controller("homeCtrl", ($scope, $location, $http) => {
     $location.path(Boneless.GetToken() !== null ? '/sales' : '/staff');
-
+    $scope.IsLoggedIn = Boneless.IsLoggedIn();
     $scope.initiateLogout = () => {
-        let oldStaffBtn = document.getElementById("dropDown");
-        let staffBtn = document.getElementById("staffTitle");
-        staffBtn.innerText = "STAFF";
-        oldStaffBtn.style.display = 'none';
-        staffBtn.style.display = 'inline-block';
-        BtnClick = true;
+        Boneless.Logout();
+        window.location.reload();
     };
     $scope.lowStock = 0;
 
