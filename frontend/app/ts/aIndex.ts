@@ -3,7 +3,7 @@
  */
 const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
-app.controller("homeCtrl", ($scope, $location) => {
+app.controller("homeCtrl", ($scope, $location, $http) => {
     $location.path('/sales');
 
     $scope.initiateLogout = () => {
@@ -14,6 +14,16 @@ app.controller("homeCtrl", ($scope, $location) => {
         staffBtn.style.display = 'inline-block';
         BtnClick = true;
     };
+    $scope.lowStock = 0;
+
+    $http(Boneless.CreateRequest("api/SalesItemsLow", "GET")).then(
+        (res) => {
+            $scope.lowStock = res.data;
+        },
+        (errorRes) => {
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+    });
+
 });
 
 // Hashprefix config
@@ -38,6 +48,8 @@ app.config(($routeProvider) => {
     $routeProvider.when('/staff', {
         controller: 'staffCtrl',
         templateUrl: './views/staff.html',
+        // controller: 'staffCtrl',
+        // templateUrl: './views/staff.html',
     });
     $routeProvider.when('/stock', {
         controller: 'stockCtrl',

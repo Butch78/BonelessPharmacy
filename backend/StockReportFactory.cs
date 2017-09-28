@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BonelessPharmacyBackend
 {
@@ -82,5 +83,7 @@ namespace BonelessPharmacyBackend
             csv.WriteField(sold.Value);
             csv.NextRecord();
         }
+
+        public async Task<string> GenerateJson() => await Task.Run(() => JsonConvert.SerializeObject(_sold));
     }
 }

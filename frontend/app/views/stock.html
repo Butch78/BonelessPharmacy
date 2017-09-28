@@ -28,13 +28,13 @@
 
 
     <div class="fixed-action-btn">
-        <a class="waves-effect waves-light btn-floating btn-large red" data-ng-click="openModalAddStock()">
+        <a  class="pulse waves-effect waves-light btn-floating btn-large pink darken-1" data-ng-click="openModalAddStock()">
       <i class="large material-icons">add</i>
     </a>
     </div>
 
-    <div id="modalAddStock" class="modal bottom-sheet">
-        <div class="modal-content grey lighten-3">
+    <div id="modalAddStock" class="modal">
+        <div class="modal-content">
             <h4>New Item</h4>
             <div class="row input-field">
                 <i class="material-icons prefix">text_fields</i>
@@ -71,8 +71,8 @@
                 <label for="stockMeasureInput">Measurement</label>
             </div>
         </div>
-        <div class="modal-footer grey lighten-3">
-            <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        <div class="modal-footer">
+            <a href="#/stock" class="modal-action modal-close btn-flat white-text">Close</a>
             <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
         </div>
     </div>

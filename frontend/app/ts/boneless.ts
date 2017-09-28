@@ -1,3 +1,4 @@
+declare const Papa: any;
 /**
  * Singleton helper for the application
  */
@@ -39,6 +40,11 @@ class Boneless {
      * Easily show a standard toast alert using a pre-defined message
      */
     public static readonly Notify = (type: BonelessStatusMessage) => Materialize.toast(type, 4000);
+
+    /**
+     * Parse the CSV string to an object
+     */
+    public static readonly ParseCsv = (input: string) => Papa.parse(input).data;
 }
 
 /**
