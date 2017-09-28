@@ -25,8 +25,17 @@ namespace BonelessPharmacyBackend.Controllers
         // POST api/Auth
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post() => await Task.Run<IActionResult>(() =>
+        public async Task<IActionResult> Post([FromBody]Dictionary<string, string> staffDetails) => await Task.Run<IActionResult>(() =>
         {
+            bool isAuthenticated = false;
+            //TODO: Properly use Identity
+            using (var db = new Db())
+            {
+                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["Name"] && s.Password == staffDetails["Password"]);
+            }
+            if (!isAuthenticated)
+                return Unauthorized();
+                
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 

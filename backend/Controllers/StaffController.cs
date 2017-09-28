@@ -17,7 +17,7 @@ namespace BonelessPharmacyBackend.Controllers
             using (var db = new Db())
             {
             // Ensure to call toList so that the DB doesn't dispose itself
-            return db.Staff.Include(s => s.Role).ToList();
+            return db.Staff.Include(s => s.Role).Select(s => s.Safe).ToList();
             }
         });
  
@@ -27,7 +27,7 @@ namespace BonelessPharmacyBackend.Controllers
     {
         using (var db = new Db())
         {
-            return db.Staff.Include(s => s.Role).FirstOrDefault(s => s.Id == id);
+            return db.Staff.Include(s => s.Role).Select(s => s.Safe).FirstOrDefault(s => s.Id == id);
         }
     });
 

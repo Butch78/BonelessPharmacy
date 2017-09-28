@@ -58,12 +58,26 @@ namespace BonelessPharmacyBackend
         public String PhoneNumber { get; set; }
 
         [Required]
-        [JsonIgnore]
         /// <summary>
         /// The Staff member's Password to login into the system
         /// </summary>
         /// <returns></returns>
-        public String Password{ get; set; }
+        public String Password { get; set; }
+
+        [JsonIgnore]
+        /// <summary>
+        /// Return a safe, password-less representation of the staff member
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public Staff Safe
+        {
+            get
+            {
+                Password = null;
+                return this;
+            }
+        }
 
     }
 }
