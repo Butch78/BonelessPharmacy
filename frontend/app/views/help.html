@@ -1,24 +1,8 @@
-<div class="container">
-    Help/FAQ, to be implemention in progress...
-
-    collapasable 
-
-
-    <h2>What would you like help with?</h2> 
-
-    <h3>Sales</h3>
-
-    <h5>Adding a Sale</h5>
-
-    <p>1.</p>
-    <p>2.</p>
-    <p>3.</p>
-
-    <h5>Editing a Sale</h5>
-
-    <h5>Deleting a sale</h5>
-
-    <h3>Stock</h3>
-
-    <h3>Reports & Predictions</h3>
+<div>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li data-ng-repeat="h in HelpItems">
+      <div class="collapsible-header">{{h.title}}</div>
+      <div class="collapsible-body"><span>{{h.desc}}</span></div>
+    </li>
+  </ul>
 </div>
