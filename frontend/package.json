@@ -20,7 +20,6 @@
     "angular": "1.6.5",
     "angular-route": "1.6.5",
     "chart.js": "2.6.0",
-    "csv": "^1.1.1",
     "materialize-css": "0.100.1"
   },
   "devDependencies": {
