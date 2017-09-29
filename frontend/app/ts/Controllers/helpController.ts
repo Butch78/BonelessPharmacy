@@ -3,6 +3,7 @@
  * Controller associated with the home page of the application
  */
 app.controller("helpCtrl", ($scope) => {
+<<<<<<< HEAD
     $('.collapsible').collapsible();
 
     $scope.HelpItems = [{title:"Creating a Sale", 
@@ -11,3 +12,7 @@ app.controller("helpCtrl", ($scope) => {
 
     //Create an Array of strings with <br> behind it 
 });
+=======
+    
+
+>>>>>>> master

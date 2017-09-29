@@ -3,9 +3,9 @@
  * Controller associated with the home page of the application
  */
 app.controller("salesCtrl", ($scope, $http) => {
+    Boneless.Login();
     $('.modal').modal();
     $('.collapsible').collapsible();
-
     $scope.initValues = () => {
         $scope.newSale = {};
         $scope.sales = [];

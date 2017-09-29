@@ -21,19 +21,19 @@
                     <a id="pageTitle" class="brand-logo">Boneless Pharmacy</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
-                        <li><a href="#/sales">Sales</a></li>
-                        <li><a href="#/stock">Stock<span data-ng-show="lowStock > 0" class="red new badge" data-badge-caption="low">{{lowStock}}</span></a></li>
-                        <li><a href="#/reports">Reports & Predictions</a></li>
-                        <li><a href="#/help">Help</a></li>
+                        <li><a href="#/sales" data-ng-show="IsLoggedIn">Sales</a></li>
+                        <li><a href="#/stock" data-ng-show="IsLoggedIn">Stock<span data-ng-show="lowStock > 0" class="red new badge" data-badge-caption="low">{{lowStock}}</span></a></li>
+                        <li><a href="#/reports" data-ng-show="IsLoggedIn">Reports & Predictions</a></li>
+                        <li><a href="#/help" data-ng-show="IsLoggedIn">Help</a></li>
                         <li><a id="staffTitle" class="btn waves-effect waves-light" href="#/staff">Staff</a></li>
                         <!-- Drop down code below -->
                         <a class='dropdown-button btn' id="dropDown" style="display: none;" href='#' data-activates='dropdown1'>###</a>
                         <!-- These are the actions -->
                         <ul id='dropdown1' class='right hide-on-med-and-down dropdown-content'>
-                                <li><a href="#">Something</a></li>
+                                <!-- <li><a href="#">Something</a></li>
                                 <li><a href="#">Whatever</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#/sales" data-ng-click="initiateLogout()"><i class="material-icons">security</i>Logout</a></li>
+                                <li class="divider"></li> -->
+                                <li><a href="#/sales" data-ng-click="initiateLogout()"><i class="material-icons">lock_outline</i>Logout</a></li>
                         </ul>
                     </ul>
     

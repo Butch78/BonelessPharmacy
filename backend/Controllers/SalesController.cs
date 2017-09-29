@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend.Controllers
 {
+    // [Authorize]
     [Route("api/[controller]")]
     public class SalesController : Controller
     {
@@ -16,7 +18,7 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                return validSales(db);
+                return Sale.ValidSales(db);
             }
         });
 
@@ -26,7 +28,7 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                return validSales(db)
+                return Sale.ValidSales(db)
                     .FirstOrDefault(s => s.Id == id);
             }
         });
@@ -77,18 +79,6 @@ namespace BonelessPharmacyBackend.Controllers
                 return Accepted();
             }
         });
-
-        /// <summary>
-        /// Retrieve the valid sales from the database
-        /// </summary>
-        /// <param name="db">an active database context</param>
-        /// <returns></returns>
-        private List<Sale> validSales (Db db) => db.Sales
-                    .Include(s => s.Contents)
-                    .ThenInclude(sr => sr.SalesItem)
-                    .ThenInclude(si => si.Measurement)
-                    .Where(s => s.Contents != null && s.Contents.Count > 0)
-                    .ToList();
 
     }
 }
