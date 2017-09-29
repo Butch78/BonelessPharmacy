@@ -4,6 +4,7 @@
  */
 app.controller("reportsCtrl", ($scope, $http) => {
     $('#modalReportView').modal();
+    $('select').material_select();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
     $scope.genSalesReportWeek = () => {
@@ -22,6 +23,9 @@ app.controller("reportsCtrl", ($scope, $http) => {
             },
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
     };
+    $scope.genLowStockReport = () => {
+        alert("function call is working!");
+    }
 });
 
 $(".button-collapse").sideNav();
