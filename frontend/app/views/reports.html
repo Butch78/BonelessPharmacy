@@ -12,8 +12,8 @@
         </div>
     </div>
 
-    <div id="modalReportView" class="modal">
-        <div class="modal-content">
+    <div id="modalReportView" class="modal modal-fixed-footer">
+        <div class="modal-content" id="report-view">
             <table>
                 <thead>
                     <tr>
@@ -28,6 +28,7 @@
             </table>
         </div>
         <div class="modal-footer grey lighten-3">
+            <a href="{{reportUrl}}" download class="modal-action modal-close waves-effect waves-green btn-flat">Download CSV</a>
             <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             <!-- <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="updateStockItem()">Save Changes</a> -->
         </div>
