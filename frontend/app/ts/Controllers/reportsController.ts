@@ -13,6 +13,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
         })).then(
             (res) => {
                 $scope.reportRaw = `${res.data}`;
+                $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
                 const reportData = Boneless.ParseCsv(res.data);
                 $scope.reportHeaders = reportData[0];
                 let tempData = [];
@@ -23,7 +24,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
             },
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
     };
-    $scope.genReportFile = () => Boneless.CreateFile($scope.reportRaw);
 });
 
 $(".button-collapse").sideNav();
