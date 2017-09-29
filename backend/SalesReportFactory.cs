@@ -57,10 +57,7 @@ namespace BonelessPharmacyBackend
         {
             using (var db = new Db())
             {
-                _sales = db.Sales
-                    .Include(s => s.Contents)
-                    .ThenInclude(sr => sr.SalesItem)
-                    .ThenInclude(si => si.Measurement)
+                _sales = Sale.ValidSales(db)
                     .Where(s => s.CreatedAt >= begin && s.CreatedAt <= end).ToList();
             }
         }

@@ -13,6 +13,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
             type: "sales",
         })).then(
             (res) => {
+                $scope.reportRaw = `${res.data}`;
+                $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
                 const reportData = Boneless.ParseCsv(res.data);
                 $scope.reportHeaders = reportData[0];
                 let tempData = [];
