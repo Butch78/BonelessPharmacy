@@ -50,6 +50,12 @@ app.controller("staffCtrl", ($scope, $http) => {
                     return "person";
             }
         };
+
+        $scope.submitLogin = (keyEvent, staff: Staff) => {
+            if (keyEvent.which === 13) {
+                $scope.changeStaff(staff);
+            }
+        };
     } else {
         $scope.currentStaff = Boneless.Login();
         $http(Boneless.CreateRequest("api/Roles", "get")).then(
