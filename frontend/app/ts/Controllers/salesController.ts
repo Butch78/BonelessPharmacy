@@ -11,6 +11,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.sales = [];
         $scope.newSaleRecords = [];
         $scope.searchItems = [];
+        $scope.searchItemName = "";
     };
     $scope.initValues();
     // GET SalesRecords
@@ -35,8 +36,8 @@ app.controller("salesCtrl", ($scope, $http) => {
      */
     $scope.totalValue = (sale: Sale) => `$${
         sale.contents
-        .map((sr) => sr.quantity * sr.salesItem.price)
-        .reduce((prev, curr) => prev + curr)}`;
+            .map((sr) => sr.quantity * sr.salesItem.price)
+            .reduce((prev, curr) => prev + curr)}`;
 
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
@@ -58,11 +59,11 @@ app.controller("salesCtrl", ($scope, $http) => {
     };
 
     $('#stockSearchInput').keyup((e) => {
+        const searchVal = $('#stockSearchInput').val();
+        const searchItems = $scope.searchItems = ($scope.salesItems as SalesItem[])
+        .filter((s) => `${s.id}` === `${searchVal}`);
         if (e.which !== 13) {
-            const searchVal = $('#stockSearchInput').val();
-            const searchItems = $scope.searchItems = ($scope.salesItems as SalesItem[])
-                .filter((s) => `${s.id}` === `${searchVal}`);
-            console.log(searchItems);
+            $scope.searchItemName = "";
         }
     });
 
@@ -82,6 +83,10 @@ app.controller("salesCtrl", ($scope, $http) => {
             $scope.$apply();
             $('#stockSearchInput').val('');
         }
+        // else {
+        //     $scope.searchItemName = $scope.searchItems[0].name;
+        //     console.log($scope.searchItemName);
+        // }
     });
 
     $scope.discoverSaleFeature = () => {
