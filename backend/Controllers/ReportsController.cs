@@ -19,7 +19,7 @@ namespace BonelessPharmacyBackend.Controllers
             
             DateTime begin = options.ContainsKey("begin") ? 
                 DateTime.Parse(options["begin"]) : DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
-            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["begin"]) : DateTime.Now;
+            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["end"]) : DateTime.Now;
             
 
             switch (type)
