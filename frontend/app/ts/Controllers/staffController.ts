@@ -67,7 +67,7 @@ app.controller("staffCtrl", ($scope, $http) => {
         );
         $scope.callCurrent = () => window.location.assign(`tel:${$scope.currentStaff.phoneNumber}`);
     }
-    $scope.getRole = (roleId: number) => ($scope.roles as Role[]).filter(r => r.id === roleId)[0];
+    $scope.getRole = (roleId: number) => ($scope.roles as Role[]).filter((r) => r.id === roleId)[0];
 });
 
 // function changeStaffButton(name) {
