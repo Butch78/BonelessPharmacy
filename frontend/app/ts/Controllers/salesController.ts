@@ -6,12 +6,14 @@ app.controller("salesCtrl", ($scope, $http) => {
     Boneless.Login();
     $('.modal').modal();
     $('.collapsible').collapsible();
+    $scope.searchItemName = "Enter a Barcode/PLU number";
     $scope.initValues = () => {
         $scope.newSale = {};
         $scope.sales = [];
         $scope.newSaleRecords = [];
         $scope.searchItems = [];
-        $scope.searchItemName = "";
+        $scope.searchItemName = "Enter a Barcode/PLU number";
+        $scope.searchValue = "";
     };
     $scope.initValues();
     // GET SalesRecords
@@ -58,16 +60,17 @@ app.controller("salesCtrl", ($scope, $http) => {
         }
     };
 
-    $('#stockSearchInput').keyup((e) => {
-        const searchVal = $('#stockSearchInput').val();
+    $scope.processNewSalesItem = (e) => {
+        const searchVal = $scope.searchValue;
         const searchItems = $scope.searchItems = ($scope.salesItems as SalesItem[])
-        .filter((s) => `${s.id}` === `${searchVal}`);
-        if (e.which !== 13) {
-            $scope.searchItemName = "";
-        }
-    });
+            .filter((s) => `${s.id}` === `${searchVal}`);
+        $scope.searchItemName = $scope.searchItems[0] !== undefined ?
+            $scope.searchItems[0].name :
+            ($scope.searchValue as string).length > 0 ? "Invalid Barcode/PLU Number" : "Enter a Barcode/PLU number";
+        console.log($scope.searchItemName);
+    };
 
-    $('#stockSearchInput').keypress((e) => {
+    $scope.submitNewSalesItem = (e) => {
         const salesItem: SalesItem = $scope.searchItems[0];
         if (e.which === 13 && salesItem !== undefined) {
             const salesRecord: SalesRecord = {
@@ -79,15 +82,10 @@ app.controller("salesCtrl", ($scope, $http) => {
             };
             $scope.newSaleRecords.push(salesRecord);
             console.log($scope.newSaleRecords);
+            $scope.searchValue = "";
             // Manually applying to fix error with angular
-            $scope.$apply();
-            $('#stockSearchInput').val('');
         }
-        // else {
-        //     $scope.searchItemName = $scope.searchItems[0].name;
-        //     console.log($scope.searchItemName);
-        // }
-    });
+    };
 
     $scope.discoverSaleFeature = () => {
         $('.tap-target').tapTarget('open');
