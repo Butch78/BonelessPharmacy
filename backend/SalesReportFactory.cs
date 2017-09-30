@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BonelessPharmacyBackend
 {
@@ -55,14 +57,15 @@ namespace BonelessPharmacyBackend
         {
             using (var db = new Db())
             {
-                _sales = db.Sales
-                    .Include(s => s.Contents)
-                    .ThenInclude(sr => sr.SalesItem)
-                    .ThenInclude(si => si.Measurement)
+                _sales = Sale.ValidSales(db)
                     .Where(s => s.CreatedAt >= begin && s.CreatedAt <= end).ToList();
             }
         }
 
+        /// <summary>
+        /// Get the CSV result of the report
+        /// </summary>
+        /// <returns></returns>
         public async Task<string> GenerateCsv() => await Task.Run(() =>
         {
             var writer = new StringWriter();
@@ -74,6 +77,12 @@ namespace BonelessPharmacyBackend
 
             return writer.ToString();
         });
+
+        /// <summary>
+        /// Get the Json result of the report
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GenerateJson() => await Task.Run(() => JsonConvert.SerializeObject(_sales));
 
         // <summary>
         /// Write the standard heading for a sale report

@@ -3,9 +3,9 @@
  * Controller associated with the home page of the application
  */
 app.controller("salesCtrl", ($scope, $http) => {
+    Boneless.Login();
     $('.modal').modal();
     $('.collapsible').collapsible();
-
     $scope.initValues = () => {
         $scope.newSale = {};
         $scope.sales = [];
@@ -13,7 +13,6 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItems = [];
     };
     $scope.initValues();
-
     // GET SalesRecords
     // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
     //     (res) => {
@@ -25,11 +24,12 @@ app.controller("salesCtrl", ($scope, $http) => {
     $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
         (res) => {
             $scope.sales = res.data;
-            $scope.$apply();
+            // $scope.$apply();
         },
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
     $scope.getSales();
+
     /**
      * Retrieve the total value of a sales contents
      */
@@ -103,14 +103,16 @@ app.controller("salesCtrl", ($scope, $http) => {
             // Clear pre-defined object
             sr.salesItem = sr.sale = undefined;
             $http(Boneless.CreateRequest("api/SalesRecords", "post", sr)).then(
-                (res) => successfullPosts.push(sr as SalesRecord),
+                (res) => {
+                    successfullPosts.push(sr as SalesRecord);
+                    Boneless.NotifyCustom(`Sale #${$scope.newSale.id} (${$scope.newSaleRecords.length} Item/s)`);
+                    $scope.initValues();
+                    $scope.getSales();
+                },
                 (errorRes) => postSuccess = false,
             );
         }
         if (postSuccess) {
-            Boneless.NotifyCustom(`Sale #${$scope.newSale.id} (${$scope.newSaleRecords.length} Item/s)`);
-            $scope.initValues();
-            $scope.getSales();
             $('#modalNewSale').modal('close');
         } else {
             Boneless.Notify(BonelessStatusMessage.INVALID_POST);

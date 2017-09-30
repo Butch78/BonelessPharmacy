@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BonelessPharmacyBackend
 {
@@ -9,5 +10,7 @@ namespace BonelessPharmacyBackend
     public interface IReportFactory
     {
         Task<string> GenerateCsv();
+
+        Task<string> GenerateJson();
     }
 }

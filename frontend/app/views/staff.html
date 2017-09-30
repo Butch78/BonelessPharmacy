@@ -1,15 +1,25 @@
-<div class="containter">
+<div class="container">
     <h2>Staff Central</h2>
     <ul class="collapsible popout" data-collapsible="accordion" >
         <li data-ng-repeat="x in staff">
-            <div class="collapsible-header"><i class="material-icons">add</i>
+            <div class="collapsible-header"><i class="material-icons">{{enumerateRole(x.roleId)}}</i>
                 {{x.name}}
-                ({{x.role.name}})
+                ({{getRole(x.roleId).name}})
             </div>   
             <div class="collapsible-body">
-                <span>More information :D</span>
-                <p>E.g."Phone Number: {{x.phoneNumber}}"</p>
-            </div>         
+                <div class="input-field col s6">
+                        <i class="material-icons prefix">lock_outline</i>
+                        <input type="password" id="input-password-{{x.id}}" class="validate" autofocus />
+                        <label for="password">Password - Enter here</label>
+                        <div>
+                            <!-- Can put this in a form and make the button "submit" -->
+                            <button class="btn waves-effect waves-light" data-ng-click="changeStaff(x)" type="btn">Login
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                </div> 
+                <!-- Add required and/or validate (materialize) tag above later -->
+            </div>        
         </li>
     </ul>
 </div>
