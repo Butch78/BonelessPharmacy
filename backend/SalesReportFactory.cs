@@ -95,7 +95,7 @@ namespace BonelessPharmacyBackend
         {
             csv.WriteField("ID");
             csv.WriteField("DateTime");
-            csv.WriteField("Total");
+            csv.WriteField("Total ($)");
             csv.NextRecord();
         }
 
@@ -108,7 +108,11 @@ namespace BonelessPharmacyBackend
         {
             csv.WriteField(sale.Id);
             csv.WriteField(sale.CreatedAt);
-            csv.WriteField(sale.Contents.Select(sr => sr.Quantity * sr.SalesItem.Price).Sum());
+            csv.WriteField(sale.Contents
+                .Select(sr => sr.Quantity * sr.SalesItem.Price)
+                .Sum()
+                .ToString("#.00")
+            );
             csv.NextRecord();
         }
     }

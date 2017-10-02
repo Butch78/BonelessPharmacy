@@ -19,7 +19,7 @@ namespace BonelessPharmacyBackend.Controllers
             
             DateTime begin = options.ContainsKey("begin") ? 
                 DateTime.Parse(options["begin"]) : DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
-            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["begin"]) : DateTime.Now;
+            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["end"]) : DateTime.Now;
             
 
             switch (type)
@@ -29,6 +29,10 @@ namespace BonelessPharmacyBackend.Controllers
                     break;
                 case "stock":
                     factory = new StockReportFactory(begin, end);
+                    break;
+                case "low":
+                    factory = new LowStockReportFactory(options.ContainsKey("threshold") ? 
+                        Int32.Parse(options["threshold"]) : 5);
                     break;
                 default:
                     throw new Exception("Invalid Report Type");
