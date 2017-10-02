@@ -5,9 +5,11 @@
 app.controller("helpCtrl", ($scope) => {
     $('.collapsible').collapsible();
 
-    $scope.HelpItems = [{title:"Creating a Sale", 
-    desc:`1.Press the Plus Button 
-    2. Add the Sale Info`}];
+
+    $scope.HelpItems = [{
+    title:"Creating a Sale", 
+    desc: ["1", "2"]
+    }];
 
     //Create an Array of strings with <br> behind it 
 });
