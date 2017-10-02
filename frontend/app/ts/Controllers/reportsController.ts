@@ -7,6 +7,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $('select').material_select();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
+    $scope.minStockThreshold = 5;
     $scope.genSalesReport = (name: string = "Past Week") => {
         $('#modalReportView').modal('open');
         $http(Boneless.CreateRequest("api/Reports", "post", {
@@ -14,15 +15,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
             type: "sales",
         })).then(
             (res) => {
-                $scope.reportRaw = `${res.data}`;
-                $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
-                const reportData = Boneless.ParseCsv(res.data);
-                $scope.reportHeaders = reportData[0];
-                let tempData = [];
-                for (let i = 1; i < reportData.length; i++) {
-                    tempData.push(reportData[i]);
-                }
-                $scope.reportContent = tempData;
+                $scope.setCurrentReport(res.data);
                 $scope.reportName = $scope.processSalesReportTitle(name);
             },
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
@@ -68,6 +61,31 @@ app.controller("reportsCtrl", ($scope, $http) => {
         }
     };
     $scope.genLowStockReport = () => {
+        $('#modalReportView').modal('open');
+        $http(Boneless.CreateRequest("api/Reports", "post", {
+            threshold: `${$scope.minStockThreshold}`,
+            type: "low",
+        })).then((res) => {
+            $scope.setCurrentReport(res.data);
+            $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
+        }, (errorRes) => {
+            Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
+        });
+    };
+
+    /**
+     * Set the current report assuming it is structured as a CSV
+     */
+    $scope.setCurrentReport = (data) => {
+        $scope.reportRaw = `${data}`;
+        $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
+        const reportData = Boneless.ParseCsv(data);
+        $scope.reportHeaders = reportData[0];
+        let tempData = [];
+        for (let i = 1; i < reportData.length; i++) {
+            tempData.push(reportData[i]);
+        }
+        $scope.reportContent = tempData;
     };
 });
 
