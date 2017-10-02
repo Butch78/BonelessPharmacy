@@ -68,7 +68,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
         }
     };
     $scope.genLowStockReport = () => {
-        alert("function call is working!");
     };
 });
 

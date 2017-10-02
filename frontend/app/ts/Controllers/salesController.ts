@@ -16,14 +16,6 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchValue = "";
     };
     $scope.initValues();
-    // GET SalesRecords
-    // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
-    //     (res) => {
-    //         $scope.salesRecords = res.data as SalesRecord[];
-    //     },
-    //     (errorRes) => {
-    //         alert(errorRes.data);
-    //     });
     $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
         (res) => {
             $scope.sales = res.data;

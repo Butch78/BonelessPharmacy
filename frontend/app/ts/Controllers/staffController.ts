@@ -69,9 +69,3 @@ app.controller("staffCtrl", ($scope, $http) => {
     }
     $scope.getRole = (roleId: number) => ($scope.roles as Role[]).filter((r) => r.id === roleId)[0];
 });
-
-// function changeStaffButton(name) {
-//     // alert("This works");
-//     let temp = document.getElementById("staffTitle");
-//     temp.innerText = name;
-// }
