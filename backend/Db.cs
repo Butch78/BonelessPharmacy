@@ -111,6 +111,13 @@ namespace BonelessPharmacyBackend
             }
         };
 
+        private static readonly Staff ADMIN_USER = new Staff()
+        {
+            Name = "Admin",
+            Password = "password",
+            PhoneNumber = "1234567890",
+            RoleId = 1
+        };
 
 
         /// <summary>
@@ -135,7 +142,14 @@ namespace BonelessPharmacyBackend
                     Console.WriteLine("Seeding Roles Table...");
                     db.Roles.AddRange(ROLE_DEFAULTS);
                 }
+
                 db.SaveChanges();
+
+                if (!db.Staff.Any())
+                {
+                    Console.WriteLine("Adding Admin User");
+                    db.Staff.Add(ADMIN_USER);
+                }
             }
         }
     }
