@@ -2,12 +2,13 @@
   <ul class="collapsible popout" data-collapsible="accordion">
     <li data-ng-repeat="a in HelpItems">
       <div class="collapsible-header">
-        <h1>{{HelpItems.title}}</h1>
+        <h2>{{a.title}}</h2>
       </div>
       <div class="collapsible-body">
-        <p data-ng-repeat="b in HelpItems">
-          {{HelpItems.desc}}
-        </p></div>
+        <p data-ng-repeat="b in a.desc">
+          {{b}}
+        </p>
+      </div>
     </li>
   </ul>
 </div>
