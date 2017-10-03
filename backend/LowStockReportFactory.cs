@@ -15,6 +15,8 @@ namespace BonelessPharmacyBackend
 
         private int _lowThreshold;
 
+        public string Type => "Low Stock";
+
         /// <summary>
         /// Create a new LowStockReport factory with an optional threshold
         /// </summary>

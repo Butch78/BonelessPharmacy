@@ -16,6 +16,7 @@ namespace BonelessPharmacyBackend.Controllers
             IReportFactory factory;
             string type = options.ContainsKey("type") ? options["type"] : "sales";
             bool isJson = options.ContainsKey("json") ? Boolean.Parse(options["json"]) : false;
+            bool willSave = options.ContainsKey("save") ? Boolean.Parse(options["save"]) : true;
             
             DateTime begin = options.ContainsKey("begin") ? 
                 DateTime.Parse(options["begin"]) : DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
@@ -37,7 +38,8 @@ namespace BonelessPharmacyBackend.Controllers
                 default:
                     throw new Exception("Invalid Report Type");
             }
-
+            if (willSave)
+                await factory.WriteReport();
             return Content(isJson ? await factory.GenerateJson() : await factory.GenerateCsv());
         });
     }

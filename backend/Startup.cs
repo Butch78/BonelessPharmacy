@@ -78,6 +78,7 @@ namespace BonelessPharmacyBackend
             app.UseMvc();
             // Seed database
             app.SeedDb();
+            System.IO.Directory.CreateDirectory("Reports");
         }
     }
 }
