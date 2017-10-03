@@ -16,6 +16,9 @@ namespace BonelessPharmacyBackend
 
         public SalesReportFactory() => _sales = new List<Sale>();
 
+        public string Type => "Sales Report";
+
+
         /// <summary>
         /// Create a new report factory using a set of sales
         /// </summary>

@@ -37,7 +37,6 @@ namespace BonelessPharmacyBackend.Controllers
                 default:
                     throw new Exception("Invalid Report Type");
             }
-
             return Content(isJson ? await factory.GenerateJson() : await factory.GenerateCsv());
         });
     }

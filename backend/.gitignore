@@ -36,3 +36,6 @@ tools/
 
 # Database files
 *.db
+
+# Report files
+Reports/*.csv
