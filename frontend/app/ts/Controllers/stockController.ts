@@ -14,7 +14,7 @@ app.controller("stockCtrl", ($scope, $http) => {
             $scope.salesItems = res.data as SalesItem[];
         },
         (errorRes) => {
-            alert(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
 
     // GET Measurements
@@ -23,7 +23,7 @@ app.controller("stockCtrl", ($scope, $http) => {
             $scope.measurements = res.data as Measurement[];
         },
         (errorRes) => {
-            alert(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
 
     $scope.openModalAddStock = () => $('#modalAddStock').modal('open');

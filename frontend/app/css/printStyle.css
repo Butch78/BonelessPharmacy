@@ -1,0 +1,8 @@
+*
+{
+    display: none;
+}
+#report-view
+{
+    display: block !important;
+}
