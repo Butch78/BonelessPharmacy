@@ -29,7 +29,6 @@ namespace BonelessPharmacyBackend.Controllers
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var claims =  new[]{
                 // new Claim(JwtRegisteredClaimNames.Sub, "alex_billson@outlook.com"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
