@@ -26,7 +26,7 @@ namespace BonelessPharmacyBackend
         {
             ReportFile res;
             string fileName = $"{Guid.NewGuid()}.csv";
-            string path = $"${REPORT_DIR}/{fileName}";
+            string path = $"{REPORT_DIR}/{fileName}";
             System.IO.File.WriteAllText(path, await self.GenerateCsv());
             using (var db = new Db())
             {
