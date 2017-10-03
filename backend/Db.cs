@@ -13,32 +13,19 @@ namespace BonelessPharmacyBackend
     {
         public DbSet<SalesItem> SalesItems { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
-        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<ItemType> ItemTypes{ get; set; }
         public DbSet<Sale> Sales { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Role> Roles { get; set; }
+        public DbSet<OrderItem> OrderItems {get; set; }
+        public DbSet<Role> Roles {get; set;}
         public DbSet<SalesRecord> SalesRecords { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<Customer> Customers { get; set; }
-
-        private bool _useSensitive = false;
-
-        /// <summary>
-        /// Instantiate a new Db context
-        /// </summary>
-        /// <param name="usingSensitiveData">if true, passwords will be exposed for this connection</param>
-        public Db(bool usingSensitiveData = false)
-        {
-            _useSensitive = usingSensitiveData;
-        }
+        public DbSet<Order> Orders {get; set; }
+        public DbSet<Customer> Customers {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=./Main.db");
-            if (_useSensitive)
-                optionsBuilder.EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -111,6 +98,13 @@ namespace BonelessPharmacyBackend
             }
         };
 
+        private static readonly Staff ADMIN_USER = new Staff()
+        {
+            Name = "Admin",
+            Password = "password",
+            PhoneNumber = "1234567890",
+            RoleId = 1
+        };
 
 
         /// <summary>
@@ -135,7 +129,14 @@ namespace BonelessPharmacyBackend
                     Console.WriteLine("Seeding Roles Table...");
                     db.Roles.AddRange(ROLE_DEFAULTS);
                 }
+
                 db.SaveChanges();
+
+                if (!db.Staff.Any())
+                {
+                    Console.WriteLine("Adding Admin User");
+                    db.Staff.Add(ADMIN_USER);
+                }
             }
         }
     }

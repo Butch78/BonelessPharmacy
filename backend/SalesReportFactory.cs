@@ -57,7 +57,10 @@ namespace BonelessPharmacyBackend
         {
             using (var db = new Db())
             {
-                _sales = Sale.ValidSales(db)
+                _sales = db.Sales
+                    .Include(s => s.Contents)
+                    .ThenInclude(sr => sr.SalesItem)
+                    .ThenInclude(si => si.Measurement)
                     .Where(s => s.CreatedAt >= begin && s.CreatedAt <= end).ToList();
             }
         }
@@ -92,7 +95,7 @@ namespace BonelessPharmacyBackend
         {
             csv.WriteField("ID");
             csv.WriteField("DateTime");
-            csv.WriteField("Total");
+            csv.WriteField("Total ($)");
             csv.NextRecord();
         }
 
@@ -105,7 +108,11 @@ namespace BonelessPharmacyBackend
         {
             csv.WriteField(sale.Id);
             csv.WriteField(sale.CreatedAt);
-            csv.WriteField(sale.Contents.Select(sr => sr.Quantity * sr.SalesItem.Price).Sum());
+            csv.WriteField(sale.Contents
+                .Select(sr => sr.Quantity * sr.SalesItem.Price)
+                .Sum()
+                .ToString("#.00")
+            );
             csv.NextRecord();
         }
     }

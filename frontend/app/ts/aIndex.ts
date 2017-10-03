@@ -27,6 +27,11 @@ app.config(['$locationProvider', ($locationProvider) => {
     $locationProvider.hashPrefix('');
 }]);
 
+app.config(['$compileProvider', ($compileProvider) => {
+    ($compileProvider as angular.ICompileProvider)
+        .aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension|blob):/);
+}]);
+
 // Routing logic
 app.config(($routeProvider) => {
     $routeProvider.when('/', {
