@@ -75,8 +75,8 @@ app.controller("stockCtrl", ($scope, $http) => {
                 $('modalDeleteStockItem').modal('close');
                 Materialize.toast(`${data.name} Deleted`, 4000)
             }, (err) => Materialize.toast(`Error deleting Item`, 4000));
-            })
-    }
+            
+    };
 
 
 
