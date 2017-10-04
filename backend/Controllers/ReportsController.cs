@@ -9,6 +9,14 @@ namespace BonelessPharmacyBackend.Controllers
     [Route("api/[controller]")]
     public class ReportsController : Controller
     {
+        [HttpGet("{type}")]
+        public async Task<IEnumerable<ReportFile>> Get(string type) => await Task.Run(() => 
+        {
+            using (var db = new Db())
+            {
+                return db.ReportFiles.Where(r => r.Type.ToLower() == type.ToLower()).ToList() ?? db.ReportFiles.ToList();
+            }
+        });
         // GET api/Reports
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Dictionary<string, string> options) => await Task.Run<IActionResult>( async() =>
