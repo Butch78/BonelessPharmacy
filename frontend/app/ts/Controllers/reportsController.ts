@@ -5,6 +5,7 @@
 app.controller("reportsCtrl", ($scope, $http) => {
     $('#modalReportView').modal();
     $('select').material_select();
+    $('ul.tabs').tabs();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
     $scope.minStockThreshold = 5;
