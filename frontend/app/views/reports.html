@@ -29,6 +29,28 @@
 
         <div class="card hoverable">
             <div class="card-content cyan darken-1 white-text">
+                <span class="card-title ">Item Sales Report</span>
+                <p>
+                    Generate a report containing information about which items were sold over the selected period of time.
+                </p>
+            </div>
+            <div class="card-action cyan darken-2">
+                <div class="row">
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport()">Last 7 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport('Past 2 Weeks')">Last 14 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport('Past Month')">Last Month</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card hoverable">
+            <div class="card-content cyan darken-1 white-text">
                 <span class="card-title ">Low Stock Report</span>
                 <p>
                     Generate a report containing information about which stock items are currently low in quantity.
@@ -77,7 +99,7 @@
         </div>
     </div>
     <div id="view">
-        <canvas id="chartOutput" width="400" height="400"></canvas>
+        <canvas id="chartOutput" width="400" height="200"></canvas>
     </div>
     <div id="modalReportView" class="modal modal-fixed-footer">
         <div class="modal-content" id="report-view">

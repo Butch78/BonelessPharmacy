@@ -23,6 +23,19 @@ app.controller("reportsCtrl", ($scope, $http) => {
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
     };
 
+    $scope.genStockReport = (name: string = "Past Week") => {
+        $('#modalReportView').modal('open');
+        $http(Boneless.CreateRequest("api/Reports", "post", {
+            begin: $scope.processSalesReportDateString(name),
+            type: "stock",
+        })).then(
+            (res) => {
+                $scope.setCurrentReport(res.data);
+                $scope.reportName = $scope.processSalesReportTitle(name);
+            },
+            (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
+    }
+
     $scope.processSalesReportTitle = (name: string) => {
         const processDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         let timeFrame = "";
@@ -95,14 +108,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
 
     $scope.setChart = (reportType: string) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
-        let chartData = translateChartData("sales");
-        let chart = new Chart(chartOutput.getContext('2d'), {
-            data: {
-                datasets: [{data: $scope.reportContent}],
-                labels: $scope.reportHeaders,
-            },
-            type: 'bar',
-        });
+        let chartData = translateChartData("stock");
+        let chart = new Chart(chartOutput.getContext('2d'), chartData as any);
         console.log(chart);
     };
 
@@ -112,7 +119,33 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * @param data the data being used for the chart
      */
     const translateChartData = (reportType: string, data = $scope.reportData) => {
-        console.log("Not Implemented");
+        switch (reportType) {
+            case "stock":
+                return {
+                    data: {
+                        datasets: [
+                            {
+                                backgroundColor: 'rgb(3, 155, 229)',
+                                data: ($scope.reportContent as number[][]).map((r) => r[1]),
+                                label: "Item Amount Sold",
+                            },
+                        ],
+                        labels: ($scope.reportContent as number[][]).map((r) => r[0]),
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [
+                                {
+                                    ticks: { beginAtZero: true },
+                                },
+                            ],
+                        },
+                    },
+                    type: 'bar',
+                };
+            default:
+                break;
+        }
     };
 });
 
