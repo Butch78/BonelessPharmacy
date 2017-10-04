@@ -2,7 +2,7 @@
     <h2>Reports</h2>
     <ul class="tabs cyan darken-1">
         <li class="tab"><a class="white-text" href="#gen">Generate</a></li>
-        <li class="tab"><a class="white-text" href="#view">View</a></li>
+        <li class="tab"><a class="white-text" href="#view" data-ng-click="setChart()">View</a></li>
     </ul>
     <div id="gen">
         <div class="card hoverable">
@@ -77,7 +77,7 @@
         </div>
     </div>
     <div id="view">
-        
+        <canvas id="chartOutput" width="400" height="400"></canvas>
     </div>
     <div id="modalReportView" class="modal modal-fixed-footer">
         <div class="modal-content" id="report-view">

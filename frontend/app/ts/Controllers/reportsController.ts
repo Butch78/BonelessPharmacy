@@ -9,6 +9,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.reportHeaders = [];
     $scope.reportContent = [];
     $scope.minStockThreshold = 5;
+
     $scope.genSalesReport = (name: string = "Past Week") => {
         $('#modalReportView').modal('open');
         $http(Boneless.CreateRequest("api/Reports", "post", {
@@ -21,6 +22,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
             },
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
     };
+
     $scope.processSalesReportTitle = (name: string) => {
         const processDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         let timeFrame = "";
@@ -44,6 +46,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
         }
         return `Stock Out for ${timeFrame}`;
     };
+
     $scope.processSalesReportDateString = (name: string) => {
         const today = new Date();
         switch (name) {
@@ -61,6 +64,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
                 return lastMonth.toISOString();
         }
     };
+
     $scope.genLowStockReport = () => {
         $('#modalReportView').modal('open');
         $http(Boneless.CreateRequest("api/Reports", "post", {
@@ -87,6 +91,28 @@ app.controller("reportsCtrl", ($scope, $http) => {
             tempData.push(reportData[i]);
         }
         $scope.reportContent = tempData;
+    };
+
+    $scope.setChart = (reportType: string) => {
+        let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
+        let chartData = translateChartData("sales");
+        let chart = new Chart(chartOutput.getContext('2d'), {
+            data: {
+                datasets: [{data: $scope.reportContent}],
+                labels: $scope.reportHeaders,
+            },
+            type: 'bar',
+        });
+        console.log(chart);
+    };
+
+    /**
+     * Translate Boneless Pharmacy CSV data into a chart
+     * @param reportType the type of report
+     * @param data the data being used for the chart
+     */
+    const translateChartData = (reportType: string, data = $scope.reportData) => {
+        console.log("Not Implemented");
     };
 });
 
