@@ -35,10 +35,11 @@ app.controller("stockCtrl", ($scope, $http) => {
     };
 
     $scope.openModalDeleteStockItem = (index: number) => {
+        console.log('start');
         $scope.deletingStock = $scope.salesItems[index];
-        $('#modalDeleteStockItem').modal('open');        
-    } 
-    
+        $('#modalDeleteStockItem').modal('open');
+        console.log('end');
+    };
 
     $scope.addNewStockItem = () => {
         console.log($scope.newStock);
