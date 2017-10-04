@@ -6,6 +6,7 @@ app.controller("helpCtrl", ($scope) => {
 
     $('.collapsible').collapsible();
 
+    //TODO create Deleting a stock item;
 
     $scope.HelpItems = 
     [{
