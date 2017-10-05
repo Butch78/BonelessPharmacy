@@ -25,20 +25,10 @@ namespace BonelessPharmacyBackend.Controllers
         // POST api/Auth
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Dictionary<string, string> staffDetails) => await Task.Run<IActionResult>(() =>
+        public async Task<IActionResult> Post() => await Task.Run<IActionResult>(() =>
         {
-            bool isAuthenticated = false;
-            //TODO: Properly use Identity
-            using (var db = new Db(true))
-            {
-                isAuthenticated = db.Staff.Any(s => s.Name == staffDetails["name"] && s.Password == staffDetails["password"]);
-            }
-            if (!isAuthenticated)
-                return Unauthorized();
-                
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
             var claims =  new[]{
                 // new Claim(JwtRegisteredClaimNames.Sub, "alex_billson@outlook.com"),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
@@ -48,7 +38,7 @@ namespace BonelessPharmacyBackend.Controllers
                 issuer: _configuration["Tokens:Issuer"],
                 audience: _configuration["Tokens:Issuer"],
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now,
                 signingCredentials: creds
                 );
 

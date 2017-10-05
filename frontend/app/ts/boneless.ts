@@ -120,4 +120,5 @@ class Boneless {
 enum BonelessStatusMessage {
     INVALID_GET = "Error retrieving data, please ensure you are connected to the internet.",
     INVALID_POST = "Error processing data, please ensure fields are correct and you are connected to internet.",
+    INVALID_REPORT = "Error processing report, please ensure you are connected to internet.",
 }

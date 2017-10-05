@@ -15,6 +15,8 @@ namespace BonelessPharmacyBackend
 
         public StockReportFactory() => _sold = new Dictionary<int, int>();
 
+        public string Type => "Stock Report";
+
         /// <summary>
         /// Create a new report factory beteween two dates
         /// </summary>

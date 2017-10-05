@@ -9,6 +9,14 @@ namespace BonelessPharmacyBackend.Controllers
     [Route("api/[controller]")]
     public class ReportsController : Controller
     {
+        [HttpGet("{type}")]
+        public async Task<IEnumerable<ReportFile>> Get(string type) => await Task.Run(() => 
+        {
+            using (var db = new Db())
+            {
+                return db.ReportFiles.Where(r => r.Type.ToLower() == type.ToLower()).ToList() ?? db.ReportFiles.ToList();
+            }
+        });
         // GET api/Reports
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Dictionary<string, string> options) => await Task.Run<IActionResult>( async() =>
@@ -16,10 +24,11 @@ namespace BonelessPharmacyBackend.Controllers
             IReportFactory factory;
             string type = options.ContainsKey("type") ? options["type"] : "sales";
             bool isJson = options.ContainsKey("json") ? Boolean.Parse(options["json"]) : false;
+            bool willSave = options.ContainsKey("save") ? Boolean.Parse(options["save"]) : true;
             
             DateTime begin = options.ContainsKey("begin") ? 
                 DateTime.Parse(options["begin"]) : DateTime.Now.Subtract(new TimeSpan(7, 0, 0, 0));
-            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["begin"]) : DateTime.Now;
+            DateTime end = options.ContainsKey("end") ? DateTime.Parse(options["end"]) : DateTime.Now;
             
 
             switch (type)
@@ -30,10 +39,15 @@ namespace BonelessPharmacyBackend.Controllers
                 case "stock":
                     factory = new StockReportFactory(begin, end);
                     break;
+                case "low":
+                    factory = new LowStockReportFactory(options.ContainsKey("threshold") ? 
+                        Int32.Parse(options["threshold"]) : 5);
+                    break;
                 default:
                     throw new Exception("Invalid Report Type");
             }
-
+            if (willSave)
+                await factory.WriteReport();
             return Content(isJson ? await factory.GenerateJson() : await factory.GenerateCsv());
         });
     }
