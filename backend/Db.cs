@@ -23,6 +23,7 @@ namespace BonelessPharmacyBackend
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ReportFile> ReportFiles { get; set; }
+        public DbSet<Archive> ArchiveItems {get; set;}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
