@@ -137,6 +137,7 @@ namespace BonelessPharmacyBackend
                 {
                     Console.WriteLine("Adding Admin User");
                     db.Staff.Add(ADMIN_USER);
+                    db.SaveChanges();
                 }
             }
         }

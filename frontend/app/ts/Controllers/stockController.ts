@@ -67,6 +67,8 @@ app.controller("stockCtrl", ($scope, $http) => {
             ensure you are connected and all fields are valid`, 4000));
     };
 
+
+    //Use a get delete, only need a refrence to delete not the item
     $scope.deletingStockItem = () => {
         const updatedObject = $scope.deletingStock as SalesItem;
         $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete", updatedObject))
