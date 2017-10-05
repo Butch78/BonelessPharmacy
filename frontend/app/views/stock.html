@@ -5,7 +5,6 @@
     </ul>
 
     <div id="stock">
-
         <h2>Stock</h2>
         <table class="striped">
             <thead>
@@ -32,22 +31,6 @@
                 </tr>
             </tbody>
         </table>
-        
-        <!-- Trying to do a tabs instead -->
-        <!--<div class="archive" style="right: 60px;">
-            <div class="col s12 m6 l3">
-                <div class="card black darken-1">
-                    <div class="card-content white-text">
-                        <span class="card-title">Archive!</span>
-                        <p>There are items located in the archive.</p>
-                    </div>
-                    <div class="card-action white-">
-                        <a href="#">View</a>
-                        <a href="#">Not now</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         
         <div class="fixed-action-btn">
             <a class="pulse waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
@@ -137,7 +120,32 @@
         </div>
     </div>
 
-    <div id="archive">
-        <p>pls work</p>
+    <div id="archive" data-ng-controller="archiveCtrl">
+        <h2>Archive</h2>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>PLU</th>
+                    <th>Name</th>
+                    <th>Retail Price</th>
+                    <th>Size</th>
+                    <th>Stock On Hand</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr data-ng-repeat="a in archiveItems track by a.id">
+                    <td>{{a.id}}</td>
+                    <td>{{a.name}}</td>
+                    <td>{{"$" + a.price}}</td>
+                    <td>{{a.amount}} {{a.measurement.suffix}}</td>
+                    <td>{{a.stockOnHand}}</td>
+                    <!-- <td>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
