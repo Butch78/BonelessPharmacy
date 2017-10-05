@@ -9,6 +9,14 @@ namespace BonelessPharmacyBackend.Controllers
     [Route("api/[controller]")]
     public class ReportsController : Controller
     {
+        [HttpGet]
+        public async Task<IEnumerable<ReportFile>> Get() => await Task.Run(() => {
+            using (var db = new Db())
+            {
+                return db.ReportFiles.ToList();
+            }
+        });
+
         [HttpGet("{type}")]
         public async Task<IEnumerable<ReportFile>> Get(string type) => await Task.Run(() => 
         {

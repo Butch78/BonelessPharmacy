@@ -8,6 +8,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $('ul.tabs').tabs();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
+    $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
 
     $scope.genSalesReport = (name: string = "Past Week") => {
@@ -104,6 +105,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
             tempData.push(reportData[i]);
         }
         $scope.reportContent = tempData;
+        $scope.reportGenerated = $scope.reportHeaders.length > 0;
     };
 
     $scope.setChart = (reportType: string) => {
@@ -146,6 +148,10 @@ app.controller("reportsCtrl", ($scope, $http) => {
             default:
                 break;
         }
+    };
+
+    $scope.getSavedReports = () => {
+        
     };
 });
 
