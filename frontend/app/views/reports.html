@@ -1,76 +1,106 @@
 <div>
     <h2>Reports</h2>
-    <div class="card hoverable">
-        <div class="card-content cyan darken-1 white-text">
-            <span class="card-title ">Stock Out Report</span>
-            <p>
-                Generate a report containing information about which stock items were sold over the selected period of time.
-            </p>
-        </div>
-        <div class="card-action cyan darken-2">
-            <div class="row">
-                <div class="col s4 center-align">
-                    <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">Last 7 Days</a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport('Past 2 Weeks')">Last 14 Days</a>
-                </div>
-                <div class="col s4 center-align">
-                    <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport('Past Month')">Last Month</a>
-                </div>
+    <ul class="tabs cyan darken-1">
+        <li class="tab"><a class="white-text" href="#gen">Generate</a></li>
+        <li class="tab"><a class="white-text" href="#view" data-ng-click="setChart()">View</a></li>
+    </ul>
+    <div id="gen">
+        <div class="card hoverable">
+            <div class="card-content cyan darken-1 white-text">
+                <span class="card-title ">Stock Out Report</span>
+                <p>
+                    Generate a report containing information about which stock items were sold over the selected period of time.
+                </p>
             </div>
-        </div>
-    </div>
-
-    <div class="card hoverable">
-        <div class="card-content cyan darken-1 white-text">
-            <span class="card-title ">Low Stock Report</span>
-            <p>
-                Generate a report containing information about which stock items are currently low in quantity.
-            </p>
-        </div>
-        <div class="card-action cyan darken-2">
-            <div class="row">
-                <div class="col s4"></div>
-                <div class="col s3">
-                    <div class="white-text input-field">
-                        <input type="number" name="lowStockReportThreshold" id="lowStockReportThreshold" min="0" data-ng-model="minStockThreshold">
-                        <label for="lowStockReportThreshold" class="white-text">Min Stock Threshold</label>
+            <div class="card-action cyan darken-2">
+                <div class="row">
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">Last 7 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport('Past 2 Weeks')">Last 14 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport('Past Month')">Last Month</a>
                     </div>
                 </div>
-                <div class="col s2">
-                    <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genLowStockReport()">Generate</a>
-                </div>
-                <div class="col s5"></div>
             </div>
         </div>
-    </div>
 
-    <div class="card hoverable">
-        <div class="card-content cyan darken-1 white-text">
-            <span class="card-title">Sales Report</span>
-            <p>
-                Generate a report containing information sales over the selected period of time.
-            </p>
+        <div class="card hoverable">
+            <div class="card-content cyan darken-1 white-text">
+                <span class="card-title ">Item Sales Report</span>
+                <p>
+                    Generate a report containing information about which items were sold over the selected period of time.
+                </p>
+            </div>
+            <div class="card-action cyan darken-2">
+                <div class="row">
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport()">Last 7 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport('Past 2 Weeks')">Last 14 Days</a>
+                    </div>
+                    <div class="col s4 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genStockReport('Past Month')">Last Month</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-action cyan darken-2">
-            <div class="row">
-                <div class="white-text input-field col s6 center-align">
-                    <select>
+
+        <div class="card hoverable">
+            <div class="card-content cyan darken-1 white-text">
+                <span class="card-title ">Low Stock Report</span>
+                <p>
+                    Generate a report containing information about which stock items are currently low in quantity.
+                </p>
+            </div>
+            <div class="card-action cyan darken-2">
+                <div class="row">
+                    <div class="col s4"></div>
+                    <div class="col s3">
+                        <div class="white-text input-field">
+                            <input type="number" name="lowStockReportThreshold" id="lowStockReportThreshold" min="0" data-ng-model="minStockThreshold">
+                            <label for="lowStockReportThreshold" class="white-text">Min Stock Threshold</label>
+                        </div>
+                    </div>
+                    <div class="col s2">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genLowStockReport()">Generate</a>
+                    </div>
+                    <div class="col s5"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card hoverable">
+            <div class="card-content cyan darken-1 white-text">
+                <span class="card-title">Sales Report</span>
+                <p>
+                    Generate a report containing information sales over the selected period of time.
+                </p>
+            </div>
+            <div class="card-action cyan darken-2">
+                <div class="row">
+                    <div class="white-text input-field col s6 center-align">
+                        <select>
                                 <option value="" disabled selected>Choose your option</option>
                                 <option value="1">Option 1</option>
                                 <option value="2">Option 2</option>
                                 <option value="3">Option 3</option>
                               </select>
-                    <label class="white-text">Materialize Select</label>
-                </div>
-                <div class="col s6 center-align">
-                    <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">Last 7 Days</a>
+                        <label class="white-text">Materialize Select</label>
+                    </div>
+                    <div class="col s6 center-align">
+                        <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">Last 7 Days</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div id="view">
+        <canvas id="chartOutput" width="400" height="200"></canvas>
+    </div>
     <div id="modalReportView" class="modal modal-fixed-footer">
         <div class="modal-content" id="report-view">
             <table>
