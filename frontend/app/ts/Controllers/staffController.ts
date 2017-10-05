@@ -50,6 +50,12 @@ app.controller("staffCtrl", ($scope, $http) => {
                     return "person";
             }
         };
+
+        $scope.submitLogin = (keyEvent, staff: Staff) => {
+            if (keyEvent.which === 13) {
+                $scope.changeStaff(staff);
+            }
+        };
     } else {
         $scope.currentStaff = Boneless.Login();
         $http(Boneless.CreateRequest("api/Roles", "get")).then(
@@ -61,11 +67,5 @@ app.controller("staffCtrl", ($scope, $http) => {
         );
         $scope.callCurrent = () => window.location.assign(`tel:${$scope.currentStaff.phoneNumber}`);
     }
-    $scope.getRole = (roleId: number) => ($scope.roles as Role[]).filter(r => r.id === roleId)[0];
+    $scope.getRole = (roleId: number) => ($scope.roles as Role[]).filter((r) => r.id === roleId)[0];
 });
-
-// function changeStaffButton(name) {
-//     // alert("This works");
-//     let temp = document.getElementById("staffTitle");
-//     temp.innerText = name;
-// }

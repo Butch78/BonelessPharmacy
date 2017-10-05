@@ -1,4 +1,4 @@
-<div class="container">
+<div>
     <h2>Sales</h2>
     <table class="striped">
         <thead>
@@ -38,7 +38,7 @@
     </ul>-->
 
     <div class="fixed-action-btn">
-        <a id="addSale" class="waves-effect waves-light btn-floating btn-large red" data-ng-click="openModalNewSale()">
+        <a id="addSale" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
       <i class="large material-icons">add</i>
     </a>
     </div>
@@ -57,8 +57,13 @@
             <h4>New Sale</h4>
             <div class="row input-field">
                 <i class="material-icons prefix">add_shopping_cart</i>
-                <label for="stockSearchInput">Search Item (Press Enter to Submit)</label>
-                <input class="col sm10" type="text" id="stockSearchInput">
+                <label for="stockSearchInput">Product PLU</label>
+                <input class="col sm10" 
+                    type="text" id="stockSearchInput" 
+                    data-ng-keypress="submitNewSalesItem($event)" 
+                    data-ng-keyup="processNewSalesItem($event)"
+                    data-ng-model="searchValue">
+                <i>{{searchItemName}}</i>
             </div>
             <table>
                 <thead>
@@ -98,8 +103,5 @@
         <div class="modal-footer">
             <a href="#/sales" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
         </div>
-
     </div>
-
-
 </div>

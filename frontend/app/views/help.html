@@ -1,3 +1,15 @@
 <div>
-    Help/FAQ, to be implemented later
+  <h2>Help Page</h2>
+  <ul class="collapsible popout" data-collapsible="accordion">
+    <li data-ng-repeat="a in HelpItems">
+      <div class="collapsible-header">
+        <h4>{{a.title}}</h4>
+      </div>
+      <div class="collapsible-body">
+        <p data-ng-repeat="b in a.desc">
+          {{b}}
+        </p>
+      </div>
+    </li>
+  </ul>
 </div>

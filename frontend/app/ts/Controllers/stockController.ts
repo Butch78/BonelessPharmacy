@@ -8,13 +8,14 @@ app.controller("stockCtrl", ($scope, $http) => {
     $('#stockMeasureInput').material_select();
     $scope.newStock = {};
     $scope.editingStock = {};
+    $scope.deletingStock = {};
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
         (res) => {
             $scope.salesItems = res.data as SalesItem[];
         },
         (errorRes) => {
-            alert(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
 
     // GET Measurements
@@ -23,14 +24,21 @@ app.controller("stockCtrl", ($scope, $http) => {
             $scope.measurements = res.data as Measurement[];
         },
         (errorRes) => {
-            alert(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
 
     $scope.openModalAddStock = () => $('#modalAddStock').modal('open');
 
     $scope.openModalStockDetails = (index: number) => {
         $scope.editingStock = $scope.salesItems[index];
-        $("#modalStockDetails").modal("open");
+        $("#modalStockDetails").modal('open');
+    };
+
+    $scope.openModalDeleteStockItem = (index: number) => {
+        console.log('start');
+        $scope.deletingStock = $scope.salesItems[index];
+        $('#modalDeleteStockItem').modal('open');
+        console.log('end');
     };
 
     $scope.addNewStockItem = () => {
@@ -60,4 +68,13 @@ app.controller("stockCtrl", ($scope, $http) => {
             ensure you are connected and all fields are valid`, 4000));
     };
 
+    $scope.deletingStockItem = () => {
+        const updatedObject = $scope.deletingStock as SalesItem;
+        $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete"))
+            .then((res) => {
+                const data = res.data as SalesItem;
+                $('modalDeleteStockItem').modal('close');
+                Materialize.toast(`${data.name} Deleted`, 4000);
+            }, (err) => Materialize.toast(`Error deleting Item`, 4000));
+    };
 });

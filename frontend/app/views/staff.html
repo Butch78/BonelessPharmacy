@@ -7,7 +7,7 @@
             <div class="collapsible-body">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">lock_outline</i>
-                    <input type="password" id="input-password-{{x.id}}" class="validate" autofocus />
+                    <input type="password" id="input-password-{{x.id}}" data-ng-keypress="submitLogin($event, x)" class="validate" autofocus />
                     <label for="password">Password - Enter here</label>
                     <div>
                         <!-- Can put this in a form and make the button "submit" -->

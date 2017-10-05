@@ -6,22 +6,17 @@ app.controller("salesCtrl", ($scope, $http) => {
     Boneless.Login();
     $('.modal').modal();
     $('.collapsible').collapsible();
+    $scope.searchItemName = "Enter a Barcode/PLU number";
     $scope.initValues = () => {
         $scope.newSale = {};
         $scope.sales = [];
         $scope.newSaleRecords = [];
         $scope.searchItems = [];
+        $scope.searchItemName = "Enter a Barcode/PLU number";
+        $scope.searchValue = "";
     };
 
     $scope.initValues();
-    // GET SalesRecords
-    // $http(Boneless.CreateRequest("api/SalesRecords", "get")).then(
-    //     (res) => {
-    //         $scope.salesRecords = res.data as SalesRecord[];
-    //     },
-    //     (errorRes) => {
-    //         alert(errorRes.data);
-    //     });
     $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
         (res) => {
             $scope.sales = res.data;
@@ -36,8 +31,8 @@ app.controller("salesCtrl", ($scope, $http) => {
      */
     $scope.totalValue = (sale: Sale) => `$${
         sale.contents
-        .map((sr) => sr.quantity * sr.salesItem.price)
-        .reduce((prev, curr) => prev + curr)}`;
+            .map((sr) => sr.quantity * sr.salesItem.price)
+            .reduce((prev, curr) => prev + curr)}`;
 
     $scope.niceDate = (sale: Sale) => `${
         new Date(sale.createdAt).toDateString()}`;
@@ -64,16 +59,17 @@ app.controller("salesCtrl", ($scope, $http) => {
         }
     };
 
-    $('#stockSearchInput').keyup((e) => {
-        if (e.which !== 13) {
-            const searchVal = $('#stockSearchInput').val();
-            const searchItems = $scope.searchItems = ($scope.salesItems as SalesItem[])
-                .filter((s) => `${s.id}` === `${searchVal}`);
-            console.log(searchItems);
-        }
-    });
+    $scope.processNewSalesItem = (e) => {
+        const searchVal = $scope.searchValue;
+        const searchItems = $scope.searchItems = ($scope.salesItems as SalesItem[])
+            .filter((s) => `${s.id}` === `${searchVal}`);
+        $scope.searchItemName = $scope.searchItems[0] !== undefined ?
+            $scope.searchItems[0].name :
+            ($scope.searchValue as string).length > 0 ? "Invalid Barcode/PLU Number" : "Enter a Barcode/PLU number";
+        console.log($scope.searchItemName);
+    };
 
-    $('#stockSearchInput').keypress((e) => {
+    $scope.submitNewSalesItem = (e) => {
         const salesItem: SalesItem = $scope.searchItems[0];
         if (e.which === 13 && salesItem !== undefined) {
             const salesRecord: SalesRecord = {
@@ -85,11 +81,10 @@ app.controller("salesCtrl", ($scope, $http) => {
             };
             $scope.newSaleRecords.push(salesRecord);
             console.log($scope.newSaleRecords);
+            $scope.searchValue = "";
             // Manually applying to fix error with angular
-            $scope.$apply();
-            $('#stockSearchInput').val('');
         }
-    });
+    };
 
     $scope.discoverSaleFeature = () => {
         $('.tap-target').tapTarget('open');
