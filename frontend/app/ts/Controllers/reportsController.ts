@@ -8,6 +8,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $('ul.tabs').tabs();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
+    $scope.savedReports = [];
     $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
 
@@ -151,8 +152,26 @@ app.controller("reportsCtrl", ($scope, $http) => {
     };
 
     $scope.getSavedReports = () => {
-        
+        $http(Boneless.CreateRequest("api/Reports", "get")).then((res) => {
+            $scope.savedReports = res.data;
+            console.log($scope.savedReports);
+        }, (errorRes) => {
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+        });
     };
+    
+    $('.dropdown-button').dropdown({
+        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+        belowOrigin: false, // Displays dropdown below the button
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
+        gutter: 0, // Spacing from edge
+        hover: true, // Activate on hover
+        inDuration: 300,
+        outDuration: 225,
+        stopPropagation: false, // Stops event propagation
+      },
+    );
+    $scope.getSavedReports();
 });
 
 $(".button-collapse").sideNav();
