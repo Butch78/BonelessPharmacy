@@ -34,7 +34,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
                 $scope.reportName = $scope.processSalesReportTitle(name);
             },
             (errRes) => Boneless.Notify(BonelessStatusMessage.INVALID_POST));
-    }
+    };
 
     $scope.processSalesReportTitle = (name: string) => {
         const processDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;

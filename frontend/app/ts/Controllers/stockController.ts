@@ -70,11 +70,11 @@ app.controller("stockCtrl", ($scope, $http) => {
 
     $scope.deletingStockItem = () => {
         const updatedObject = $scope.deletingStock as SalesItem;
-        $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete", updatedObject))
+        $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete"))
             .then((res) => {
                 const data = res.data as SalesItem;
                 $('modalDeleteStockItem').modal('close');
-                Materialize.toast(`${data.name} Deleted`, 4000)
+                Materialize.toast(`${data.name} Deleted`, 4000);
             }, (err) => Materialize.toast(`Error deleting Item`, 4000));
     };
 });
