@@ -6,6 +6,7 @@ app.controller("stockCtrl", ($scope, $http) => {
     // init the modal so it can actually be opened properly (href doesn't play nicely with routing)
     $('.modal').modal();
     $('#stockMeasureInput').material_select();
+    $('.tabs').tabs();
     $scope.newStock = {};
     $scope.editingStock = {};
     $scope.deletingStock = {};
@@ -77,4 +78,8 @@ app.controller("stockCtrl", ($scope, $http) => {
                 Materialize.toast(`${data.name} Deleted`, 4000);
             }, (err) => Materialize.toast(`Error deleting Item`, 4000));
     };
+
+    $(document).ready(() => {
+        $('.archive').pushpin();
+    });
 });
