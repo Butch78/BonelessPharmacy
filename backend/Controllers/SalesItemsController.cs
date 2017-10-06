@@ -33,11 +33,11 @@ namespace BonelessPharmacyBackend.Controllers
 
         // GET api/SalesItems/Archived/
         [Route("Archived")]
-        public async Task<SalesItem> GetArchived() => await Task.Run<SalesItem>(() =>
+        public async Task<IEnumerable<SalesItem>> GetArchived() => await Task.Run<IEnumerable<SalesItem>>(() =>
         {
             using (var db = new Db())
             {
-                return db.SalesItems.Include(s => s.Measurement).FirstOrDefault(s => s.IsArchived == 1);
+                return db.SalesItems.Include(s => s.Measurement).Where(s => s.IsArchived == 1).ToList();
             }
         });
 
