@@ -31,6 +31,16 @@ namespace BonelessPharmacyBackend.Controllers
             }
         });
 
+        // GET api/SalesItems/Archived/
+        [Route("Archived")]
+        public async Task<SalesItem> GetArchived() => await Task.Run<SalesItem>(() =>
+        {
+            using (var db = new Db())
+            {
+                return db.SalesItems.Include(s => s.Measurement).FirstOrDefault(s => s.IsArchived == 1);
+            }
+        });
+
         // POST api/SalesItems
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]SalesItem value) => await Task.Run<IActionResult>(async () =>

@@ -1,5 +1,5 @@
 /**
- * Archive Controller
+ * Stock Controller
  * Controller associated with the home page of the application
  */
 app.controller("archiveCtrl", ($scope, $http) => {
@@ -8,10 +8,11 @@ app.controller("archiveCtrl", ($scope, $http) => {
     // $('#stockMeasureInput').material_select();
     $('.tabs').tabs();
 
-    // GET ArchiveItems
-    $http(Boneless.CreateRequest("api/ArchiveItems", "get")).then(
+    // GET SalesItems which are Archived
+    $http(Boneless.CreateRequest("api/SalesItems/Archived", "get")).then(
         (res) => {
-            $scope.archiveItems = res.data as Archive[];
+            $scope.archiveItems = res.data as SalesItem[];
+            console.log($scope.archiveItems);
         },
         (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_GET);
@@ -25,21 +26,4 @@ app.controller("archiveCtrl", ($scope, $http) => {
         (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
-
-    $scope.openModalDeleteStockItem = (index: number) => {
-        console.log('start');
-        $scope.deletingStock = $scope.archiveItems[index];
-        $('#modalDeleteStockItem').modal('open');
-        console.log('end');
-    };
-
-    $scope.deletingStockItem = () => {
-        const updatedObject = $scope.deletingStock as Archive;
-        $http(Boneless.CreateRequest(`api/Archive/${updatedObject.id}`, "delete"))
-            .then((res) => {
-                const data = res.data as Archive;
-                $('modalDeleteStockItem').modal('close');
-                Materialize.toast(`${data.name} Deleted`, 4000);
-            }, (err) => Materialize.toast(`Error deleting Item`, 4000));
-    };
 });
