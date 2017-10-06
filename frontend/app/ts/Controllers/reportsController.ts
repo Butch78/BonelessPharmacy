@@ -164,7 +164,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
     };
 
     $scope.selectSavedReport = () => {
-        $scope.setCurrentReport($scope.savedReports[$scope.savedReportId])
+        $scope.setCurrentReport($scope.savedReports[$scope.savedReportId]);
+        $scope.setChart("stock");
     };
 
     $('.dropdown-button').dropdown({
