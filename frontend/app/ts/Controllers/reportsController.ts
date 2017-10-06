@@ -155,7 +155,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
 
     $scope.getSavedReports = () => {
         $http(Boneless.CreateRequest("api/Reports", "get")).then((res) => {
-            $scope.savedReports = res.data;
+            $scope.savedReports = (res.data as ReportFile[]).filter((r) => r.type === "Stock Report");
             console.log($scope.savedReports);
             $('select').material_select();
         }, (errorRes) => {
