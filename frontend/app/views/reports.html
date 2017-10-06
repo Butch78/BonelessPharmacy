@@ -102,7 +102,7 @@
         <div>
             <label class="active" for="reportSelect">Saved Report</label>
             <select id="reportSelect" class="browser-default" data-ng-change="selectSavedReport()" data-ng-model="savedReportId">
-                <option data-ng-repeat="sR in savedReports" value="{{sR.id}}"><a href="">{{sR.createdAt}} - {{sR.type}}</a></option>
+                <option data-ng-repeat="sR in savedReports" value="{{$index}}"><a href="">{{sR.createdAt}} - {{sR.type}}</a></option>
             </select>
         </div>
         <canvas data-ng-show="reportGenerated" id="chartOutput" width="400" height="200"></canvas>
