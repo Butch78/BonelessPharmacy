@@ -62,7 +62,7 @@
                     <div class="col s3">
                         <div class="white-text input-field">
                             <input type="number" name="lowStockReportThreshold" id="lowStockReportThreshold" min="0" data-ng-model="minStockThreshold">
-                            <label for="lowStockReportThreshold" class="white-text">Min Stock Threshold</label>
+                            <label for="lowStockReportThreshold" class="active white-text">Min Stock Threshold</label>
                         </div>
                     </div>
                     <div class="col s2">
@@ -100,14 +100,14 @@
     </div>
     <div id="view">
         <div>
-            <a class='dropdown-button btn' href='#' data-activates='reportDropdown'>Select Report</a>
-            <ul id='reportDropdown' class='dropdown-content'>
-                <li data-ng-repeat="sR in savedReports"><a href="">{{sR.type}} - {{sR.createdAt}}</a></li>
-            </ul>
+            <label class="active" for="reportSelect">Saved Report</label>
+            <select id="reportSelect" class="browser-default" data-ng-change="selectSavedReport()" data-ng-model="savedReportId">
+                <option data-ng-repeat="sR in savedReports" value="{{sR.id}}"><a href="">{{sR.createdAt}} - {{sR.type}}</a></option>
+            </select>
         </div>
         <canvas data-ng-show="reportGenerated" id="chartOutput" width="400" height="200"></canvas>
         <div data-ng-show="!reportGenerated">
-            <h4 class="center">No report generated :(</h4>
+            <h4 class="center">Select a report to generate a report</h4>
         </div>
     </div>
     <div id="modalReportView" class="modal modal-fixed-footer">

@@ -11,6 +11,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.savedReports = [];
     $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
+    $scope.savedReportId = -1;
+    Materialize.updateTextFields();
 
     $scope.genSalesReport = (name: string = "Past Week") => {
         $('#modalReportView').modal('open');
@@ -86,7 +88,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
             threshold: `${$scope.minStockThreshold}`,
             type: "low",
         })).then((res) => {
-            $scope.setCurrentReport(res.data);
             $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
         }, (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
@@ -97,9 +98,10 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * Set the current report assuming it is structured as a CSV
      */
     $scope.setCurrentReport = (data) => {
+        console.log(data);
         $scope.reportRaw = `${data}`;
         $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
-        const reportData = Boneless.ParseCsv(data);
+        const reportData = Boneless.ParseCsv($scope.reportRaw);
         $scope.reportHeaders = reportData[0];
         let tempData = [];
         for (let i = 1; i < reportData.length; i++) {
@@ -155,11 +157,16 @@ app.controller("reportsCtrl", ($scope, $http) => {
         $http(Boneless.CreateRequest("api/Reports", "get")).then((res) => {
             $scope.savedReports = res.data;
             console.log($scope.savedReports);
+            $('select').material_select();
         }, (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
     };
-    
+
+    $scope.selectSavedReport = () => {
+        $scope.setCurrentReport($scope.savedReports[$scope.savedReportId])
+    };
+
     $('.dropdown-button').dropdown({
         alignment: 'left', // Displays dropdown with edge aligned to the left of button
         belowOrigin: false, // Displays dropdown below the button
@@ -169,8 +176,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
         inDuration: 300,
         outDuration: 225,
         stopPropagation: false, // Stops event propagation
-      },
-    );
+    });
+
     $scope.getSavedReports();
 });
 

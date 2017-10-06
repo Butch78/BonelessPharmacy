@@ -13,7 +13,7 @@ namespace BonelessPharmacyBackend.Controllers
         public async Task<IEnumerable<ReportFile>> Get() => await Task.Run(() => {
             using (var db = new Db())
             {
-                return db.ReportFiles.ToList();
+                return db.ReportFiles.OrderByDescending(r => r.CreatedAt).ToList();
             }
         });
 
@@ -22,7 +22,8 @@ namespace BonelessPharmacyBackend.Controllers
         {
             using (var db = new Db())
             {
-                return db.ReportFiles.Where(r => r.Type.ToLower() == type.ToLower()).ToList() ?? db.ReportFiles.ToList();
+                return db.ReportFiles.Where(r => r.Type.ToLower() == type.ToLower()).OrderByDescending(r => r.CreatedAt).ToList() ??
+                    db.ReportFiles.OrderByDescending(r => r.CreatedAt).ToList();
             }
         });
         // GET api/Reports
