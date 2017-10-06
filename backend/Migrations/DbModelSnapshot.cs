@@ -19,31 +19,6 @@ namespace BonelessPharmacyBackend.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
-            modelBuilder.Entity("BonelessPharmacyBackend.Archive", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("Amount");
-
-                    b.Property<int>("MeasurementId");
-
-                    b.Property<string>("Name")
-                        .IsRequired();
-
-                    b.Property<double>("Price");
-
-                    b.Property<int>("StockOnHand");
-
-                    b.Property<string>("SupplierCode");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MeasurementId");
-
-                    b.ToTable("ArchiveItems");
-                });
-
             modelBuilder.Entity("BonelessPharmacyBackend.Customer", b =>
                 {
                     b.Property<int>("Id")
@@ -253,14 +228,6 @@ namespace BonelessPharmacyBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Suppliers");
-                });
-
-            modelBuilder.Entity("BonelessPharmacyBackend.Archive", b =>
-                {
-                    b.HasOne("BonelessPharmacyBackend.Measurement", "Measurement")
-                        .WithMany()
-                        .HasForeignKey("MeasurementId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.SalesItem", b =>
