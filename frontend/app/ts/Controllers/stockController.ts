@@ -10,8 +10,10 @@ app.controller("stockCtrl", ($scope, $http) => {
     $scope.newStock = {};
     $scope.editingStock = {};
     $scope.deletingStock = {};
+    $scope.postValue = {};
+
     // GET SalesItems
-    $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
+    $http(Boneless.CreateRequest("api/SalesItems/NotArchived", "get")).then(
         (res) => {
             $scope.salesItems = res.data as SalesItem[];
         },
@@ -37,7 +39,8 @@ app.controller("stockCtrl", ($scope, $http) => {
 
     $scope.openModalDeleteStockItem = (index: number) => {
         console.log('start');
-        $scope.deletingStock = $scope.salesItems[index];
+        $scope.deletingStock = $scope.salesItems[index - 1];
+        console.log($scope.deletingStock);
         $('#modalDeleteStockItem').modal('open');
         console.log('end');
     };
@@ -69,17 +72,16 @@ app.controller("stockCtrl", ($scope, $http) => {
             ensure you are connected and all fields are valid`, 4000));
     };
 
-    $scope.deletingStockItem = () => {
-        const updatedObject = $scope.deletingStock as SalesItem;
-        $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete"))
+    $scope.deleteStockItem = (stock: SalesItem) => {
+        let successVar = `${stock.name} ${stock.amount}  ${stock.measurement.suffix}`;
+        stock.isArchived = 1;
+        $http(Boneless.CreateRequest(`api/SalesItems/${stock.id}`, "put", stock))
             .then((res) => {
-                const data = res.data as SalesItem;
-                $('modalDeleteStockItem').modal('close');
-                Materialize.toast(`${data.name} Deleted`, 4000);
-            }, (err) => Materialize.toast(`Error deleting Item`, 4000));
+                $('#modalDeleteStockItem').modal('close');
+                $('#modalStockDetails').modal('close');
+                $http(Boneless.CreateRequest("api/SalesItems/NotArchived", "get"));
+                Materialize.toast(successVar + ` ( PLU: ${stock.id} ) archived Successfully`, 4000);
+                console.log(stock);
+            }, (err) => Materialize.toast(`Error Archiving item`, 4000));
     };
-
-    $(document).ready(() => {
-        $('.archive').pushpin();
-    });
 });
