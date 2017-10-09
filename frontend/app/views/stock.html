@@ -116,6 +116,7 @@
         <div id="modalStockFacts" class="modal">
             <div class="modal-content">
                 <h4>{{editingStock.name}}</h4>
+                <span>#{{editingStock.id}}</span>
                 <table>
                     <tbody>
                         <tr>
@@ -140,12 +141,13 @@
                         </tr>
                         <tr>
                             <td>Expected SOH in a
-                                <i>Monthly</i>
+                                <i>Month</i>
                             </td>
                             <td>{{editingStock.stockOnHand - editingPrediction.expectedSales.monthly}}</td>
                         </tr>
                     </tbody>
                 </table>
+                <canvas  id="chartOutput" width="400" height="200"></canvas>
             </div>
             <div class="modal-footer">
                 <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
