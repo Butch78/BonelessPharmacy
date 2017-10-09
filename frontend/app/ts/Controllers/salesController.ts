@@ -24,7 +24,19 @@ app.controller("salesCtrl", ($scope, $http) => {
         },
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
+    $scope.checkDailyReport = () => $http(Boneless.CreateRequest("api/DailySalesReport", "get")).then(
+        (res) => {
+            if (res.data) {
+                Boneless.NotifyCustom("Daily Sales report generated, view in the Reports section.");
+            }
+        }, (errorRes) => {
+            console.log(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
+        },
+    );
+
     $scope.getSales();
+    $scope.checkDailyReport();
 
     /**
      * Retrieve the total value of a sales contents

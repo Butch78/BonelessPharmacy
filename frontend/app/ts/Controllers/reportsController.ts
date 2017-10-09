@@ -126,6 +126,11 @@ app.controller("reportsCtrl", ($scope, $http) => {
         $scope.currentChart = new Chart(chartOutput.getContext('2d'), chartData as any);
     };
 
+    $scope.niceTime = (dateString: string) => {
+        const newDate = new Date(dateString);
+        return `${newDate.toLocaleTimeString()} ${newDate.toDateString()}`;
+    };
+
     /**
      * Translate Boneless Pharmacy CSV data into a chart
      * @param reportType the type of report

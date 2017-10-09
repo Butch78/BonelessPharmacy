@@ -107,7 +107,7 @@
             <label class="active" for="reportSelect">Saved Report</label>
             <select id="reportSelect" class="browser-default" data-ng-change="selectSavedReport()" data-ng-model="savedReportId">
                 <option data-ng-repeat="sR in savedReports track by $index" value="{{$index}}">
-                    <a href="">{{sR.createdAt}} - {{sR.type}}</a>
+                    <a href="">{{niceTime(sR.createdAt)}} - {{sR.type}}</a>
                 </option>
             </select>
         </div>

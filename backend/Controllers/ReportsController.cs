@@ -57,6 +57,9 @@ namespace BonelessPharmacyBackend.Controllers
                    factory = new LowStockReportFactory(options.ContainsKey("threshold") ?
                        Int32.Parse(options["threshold"]) : 5);
                    break;
+               case "daily":
+                   factory = new DailySalesReportFactory();
+                   break;
                default:
                    throw new Exception("Invalid Report Type");
            }
