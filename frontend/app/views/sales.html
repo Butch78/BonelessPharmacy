@@ -80,10 +80,10 @@
                     <tr data-ng-repeat="s in newSaleRecords">
                         <td>{{s.salesItem.id}}</td>
                         <td>{{s.salesItem.name}}</td>
-                        <td>{{s.salesItem.price}}</td>
+                        <td>{{s.salePrice}}</td>
                         <td><input type="number" name="{{s.salesItem.id}}-quantity" id="{{s.salesItem.id}}-quantity" data-ng-model="s.quantity" class="number-small"></td>
                         <td>{{s.salesItem.stockOnHand}}</td>
-                        <td>{{s.salesItem.price * s.quantity | number:2}}</td>
+                        <td>{{s.salePrice * s.quantity | number:2}}</td>
                     </tr>
                 </tbody>
             </table>

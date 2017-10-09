@@ -18,12 +18,12 @@ namespace BonelessPharmacyBackend.Controllers
             bool isNewDay = false;
             using (var db = new Db())
             {
-                isNewDay = db.ReportFiles.Any(r => 
+                isNewDay = !db.ReportFiles.Any(r => 
                     r.CreatedAt.DayOfYear == DateTime.Today.DayOfYear && 
                     r.CreatedAt.Year == DateTime.Today.Year && 
                     r.Type == "Daily Sales Report"
                 );
-                if (!isNewDay)
+                if (isNewDay)
                     await (new DailySalesReportFactory()).WriteReport();
                 return isNewDay;
             }

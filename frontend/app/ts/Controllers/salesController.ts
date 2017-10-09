@@ -43,7 +43,7 @@ app.controller("salesCtrl", ($scope, $http) => {
      */
     $scope.totalValue = (sale: Sale) => `$${
         sale.contents
-            .map((sr) => sr.quantity * sr.salesItem.price)
+            .map((sr) => sr.quantity * sr.salePrice)
             .reduce((prev, curr) => prev + curr)}`;
 
     $scope.niceDate = (sale: Sale) => `${

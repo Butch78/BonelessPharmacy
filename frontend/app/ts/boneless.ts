@@ -97,7 +97,7 @@ class Boneless {
      * Ensure the user has logged in for the day
      */
     public static readonly IsValidDay = () =>
-        `${(new Date()).getDate()}` === localStorage.getItem('boneless-lastloggedin');
+        `${(new Date()).getDate()}` === localStorage.getItem('boneless-lastloggedin')
 
     /**
      * Generate a new URL based file for text
