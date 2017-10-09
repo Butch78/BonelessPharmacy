@@ -5,6 +5,8 @@
             <tr>
                 <th>Order Number</th>
                 <th>Date</th>
+                <th>Time</th>
+                <!-- <th>Nice Date</th> -->
                 <th>Total Amount</th>
                 <th>More</th>
             </tr>
@@ -13,7 +15,8 @@
         <tbody>
             <tr data-ng-repeat="x in sales track by x.id">
                 <td>{{x.id}}</td>
-                <td>{{x.createdAt}}</td>
+                <td>{{niceDate(x)}}</td>
+                <td>{{getTime(x)}}</td>
                 <td>{{totalValue(x)}}</td>
                 <td></td>
             </tr>

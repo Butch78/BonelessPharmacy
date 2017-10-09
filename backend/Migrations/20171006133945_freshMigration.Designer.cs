@@ -11,8 +11,8 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20171003101546_Reports now recorded")]
-    partial class Reportsnowrecorded
+    [Migration("20171006133945_freshMigration")]
+    partial class freshMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

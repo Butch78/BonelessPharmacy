@@ -1,100 +1,161 @@
 <div>
-    <h2>Stock</h2>
-    <table class="striped">
-        <thead>
-            <tr>
-                <th>PLU</th>
-                <th>Name</th>
-                <th>Retail Price</th>
-                <th>Size</th>
-                <th>Stock On Hand</th>
-                <th></th>
-            </tr>
-        </thead>
+    <ul class="tabs cyan darken-1">
+        <li class="tab"><a class="white-text active" href="#stock">Stock</a></li>
+        <li class="tab"><a class="white-text" href="#archive">Archive</a></li>
+    </ul>
 
-        <tbody>
-            <tr data-ng-repeat="s in salesItems track by s.id">
-                <td>{{s.id}}</td>
-                <td>{{s.name}}</td>
-                <td>{{s.price}}</td>
-                <td>{{s.amount}} {{s.measurement.suffix}}</td>
-                <td>{{s.stockOnHand}}</td>
-                <td>
-                    <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-
-    <div class="fixed-action-btn">
-        <a  class="pulse waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
-      <i class="large material-icons">add</i>
-    </a>
-    </div>
-
-    <div id="modalAddStock" class="modal">
-        <div class="modal-content">
-            <h4>New Item</h4>
-            <div class="row input-field">
-                <i class="material-icons prefix">text_fields</i>
-                <label for="stockNameInput">Name</label>
-                <input type="text" id="stockNameInput" data-ng-model="newStock.name">
-            </div>
-            <div class="row input-field">
-                <i class="material-icons prefix">attach_money</i>
-                <label for="stockPrice">Retail Price</label>
-                <input type="number" id="stockPrice" data-ng-model="newStock.price">
-            </div>
-            <div class="row input-field">
-                <i class="material-icons prefix">poll</i>
-                <label for="stockQtyInput">Quantity</label>
-                <input type="number" id="stockQtyInput" data-ng-model="newStock.stockOnHand">
-            </div>
-            <div class="row input-field">
-                <i class="material-icons prefix">poll</i>
-                <label for="stockQtyInput">Item Amount</label>
-                <input type="number" id="stockQtyInput" data-ng-model="newStock.amount">
-            </div>
-            <!-- TODO: Fix This -->
-            <div class="row input-field">
-                <i class="material-icons prefix">assignment</i>
-                <div class="select-wrapper">
-                    <select id="stockMeasureInput" data-ng-model="newStock.measurementId">
-                        <option value="1" selected>Milligrams (mg)</option>
-                        <option value="2">Grams (mg)</option>
-                        <option value="3">Milliletres (ml)</option>
-                        <option value="4">Tablets (tablet/s)</option>
-                        <option value="5">Capsules (capsule/s)</option>
-                    </select>
+    <div id="stock">
+        <h2>Stock</h2>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>PLU</th>
+                    <th>Name</th>
+                    <th>Retail Price</th>
+                    <th>Size</th>
+                    <th>Stock On Hand</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr id="stockVal" data-ng-repeat="s in salesItems">
+                    <td>{{s.id}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{"$" + s.price}}</td>
+                    <td>{{s.amount}} {{s.measurement.suffix}}</td>
+                    <td>{{s.stockOnHand}}</td>
+                    <td>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="fixed-action-btn">
+            <a class="pulse waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
+                <i class="large material-icons">add</i>
+            </a>
+        </div>
+        
+        <div id="modalAddStock" class="modal">
+            <div class="modal-content">
+                <h4>New Item</h4>
+                <div class="row input-field">
+                    <i class="material-icons prefix">text_fields</i>
+                    <label for="stockNameInput">Name</label>
+                    <input type="text" id="stockNameInput" data-ng-model="newStock.name">
                 </div>
-                <label for="stockMeasureInput">Measurement</label>
+                <div class="row input-field">
+                    <i class="material-icons prefix">attach_money</i>
+                    <label for="stockPrice">Retail Price</label>
+                    <input type="number" id="stockPrice" data-ng-model="newStock.price">
+                </div>
+                <div class="row input-field">
+                    <i class="material-icons prefix">poll</i>
+                    <label for="stockQtyInput">Quantity</label>
+                    <input type="number" id="stockQtyInput" data-ng-model="newStock.stockOnHand">
+                </div>
+                <div class="row input-field">
+                    <i class="material-icons prefix">poll</i>
+                    <label for="stockQtyInput">Item Amount</label>
+                    <input type="number" id="stockQtyInput" data-ng-model="newStock.amount">
+                </div>
+                <!-- TODO: Fix This -->
+                <div class="row input-field">
+                    <i class="material-icons prefix">assignment</i>
+                    <div class="select-wrapper">
+                        <select id="stockMeasureInput" data-ng-model="newStock.measurementId">
+                            <option value="1" selected>Milligrams (mg)</option>
+                            <option value="2">Grams (mg)</option>
+                            <option value="3">Milliletres (ml)</option>
+                            <option value="4">Tablets (tablet/s)</option>
+                            <option value="5">Capsules (capsule/s)</option>
+                        </select>
+                    </div>
+                    <label for="stockMeasureInput">Measurement</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#/stock" class="modal-action modal-close btn-flat white-text">Close</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
             </div>
         </div>
-        <div class="modal-footer">
-            <a href="#/stock" class="modal-action modal-close btn-flat white-text">Close</a>
-            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
+        
+        <div id="modalStockDetails" class="modal">
+            <div class="modal-content">
+                <h4>{{editingStock.name}} ({{editingStock.amount + " " + editingStock.measurement.suffix}})</h4>
+                <div class="row input-field">
+                    <i class="material-icons prefix">create</i>
+                    <label for="editStockName">Stock Name</label>
+                    <input type="text" id="editStockName" data-ng-model="editingStock.name">
+                </div>
+                <div class="row input-field">
+                    <i class="material-icons prefix">attach_money</i>
+                    <label for="editStockPrice">Retail Price</label>
+                    <input type="number" id="editStockPrice" data-ng-model="editingStock.price">
+                </div>
+                <div class="row input-field">
+                    <i class="material-icons prefix">poll</i>
+                    <label for="editStockQtyInput">Quantity</label>
+                    <input type="number" min="0" id="editStockQtyInput" data-ng-model="editingStock.stockOnHand">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                <a class="waves-effect waves-light btn red" data-ng-click="openModalDeleteStockItem(editingStock.id)">Delete Item</a>
+                <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="updateStockItem()">Save Changes</a>
+            </div>
+        </div>
+        
+        
+        <div id="modalDeleteStockItem" class="modal">
+            <div class="modal-content">
+                <h4>Delete Item</h4>
+                <h5>{{editingStock.name}} ({{editingStock.amount + " " + editingStock.measurement.suffix}})</h5>
+                <p>Are yaaa sure you want to delete this Item? you can just edit the Quantity instead</p>
+                <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a class="waves-effect waves-light btn red" data-ng-click="deleteStockItem(editingStock)">Confirm</a>
+            </div>
         </div>
     </div>
 
-    <div id="modalStockDetails" class="modal">
-        <div class="modal-content grey lighten-3">
-            <h4>{{editingStock.name}} ({{editingStock.amount + editingStock.measurement.suffix}})</h4>
-            <div class="row input-field">
-                <i class="material-icons prefix">attach_money</i>
-                <label for="editStockPrice">Retail Price</label>
-                <input type="number" id="editStockPrice" data-ng-model="editingStock.price">
+    <div id="archive" data-ng-controller="archiveCtrl">
+        <h2>Archive</h2>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>PLU</th>
+                    <th>Name</th>
+                    <th>Retail Price</th>
+                    <th>Size</th>
+                    <th>Stock On Hand</th>
+                    <th></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr data-ng-repeat="a in archiveItems">
+                    <td>{{a.id}}</td>
+                    <td>{{a.name}}</td>
+                    <td>{{"$" + a.price}}</td>
+                    <td>{{a.amount}} {{a.measurement.suffix}}</td>
+                    <td>{{a.stockOnHand}}</td>
+                    <td>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalRestoreItem(a)">Restore</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div id="modalRestoreStockItem" class="modal">
+            <div class="modal-content">
+                <h4>Restore Item</h4>
+                <h5>{{restoreStock.name}} ({{restoreStock.amount + " " + restoreStock.measurement.suffix}})</h5>
+                <p>Would you like to restore this item?</p>
+                <a href="#/stock" class="modal-action modal-close waves-effect waves-light btn-flat">Cancel</a>
+                <a class="waves-effect waves-light btn" data-ng-click="restoreItem(restoreStock)">Confirm</a>
             </div>
-            <div class="row input-field">
-                <i class="material-icons prefix">poll</i>
-                <label for="editStockQtyInput">Quantity</label>
-                <input type="number" id="editStockQtyInput" data-ng-model="editingStock.stockOnHand">
-            </div>
-        </div>
-        <div class="modal-footer grey lighten-3">
-            <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-            <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="updateStockItem()">Save Changes</a>
         </div>
     </div>
-
 </div>

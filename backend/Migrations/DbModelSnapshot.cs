@@ -144,6 +144,8 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.Property<int>("Amount");
 
+                    b.Property<int>("IsArchived");
+
                     b.Property<int>("MeasurementId");
 
                     b.Property<string>("Name")

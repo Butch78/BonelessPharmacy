@@ -15,6 +15,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItemName = "Enter a Barcode/PLU number";
         $scope.searchValue = "";
     };
+
     $scope.initValues();
     $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
         (res) => {
@@ -32,6 +33,12 @@ app.controller("salesCtrl", ($scope, $http) => {
         sale.contents
             .map((sr) => sr.quantity * sr.salesItem.price)
             .reduce((prev, curr) => prev + curr)}`;
+
+    $scope.niceDate = (sale: Sale) => `${
+        new Date(sale.createdAt).toDateString()}`;
+
+    $scope.getTime = (sale: Sale) => `${
+        new Date(sale.createdAt).toLocaleTimeString()}`;
 
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(

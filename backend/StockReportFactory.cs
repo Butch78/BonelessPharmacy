@@ -57,9 +57,14 @@ namespace BonelessPharmacyBackend
             var csv = new CsvWriter(writer);
 
             WriteHeading(csv);
-            foreach (var s in _sold)
-                WriteField(csv, s);
-
+            using (var db = new Db())
+            {
+                foreach (var s in _sold)
+                {
+                    var item = db.SalesItems.FirstOrDefault(i => i.Id == s.Key);
+                    WriteField(csv, $"{item.Name} ({item.Amount})", s);
+                }
+            }
             return writer.ToString();
         });
 
@@ -70,6 +75,7 @@ namespace BonelessPharmacyBackend
         private void WriteHeading(CsvWriter csv)
         {
             csv.WriteField("ID");
+            csv.WriteField("Item");
             csv.WriteField("Amount Sold");
             csv.NextRecord();
         }
@@ -79,9 +85,10 @@ namespace BonelessPharmacyBackend
         /// </summary>
         /// <param name="csv">csv writer</param>
         /// <param name="sale">the sale to write</param>
-        private void WriteField(CsvWriter csv, KeyValuePair<int, int> sold)
+        private void WriteField(CsvWriter csv, string itemName, KeyValuePair<int, int> sold)
         {
             csv.WriteField(sold.Key);
+            csv.WriteField(itemName);
             csv.WriteField(sold.Value);
             csv.NextRecord();
         }
