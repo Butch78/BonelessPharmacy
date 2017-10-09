@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace BonelessPharmacyBackend
 {
@@ -158,7 +159,7 @@ namespace BonelessPharmacyBackend
         /// app.SeedDb();
         /// </example>
         /// <param name="builder"></param>
-        public static void SeedDb(this IApplicationBuilder builder)
+        public static void SeedDb(this IApplicationBuilder builder, IConfiguration conf)
         {
             using (var db = new Db())
             {
@@ -180,6 +181,30 @@ namespace BonelessPharmacyBackend
                 {
                     Console.WriteLine("Adding Admin User");
                     db.Staff.Add(ADMIN_USER);
+                    db.SaveChanges();
+                }
+
+                if (Boolean.Parse(conf["Config:SupportOldSaleRecords"]))
+                    UpdateSalePrice(db);
+            }
+        }
+        /// <summary>
+        /// Update the sale price field to be the current value set for the item.
+        /// </summary>
+        /// <remarks>
+        /// This field method exists for backwards compatibility reasons. It shouldn't be
+        /// used in newer versions of the program.
+        /// </remarks>
+        /// <param name="db"></param>
+        private static void UpdateSalePrice(Db db)
+        {
+            foreach (var sR in db.SalesRecords.Include(s => s.SalesItem))
+            {
+                if (sR.SalePrice == 0.00)
+                {
+                    Console.WriteLine($"Updating SalePrice of SalesRecord #${sR.Id}");
+                    sR.SalePrice = sR.SalesItem.Price;
+                    db.SalesRecords.Update(sR);
                     db.SaveChanges();
                 }
             }

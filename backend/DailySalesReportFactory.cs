@@ -15,7 +15,7 @@ namespace BonelessPharmacyBackend
     /// </summary>
     public class DailySalesReportFactory : SalesReportFactory
     {
-        public DailySalesReportFactory(): base(DateTime.Now.Subtract(new TimeSpan(1,0,0,0)), DateTime.Now.Subtract(new TimeSpan(1,0,0,0))
+        public DailySalesReportFactory(): base(DateTime.Now.Subtract(new TimeSpan(1,0,0,0)), DateTime.Now.Subtract(new TimeSpan(1,0,0,0)))
         {
         }
 
