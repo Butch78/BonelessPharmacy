@@ -17,7 +17,7 @@ namespace BonelessPharmacyBackend.Controllers
             using (var db = new Db())
             {
                 // Ensure to call ToList so that the DB doesn't dispose itself
-                return db.SalesItems.Include(s => s.Measurement).ToList();
+                return db.SalesItems.Include(s => s.Measurement).Where(s => s.IsArchived == 0).ToList();
             }
         });
 
@@ -28,6 +28,16 @@ namespace BonelessPharmacyBackend.Controllers
             using (var db = new Db())
             {
                 return db.SalesItems.Include(s => s.Measurement).FirstOrDefault(s => s.Id == id);
+            }
+        });
+
+        // GET api/SalesItems/Archived/
+        [Route("Archived")]
+        public async Task<IEnumerable<SalesItem>> GetArchived() => await Task.Run<IEnumerable<SalesItem>>(() =>
+        {
+            using (var db = new Db())
+            {
+                return db.SalesItems.Include(s => s.Measurement).Where(s => s.IsArchived == 1).ToList();
             }
         });
 

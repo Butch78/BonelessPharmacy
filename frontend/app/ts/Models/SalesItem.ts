@@ -42,4 +42,10 @@ interface SalesItem {
      * The related measurement object
      */
     measurement: Measurement;
+
+    /**
+     * Probs don't need this
+     * 0 = No, 1 = Yes
+     */
+    isArchived: number;
 }

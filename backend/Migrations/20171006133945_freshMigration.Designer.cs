@@ -11,14 +11,44 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20170911065642_Fresh Migration State with Plural Names")]
-    partial class FreshMigrationStatewithPluralNames
+    [Migration("20171006133945_freshMigration")]
+    partial class freshMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("BonelessPharmacyBackend.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.ItemType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ItemTypes");
+                });
 
             modelBuilder.Entity("BonelessPharmacyBackend.Measurement", b =>
                 {
@@ -33,6 +63,52 @@ namespace BonelessPharmacyBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Measurements");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("OrderStatus");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.OrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("Price");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.ReportFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("FileName")
+                        .IsRequired();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReportFiles");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.Role", b =>
@@ -76,7 +152,7 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<uint>("StockOnHand");
+                    b.Property<int>("StockOnHand");
 
                     b.Property<string>("SupplierCode");
 
@@ -171,7 +247,7 @@ namespace BonelessPharmacyBackend.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BonelessPharmacyBackend.Sale", "Sale")
-                        .WithMany()
+                        .WithMany("Contents")
                         .HasForeignKey("SaleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
