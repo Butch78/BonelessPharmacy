@@ -114,7 +114,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
         let chartData = translateChartData("stock");
         let chart = new Chart(chartOutput.getContext('2d'), chartData as any);
-        console.log(chart.data);
     };
 
     /**
@@ -122,7 +121,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * @param reportType the type of report
      * @param data the data being used for the chart
      */
-    const translateChartData = (reportType: string, data = $scope.reportData) => {
+    const translateChartData = (reportType: string) => {
         switch (reportType) {
             case "stock":
                 return {
@@ -161,9 +160,11 @@ app.controller("reportsCtrl", ($scope, $http) => {
     };
 
     $scope.selectSavedReport = () => {
-        console.log($scope.savedReportId);
-        $scope.setCurrentReport($scope.savedReports[$scope.savedReportId]);
-        $scope.setChart("stock");
+        $http(Boneless.CreateRequest(`api/ReportData/${$scope.savedReports[$scope.savedReportId].fileName}`, "GET"))
+            .then((res) => {
+                $scope.setCurrentReport(res.data);
+                $scope.setChart("stock");
+            }, (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
     };
 
     $('.dropdown-button').dropdown({
