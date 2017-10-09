@@ -190,6 +190,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
         stopPropagation: false, // Stops event propagation
     });
 
+    $('label').addClass('active');
+
     $scope.getSavedReports();
 
     $scope.openReportModal = () => $('#modalReportView').modal('open');
