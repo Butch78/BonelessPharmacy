@@ -13,6 +13,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
     $scope.savedReportId = -1;
+    $scope.isChartedReport = false;
     Materialize.updateTextFields();
 
     $scope.genSalesReport = (name: string = "Past Week") => {
@@ -106,7 +107,10 @@ app.controller("reportsCtrl", ($scope, $http) => {
         let tempData = [];
         for (let i = 1; i < reportData.length; i++) {
             if (reportData[i][0] !== "") {
-                tempData.push(reportData[i]);
+                tempData.push({
+                    data: reportData[i],
+                    index: Math.random() * 100,
+                });
             }
         }
         $scope.reportContent = tempData;
@@ -115,7 +119,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
 
     $scope.setChart = (reportType: string) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
-        let chartData = translateChartData("stock");
+        let chartData = translateChartData(reportType);
         if ($scope.currentChart !== null) {
             $scope.currentChart.destroy();
         }
@@ -128,18 +132,19 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * @param data the data being used for the chart
      */
     const translateChartData = (reportType: string) => {
+        $scope.isChartedReport = true;
         switch (reportType) {
-            case "stock":
+            case "Stock Report":
                 return {
                     data: {
                         datasets: [
                             {
                                 backgroundColor: 'rgb(3, 155, 229)',
-                                data: ($scope.reportContent as number[][]).map((r) => r[2]),
+                                data: ($scope.reportContent).map((r) => r.data[2]),
                                 label: "Item Amount Sold",
                             },
                         ],
-                        labels: ($scope.reportContent as number[][]).map((r) => r[1]),
+                        labels: ($scope.reportContent).map((r) => r.data[1]),
                     },
                     options: {
                         scales: {
@@ -153,13 +158,14 @@ app.controller("reportsCtrl", ($scope, $http) => {
                     type: 'bar',
                 };
             default:
+                $scope.isChartedReport = false;
                 break;
         }
     };
 
     $scope.getSavedReports = () => {
         $http(Boneless.CreateRequest("api/Reports", "get")).then((res) => {
-            $scope.savedReports = (res.data as ReportFile[]).filter((r) => r.type === "Stock Report");
+            $scope.savedReports = (res.data as ReportFile[]);
         }, (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_GET);
         });
@@ -168,8 +174,11 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.selectSavedReport = () => {
         $http(Boneless.CreateRequest(`api/ReportData/${$scope.savedReports[$scope.savedReportId].fileName}`, "GET"))
             .then((res) => {
+                console.log('====================================');
+                console.log(res.data);
+                console.log('====================================');
                 $scope.setCurrentReport(res.data);
-                $scope.setChart("stock");
+                $scope.setChart($scope.savedReports[$scope.savedReportId].type);
             }, (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
     };
 
