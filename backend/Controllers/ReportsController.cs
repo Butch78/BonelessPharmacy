@@ -12,9 +12,9 @@ namespace BonelessPharmacyBackend.Controllers
         [HttpGet]
         public async Task<IEnumerable<ReportFile>> Get() => await Task.Run(async () =>
         {
+            await ReportFile.ConsolidateReportFiles();
             using (var db = new Db())
             {
-                await ReportFile.ConsolidateReportFiles(db);
                 return db.ReportFiles.OrderByDescending(r => r.CreatedAt).ToList();
             }
         });
@@ -22,9 +22,9 @@ namespace BonelessPharmacyBackend.Controllers
         [HttpGet("{type}")]
         public async Task<IEnumerable<ReportFile>> Get(string type) => await Task.Run(async () =>
         {
+            await ReportFile.ConsolidateReportFiles();
             using (var db = new Db())
             {
-                await ReportFile.ConsolidateReportFiles(db);
                 return db.ReportFiles.Where(r => r.Type.ToLower() == type.ToLower()).OrderByDescending(r => r.CreatedAt).ToList() ??
                     db.ReportFiles.OrderByDescending(r => r.CreatedAt).ToList();
             }

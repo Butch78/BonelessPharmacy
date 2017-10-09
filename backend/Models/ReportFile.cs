@@ -37,8 +37,9 @@ namespace BonelessPharmacyBackend
             using (var db = ctx ?? new Db())
             {
                 db.ReportFiles.RemoveRange(db.ReportFiles.Where(
-                    (r) => !System.IO.File.Exists(Path.Combine(IReportFactoryExtensions.REPORT_DIR, r.FileName)))
+                    (r) => !System.IO.File.Exists(Path.Combine(IReportFactoryExtensions.REPORT_DIR, r.FileName))).ToList()
                 );
+                db.SaveChanges();
             }
         });
     }
