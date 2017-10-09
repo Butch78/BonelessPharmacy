@@ -174,9 +174,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.selectSavedReport = () => {
         $http(Boneless.CreateRequest(`api/ReportData/${$scope.savedReports[$scope.savedReportId].fileName}`, "GET"))
             .then((res) => {
-                console.log('====================================');
-                console.log(res.data);
-                console.log('====================================');
                 $scope.setCurrentReport(res.data);
                 $scope.setChart($scope.savedReports[$scope.savedReportId].type);
             }, (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
@@ -194,6 +191,9 @@ app.controller("reportsCtrl", ($scope, $http) => {
     });
 
     $scope.getSavedReports();
+
+    $scope.openReportModal = () => $('#modalReportView').modal('open');
+
 });
 
 $(".button-collapse").sideNav();

@@ -1,8 +1,12 @@
 <div>
     <h2>Reports</h2>
     <ul class="tabs cyan darken-1">
-        <li class="tab"><a class="white-text" href="#gen">Generate</a></li>
-        <li class="tab"><a class="white-text" href="#view" data-ng-click="setChart()">View</a></li>
+        <li class="tab">
+            <a class="white-text" href="#gen">Generate</a>
+        </li>
+        <li class="tab">
+            <a class="white-text" href="#view" data-ng-click="setChart()">View</a>
+        </li>
     </ul>
     <div id="gen">
         <div class="card hoverable">
@@ -84,11 +88,11 @@
                 <div class="row">
                     <div class="white-text input-field col s6 center-align">
                         <select>
-                                <option value="" disabled selected>Choose your option</option>
-                                <option value="1">Option 1</option>
-                                <option value="2">Option 2</option>
-                                <option value="3">Option 3</option>
-                              </select>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
                         <label class="white-text">Materialize Select</label>
                     </div>
                     <div class="col s6 center-align">
@@ -102,7 +106,9 @@
         <div>
             <label class="active" for="reportSelect">Saved Report</label>
             <select id="reportSelect" class="browser-default" data-ng-change="selectSavedReport()" data-ng-model="savedReportId">
-                <option data-ng-repeat="sR in savedReports" value="{{$index}}"><a href="">{{sR.createdAt}} - {{sR.type}}</a></option>
+                <option data-ng-repeat="sR in savedReports track by $index" value="{{$index}}">
+                    <a href="">{{sR.createdAt}} - {{sR.type}}</a>
+                </option>
             </select>
         </div>
         <canvas data-ng-show="isChartedReport" id="chartOutput" width="400" height="200"></canvas>
@@ -115,10 +121,14 @@
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="c in reportContent track by c.index">
-                        <td data-ng-repeat="d in c">{{d}}</td>
+                        <td data-ng-repeat="d in c.data track by $index">{{d}}</td>
                     </tr>
                 </tbody>
             </table>
+            <div>
+                <hr/>
+                <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">More</a>
+            </div>
         </div>
         <div data-ng-show="!reportGenerated">
             <h4 class="center">Select a report</h4>
@@ -134,13 +144,15 @@
                 </thead>
                 <tbody>
                     <tr data-ng-repeat="c in reportContent track by c.index">
-                        <td data-ng-repeat="d in c">{{d}}</td>
+                        <td data-ng-repeat="d in c.data track by $index">{{d}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="modal-footer grey lighten-3">
-            <a class="modal-action btn-flat"><b>{{reportName}}</b></a>
+            <a class="modal-action btn-flat">
+                <b>{{reportName}}</b>
+            </a>
             <a href="{{reportUrl}}" download class="modal-action modal-close waves-effect waves-green btn-flat">Download CSV</a>
             <a href="#/reports" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
             <!-- <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="updateStockItem()">Save Changes</a> -->
