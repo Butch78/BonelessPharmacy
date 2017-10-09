@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +38,8 @@ namespace BonelessPharmacyBackend
             System.IO.File.WriteAllText(path, await self.GenerateCsv());
             using (var db = new Db())
             {
-                db.ReportFiles.Add(res = new ReportFile(){
+                db.ReportFiles.Add(res = new ReportFile()
+                {
                     CreatedAt = DateTime.Now,
                     FileName = fileName,
                     Type = self.Type
@@ -45,7 +48,5 @@ namespace BonelessPharmacyBackend
             }
             return res;
         }
-
-        public static async Task ConsolidateReport
     }
 }
