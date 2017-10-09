@@ -2,7 +2,7 @@
  * Stock Controller
  * Controller associated with the home page of the application
  */
-app.controller("stockCtrl", ($scope, $http) => {
+app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     // init the modal so it can actually be opened properly (href doesn't play nicely with routing)
     $('.modal').modal();
     $('#stockMeasureInput').material_select();
@@ -13,13 +13,21 @@ app.controller("stockCtrl", ($scope, $http) => {
     $scope.postValue = {};
 
     // GET SalesItems
-    $http(Boneless.CreateRequest("api/SalesItems/NotArchived", "get")).then(
-        (res) => {
-            $scope.salesItems = res.data as SalesItem[];
-        },
-        (errorRes) => {
-            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
-        });
+    $scope.updateStockPage = () => {
+        $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
+            (res) => {
+                $scope.salesItems = res.data as SalesItem[];
+            },
+            (errorRes) => {
+                Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+            });
+        };
+    $scope.updateStockPage();
+
+    // Allows other controllers to update the page
+    $scope.$on('updateStockPage', () => {
+        $scope.updateStockPage();
+    });
 
     // GET Measurements
     $http(Boneless.CreateRequest("api/Measurements", "get")).then(
@@ -73,14 +81,18 @@ app.controller("stockCtrl", ($scope, $http) => {
     };
 
     $scope.deleteStockItem = (stock: SalesItem) => {
-        let successVar = `${stock.name} ${stock.amount}  ${stock.measurement.suffix}`;
         stock.isArchived = 1;
+
+        let successVar = `${stock.name} ${stock.amount}  ${stock.measurement.suffix}`;
         $http(Boneless.CreateRequest(`api/SalesItems/${stock.id}`, "put", stock))
             .then((res) => {
                 $('#modalDeleteStockItem').modal('close');
                 $('#modalStockDetails').modal('close');
-                $http(Boneless.CreateRequest("api/SalesItems/NotArchived", "get"));
-                Materialize.toast(successVar + ` ( PLU: ${stock.id} ) archived Successfully`, 4000);
+
+                $scope.updateStockPage();
+                $rootScope.$broadcast('updateRestorePage');
+
+                Materialize.toast(successVar + ` ( PLU : ${stock.id} ) archived Successfully`, 4000);
                 console.log(stock);
             }, (err) => Materialize.toast(`Error Archiving item`, 4000));
     };

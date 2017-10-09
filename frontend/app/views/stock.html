@@ -19,7 +19,7 @@
             </thead>
             
             <tbody>
-                <tr data-ng-repeat="s in salesItems track by s.id">
+                <tr id="stockVal" data-ng-repeat="s in salesItems">
                     <td>{{s.id}}</td>
                     <td>{{s.name}}</td>
                     <td>{{"$" + s.price}}</td>
@@ -141,8 +141,21 @@
                     <td>{{"$" + a.price}}</td>
                     <td>{{a.amount}} {{a.measurement.suffix}}</td>
                     <td>{{a.stockOnHand}}</td>
+                    <td>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalRestoreItem(a)">Restore</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        
+        <div id="modalRestoreStockItem" class="modal">
+            <div class="modal-content">
+                <h4>Restore Item</h4>
+                <h5>{{restoreStock.name}} ({{restoreStock.amount + " " + restoreStock.measurement.suffix}})</h5>
+                <p>Would you like to restore this item?</p>
+                <a href="#/stock" class="modal-action modal-close waves-effect waves-light btn-flat">Cancel</a>
+                <a class="waves-effect waves-light btn" data-ng-click="restoreItem(restoreStock)">Confirm</a>
+            </div>
+        </div>
     </div>
 </div>
