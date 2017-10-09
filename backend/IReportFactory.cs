@@ -19,9 +19,15 @@ namespace BonelessPharmacyBackend
     public static class IReportFactoryExtensions
     {
         /// <summary>
-        /// The output directory for the report writing
+        /// The path of the directory used by the report generation.
         /// </summary>
-        private static readonly string REPORT_DIR = "Reports";
+        public static readonly string REPORT_DIR = "Reports";
+
+        /// <summary>
+        /// Generate the associated report file based on the ReportFactory provided.
+        /// </summary>
+        /// <param name="self">The Report Factory referenced by the extension method</param>
+        /// <returns></returns>
         public static async Task<ReportFile> WriteReport(this IReportFactory self)
         {
             ReportFile res;
@@ -39,5 +45,7 @@ namespace BonelessPharmacyBackend
             }
             return res;
         }
+
+        public static async Task ConsolidateReport
     }
 }

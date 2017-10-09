@@ -7,21 +7,57 @@ using Microsoft.EntityFrameworkCore;
 namespace BonelessPharmacyBackend
 {
     /// <summary>
-    /// The main Database context for the BonelessPharmacy
+    /// The database context used by Boneless Pharmacy.
     /// </summary>
     public class Db : DbContext
     {
+        /// <summary>
+        /// The DbSet for the SalesItems table.
+        /// </summary>
         public DbSet<SalesItem> SalesItems { get; set; }
+        /// <summary>
+        /// The DbSet for the Measurements table.
+        /// </summary>
         public DbSet<Measurement> Measurements { get; set; }
+        /// <summary>
+        /// The DbSet for the ItemTypes table.
+        /// </summary>
         public DbSet<ItemType> ItemTypes { get; set; }
+        /// <summary>
+        /// The DbSet for the Sales table.
+        /// </summary>
         public DbSet<Sale> Sales { get; set; }
+        /// <summary>
+        /// The DbSet for the OrderItems table.
+        /// </summary>
         public DbSet<OrderItem> OrderItems { get; set; }
+        /// <summary>
+        /// The DbSet for the Roles table.
+        /// </summary>
         public DbSet<Role> Roles { get; set; }
+        /// <summary>
+        /// The DbSet for the SalesRecords table.
+        /// </summary>
         public DbSet<SalesRecord> SalesRecords { get; set; }
+        /// <summary>
+        /// The DbSet for the Staff table.
+        /// </summary>
         public DbSet<Staff> Staff { get; set; }
+        /// <summary>
+        /// The DbSet for the Suppliers table.
+        /// </summary>
         public DbSet<Supplier> Suppliers { get; set; }
+        /// <summary>
+        /// The DbSet for the Orders table.
+        /// </summary>
         public DbSet<Order> Orders { get; set; }
+        /// <summary>
+        /// The DbSet for the Customers table.
+        /// </summary>
         public DbSet<Customer> Customers { get; set; }
+        /// <summary>
+        /// The DbSet for the ReportFiles table.
+        /// </summary>
         public DbSet<ReportFile> ReportFiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,12 +75,14 @@ namespace BonelessPharmacyBackend
     }
 
     /// <summary>
-    /// Contains logic relating to the initial data of the Database
+    /// Contains methods used by the `seed` function of the database context.
+    /// 
+    /// Use this class to include default tables and data required by the system.
     /// </summary>
     public static class DbSeeders
     {
         /// <summary>
-        /// Default measurements that should be included in the database
+        /// Default measurements that should be included in the database.
         /// </summary>
         /// <returns></returns>
         private static readonly List<Measurement> MEASUREMENT_DEFAULTS = new List<Measurement>()
@@ -77,7 +115,7 @@ namespace BonelessPharmacyBackend
         };
 
         /// <summary>
-        /// Default Roles that should be included in the database
+        /// Default Roles that should be included in the database.
         /// </summary>
         /// <returns></returns>
         private static readonly List<Role> ROLE_DEFAULTS = new List<Role>()
@@ -99,6 +137,11 @@ namespace BonelessPharmacyBackend
             }
         };
 
+        /// <summary>
+        /// The Administration user by BonelessPharmacy.
+        /// </summary>
+        /// <remarks>This user is not required, instead exists to allow for easier usage of the system.</remarks>
+        /// <returns></returns>
         private static readonly Staff ADMIN_USER = new Staff()
         {
             Name = "Admin",

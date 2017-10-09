@@ -106,8 +106,22 @@
             </select>
         </div>
         <canvas data-ng-show="reportGenerated" id="chartOutput" width="400" height="200"></canvas>
+        <div data-ng-show="reportGenerated">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-ng-repeat="h in reportHeaders">{{h}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-ng-repeat="c in reportContent">
+                        <td data-ng-repeat="d in c">{{d}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div data-ng-show="!reportGenerated">
-            <h4 class="center">Select a report to generate a report</h4>
+            <h4 class="center">Select a report</h4>
         </div>
     </div>
     <div id="modalReportView" class="modal modal-fixed-footer">

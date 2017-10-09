@@ -98,7 +98,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * Set the current report assuming it is structured as a CSV
      */
     $scope.setCurrentReport = (data) => {
-        console.log(data);
         $scope.reportRaw = `${data}`;
         $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
         const reportData = Boneless.ParseCsv($scope.reportRaw);
@@ -115,7 +114,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
         let chartData = translateChartData("stock");
         let chart = new Chart(chartOutput.getContext('2d'), chartData as any);
-        console.log(chart);
+        console.log(chart.data);
     };
 
     /**
@@ -162,6 +161,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     };
 
     $scope.selectSavedReport = () => {
+        console.log($scope.savedReportId);
         $scope.setCurrentReport($scope.savedReports[$scope.savedReportId]);
         $scope.setChart("stock");
     };

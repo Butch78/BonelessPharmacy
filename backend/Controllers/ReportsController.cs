@@ -59,5 +59,6 @@ namespace BonelessPharmacyBackend.Controllers
                 await factory.WriteReport();
             return Content(isJson ? await factory.GenerateJson() : await factory.GenerateCsv());
         });
+
     }
 }
