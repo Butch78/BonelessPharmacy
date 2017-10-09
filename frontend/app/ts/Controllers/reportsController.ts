@@ -9,6 +9,7 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.reportHeaders = [];
     $scope.reportContent = [];
     $scope.savedReports = [];
+    $scope.currentChart = null;
     $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
     $scope.savedReportId = -1;
@@ -104,7 +105,9 @@ app.controller("reportsCtrl", ($scope, $http) => {
         $scope.reportHeaders = reportData[0];
         let tempData = [];
         for (let i = 1; i < reportData.length; i++) {
-            tempData.push(reportData[i]);
+            if (reportData[i][0] !== "") {
+                tempData.push(reportData[i]);
+            }
         }
         $scope.reportContent = tempData;
         $scope.reportGenerated = $scope.reportHeaders.length > 0;
@@ -113,7 +116,10 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.setChart = (reportType: string) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
         let chartData = translateChartData("stock");
-        let chart = new Chart(chartOutput.getContext('2d'), chartData as any);
+        if ($scope.currentChart !== null) {
+            $scope.currentChart.destroy();
+        }
+        $scope.currentChart = new Chart(chartOutput.getContext('2d'), chartData as any);
     };
 
     /**
@@ -129,11 +135,11 @@ app.controller("reportsCtrl", ($scope, $http) => {
                         datasets: [
                             {
                                 backgroundColor: 'rgb(3, 155, 229)',
-                                data: ($scope.reportContent as number[][]).map((r) => r[1]),
+                                data: ($scope.reportContent as number[][]).map((r) => r[2]),
                                 label: "Item Amount Sold",
                             },
                         ],
-                        labels: ($scope.reportContent as number[][]).map((r) => r[0]),
+                        labels: ($scope.reportContent as number[][]).map((r) => r[1]),
                     },
                     options: {
                         scales: {
