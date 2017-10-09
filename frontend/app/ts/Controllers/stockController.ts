@@ -21,7 +21,7 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
             (errorRes) => {
                 Boneless.Notify(BonelessStatusMessage.INVALID_GET);
             });
-        };
+    };
     $scope.updateStockPage();
 
     // Allows other controllers to update the page
@@ -43,6 +43,17 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     $scope.openModalStockDetails = (index: number) => {
         $scope.editingStock = $scope.salesItems[index];
         $("#modalStockDetails").modal('open');
+    };
+
+    $scope.openModalStockFacts = (index: number) => {
+        $scope.editingStock = $scope.salesItems[index];
+        $http(Boneless.CreateRequest(`api/Predictions/${$scope.editingStock.id}`, "get")).then(
+            (res) => {
+                $scope.editingPrediction = res.data;
+                console.log($scope.editingPrediction);
+                $("#modalStockFacts").modal('open');
+            },
+            (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
     };
 
     $scope.openModalDeleteStockItem = () => {

@@ -1,7 +1,11 @@
 <div>
     <ul class="tabs cyan darken-1">
-        <li class="tab"><a class="white-text active" href="#stock">Stock</a></li>
-        <li class="tab"><a class="white-text" href="#archive">Archive</a></li>
+        <li class="tab">
+            <a class="white-text active" href="#stock">Stock</a>
+        </li>
+        <li class="tab">
+            <a class="white-text" href="#archive">Archive</a>
+        </li>
     </ul>
 
     <div id="stock">
@@ -17,7 +21,7 @@
                     <th></th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 <tr id="stockVal" data-ng-repeat="s in salesItems">
                     <td>{{s.id}}</td>
@@ -27,17 +31,18 @@
                     <td>{{s.stockOnHand}}</td>
                     <td>
                         <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockFacts($index)">More</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        
+
         <div class="fixed-action-btn">
             <a class="pulse waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
                 <i class="large material-icons">add</i>
             </a>
         </div>
-        
+
         <div id="modalAddStock" class="modal">
             <div class="modal-content">
                 <h4>New Item</h4>
@@ -81,7 +86,7 @@
                 <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
             </div>
         </div>
-        
+
         <div id="modalStockDetails" class="modal">
             <div class="modal-content">
                 <h4>{{editingStock.name}} ({{editingStock.amount + " " + editingStock.measurement.suffix}})</h4>
@@ -107,8 +112,47 @@
                 <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="updateStockItem()">Save Changes</a>
             </div>
         </div>
-        
-        
+
+        <div id="modalStockFacts" class="modal">
+            <div class="modal-content">
+                <h4>{{editingStock.name}}</h4>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Stock On Hand</td>
+                            <td>{{editingStock.stockOnHand}}</td>
+                        </tr>
+                        <tr>
+                            <td>Expected
+                                <i>Weekly</i> Sales</td>
+                            <td>{{editingPrediction.expectedSales.weekly}}</td>
+                        </tr>
+                        <tr>
+                            <td>Expected SOH in a
+                                <i>Week</i>
+                            </td>
+                            <td>{{editingStock.stockOnHand - editingPrediction.expectedSales.weekly}}</td>
+                        </tr>
+                        <tr>
+                            <td>Expected
+                                <i>Monthly</i> Sales</td>
+                            <td>{{editingPrediction.expectedSales.monthly}}</td>
+                        </tr>
+                        <tr>
+                            <td>Expected SOH in a
+                                <i>Monthly</i>
+                            </td>
+                            <td>{{editingStock.stockOnHand - editingPrediction.expectedSales.monthly}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <a href="#/stock" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
+
+
         <div id="modalDeleteStockItem" class="modal">
             <div class="modal-content">
                 <h4>Delete Item</h4>
@@ -133,7 +177,7 @@
                     <th></th>
                 </tr>
             </thead>
-            
+
             <tbody>
                 <tr data-ng-repeat="a in archiveItems">
                     <td>{{a.id}}</td>
@@ -147,7 +191,7 @@
                 </tr>
             </tbody>
         </table>
-        
+
         <div id="modalRestoreStockItem" class="modal">
             <div class="modal-content">
                 <h4>Restore Item</h4>

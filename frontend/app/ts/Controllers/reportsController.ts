@@ -3,7 +3,7 @@
  * Controller associated with the home page of the application
  */
 app.controller("reportsCtrl", ($scope, $http) => {
-    $('#modalReportView').modal();
+    $('.modal').modal();
     $('select').material_select();
     $('ul.tabs').tabs();
     $scope.reportHeaders = [];
