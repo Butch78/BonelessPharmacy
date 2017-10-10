@@ -99,7 +99,16 @@
         </div>
     </div>
     <div id="view">
-        <canvas id="chartOutput" width="400" height="200"></canvas>
+        <div>
+            <a class='dropdown-button btn' href='#' data-activates='reportDropdown'>Select Report</a>
+            <ul id='reportDropdown' class='dropdown-content'>
+                <li data-ng-repeat="sR in savedReports"><a href="">{{sR.type}} - {{sR.createdAt}}</a></li>
+            </ul>
+        </div>
+        <canvas data-ng-show="reportGenerated" id="chartOutput" width="400" height="200"></canvas>
+        <div data-ng-show="!reportGenerated">
+            <h4 class="center">No report generated :(</h4>
+        </div>
     </div>
     <div id="modalReportView" class="modal modal-fixed-footer">
         <div class="modal-content" id="report-view">

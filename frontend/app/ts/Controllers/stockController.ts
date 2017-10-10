@@ -34,11 +34,9 @@ app.controller("stockCtrl", ($scope, $http) => {
         $("#modalStockDetails").modal('open');
     };
 
-    $scope.openModalDeleteStockItem = (index: number) => {
-        console.log('start');
-        $scope.deletingStock = $scope.salesItems[index];
+    $scope.openModalDeleteStockItem = () => {
+        $scope.deletingStock = $scope.editingStock;
         $('#modalDeleteStockItem').modal('open');
-        console.log('end');
     };
 
     $scope.addNewStockItem = () => {
@@ -68,15 +66,17 @@ app.controller("stockCtrl", ($scope, $http) => {
             ensure you are connected and all fields are valid`, 4000));
     };
 
-
-    //Use a get delete, only need a refrence to delete not the item
-    $scope.deletingStockItem = () => {
+    $scope.deleteStockItem = () => {
         const updatedObject = $scope.deletingStock as SalesItem;
-        $http(Boneless.CreateRequest(`api/SalesItem/${updatedObject.id}`, "delete"))
+        $http(Boneless.CreateRequest(`api/SalesItems/${updatedObject.id}`, "delete"))
             .then((res) => {
-                const data = res.data as SalesItem;
-                $('modalDeleteStockItem').modal('close');
-                Materialize.toast(`${data.name} Deleted`, 4000);
-            }, (err) => Materialize.toast(`Error deleting Item`, 4000));
+                Materialize.toast(`${updatedObject.name} Deleted`, 4000);
+                const removalIndex = ($scope.salesItems as SalesItem[]).indexOf(updatedObject);
+                ($scope.salesItems as SalesItem[]).splice(removalIndex, 1);
+                $('#modalDeleteStockItem').modal('close');
+            }, (err) => {
+                console.log(err);
+                Materialize.toast(`Error deleting Item`, 4000);
+            });
     };
 });
