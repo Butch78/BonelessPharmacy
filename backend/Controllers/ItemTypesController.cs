@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
-    public class ItemTypesController: Controller
+    [Authorize]
+    public class ItemTypesController : Controller
     {
         // GET api/ItemTypes
         [HttpGet]
@@ -18,7 +20,7 @@ namespace BonelessPharmacyBackend.Controllers
                 return db.ItemTypes.ToList();
             }
         });
-        
+
         //GET api/ItemTypes/5
         [HttpGet("{id}")]
         public async Task<ItemType> Get(int id) => await Task.Run<ItemType>(() =>

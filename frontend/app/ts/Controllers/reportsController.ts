@@ -3,7 +3,7 @@
  * Controller associated with the home page of the application
  */
 app.controller("reportsCtrl", ($scope, $http) => {
-    $('#modalReportView').modal();
+    $('.modal').modal();
     $('select').material_select();
     $('ul.tabs').tabs();
     $scope.reportHeaders = [];
@@ -126,6 +126,11 @@ app.controller("reportsCtrl", ($scope, $http) => {
         $scope.currentChart = new Chart(chartOutput.getContext('2d'), chartData as any);
     };
 
+    $scope.niceTime = (dateString: string) => {
+        const newDate = new Date(dateString);
+        return `${newDate.toLocaleTimeString()} ${newDate.toDateString()}`;
+    };
+
     /**
      * Translate Boneless Pharmacy CSV data into a chart
      * @param reportType the type of report
@@ -189,6 +194,8 @@ app.controller("reportsCtrl", ($scope, $http) => {
         outDuration: 225,
         stopPropagation: false, // Stops event propagation
     });
+
+    $('label').addClass('active');
 
     $scope.getSavedReports();
 

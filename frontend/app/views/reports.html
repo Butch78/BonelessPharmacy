@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <div class="card hoverable">
+        <!-- <div class="card hoverable">
             <div class="card-content cyan darken-1 white-text">
                 <span class="card-title">Sales Report</span>
                 <p>
@@ -100,14 +100,14 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div id="view">
         <div>
             <label class="active" for="reportSelect">Saved Report</label>
             <select id="reportSelect" class="browser-default" data-ng-change="selectSavedReport()" data-ng-model="savedReportId">
                 <option data-ng-repeat="sR in savedReports track by $index" value="{{$index}}">
-                    <a href="">{{sR.createdAt}} - {{sR.type}}</a>
+                    <a href="">{{niceTime(sR.createdAt)}} - {{sR.type}}</a>
                 </option>
             </select>
         </div>
@@ -127,7 +127,7 @@
             </table>
             <div>
                 <hr/>
-                <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">More</a>
+                <a class="waves-effect waves-light cyan darken-3 btn" data-ng-click="genSalesReport()">Stats</a>
             </div>
         </div>
         <div data-ng-show="!reportGenerated">

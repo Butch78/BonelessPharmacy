@@ -77,7 +77,7 @@ namespace BonelessPharmacyBackend
 
             app.UseMvc();
             // Seed database
-            app.SeedDb();
+            app.SeedDb(Configuration);
             // Ensure the report directory exists
             System.IO.Directory.CreateDirectory(IReportFactoryExtensions.REPORT_DIR);
         }

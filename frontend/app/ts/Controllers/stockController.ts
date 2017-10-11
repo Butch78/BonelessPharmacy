@@ -11,6 +11,7 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     $scope.editingStock = {};
     $scope.deletingStock = {};
     $scope.postValue = {};
+    $scope.currentChart = null;
 
     // GET SalesItems
     $scope.updateStockPage = () => {
@@ -21,7 +22,7 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
             (errorRes) => {
                 Boneless.Notify(BonelessStatusMessage.INVALID_GET);
             });
-        };
+    };
     $scope.updateStockPage();
 
     // Allows other controllers to update the page
@@ -43,6 +44,48 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     $scope.openModalStockDetails = (index: number) => {
         $scope.editingStock = $scope.salesItems[index];
         $("#modalStockDetails").modal('open');
+    };
+
+    $scope.openModalStockFacts = (index: number) => {
+        $scope.editingStock = $scope.salesItems[index];
+        $http(Boneless.CreateRequest(`api/Predictions/${$scope.editingStock.id}`, "get")).then(
+            (res) => {
+                $scope.editingPrediction = res.data;
+                console.log($scope.editingPrediction);
+                $http(Boneless.CreateRequest(`api/SalesItemTrend/${$scope.editingStock.id}`, 'get')).then(
+                    (resChart) => {
+                        $scope.applyStockFactChart(resChart.data);
+                        $("#modalStockFacts").modal('open');
+                    },
+                    (errorResChart) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
+            },
+            (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
+    };
+
+    $scope.applyStockFactChart = (data: number[]) => {
+        let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
+        if ($scope.currentChart !== null) {
+            $scope.currentChart.destroy();
+        }
+        $scope.currentChart = new Chart(chartOutput.getContext('2d'), {
+            data: {
+                labels: [
+                    '5 months ago',
+                    '4 months ago',
+                    '3 months ago',
+                    '2 months ago',
+                    '1 month ago',
+                    'Current month',
+                ],
+                // tslint:disable-next-line:object-literal-sort-keys
+                datasets: [{
+                    data,
+                    label: 'Monthly Sales',
+                }],
+            },
+            type: 'line',
+        } as any);
+        console.log($scope.currentChart);
     };
 
     $scope.openModalDeleteStockItem = () => {
