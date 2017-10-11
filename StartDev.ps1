@@ -12,10 +12,8 @@ Start-Process powershell {
 }
 
 # Open VS Code in both folders
-# "--disable-gpu" 
-# becase of the GPU issue with electorn :/
-code .\frontend --disable-gpu;
-code .\backend --disable-gpu;
+code .\frontend;
+code .\backend;
 
 # Kill this window
 Stop-Process -Id $PID;
