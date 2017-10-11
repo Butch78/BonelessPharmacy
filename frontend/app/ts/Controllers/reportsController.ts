@@ -3,12 +3,18 @@
  * Controller associated with the home page of the application
  */
 app.controller("reportsCtrl", ($scope, $http) => {
-    $('#modalReportView').modal();
+    $('.modal').modal();
     $('select').material_select();
     $('ul.tabs').tabs();
     $scope.reportHeaders = [];
     $scope.reportContent = [];
+    $scope.savedReports = [];
+    $scope.currentChart = null;
+    $scope.reportGenerated = $scope.reportHeaders.length > 0;
     $scope.minStockThreshold = 5;
+    $scope.savedReportId = -1;
+    $scope.isChartedReport = false;
+    Materialize.updateTextFields();
 
     $scope.genSalesReport = (name: string = "Past Week") => {
         $('#modalReportView').modal('open');
@@ -84,7 +90,6 @@ app.controller("reportsCtrl", ($scope, $http) => {
             threshold: `${$scope.minStockThreshold}`,
             type: "low",
         })).then((res) => {
-            $scope.setCurrentReport(res.data);
             $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
         }, (errorRes) => {
             Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
@@ -97,20 +102,33 @@ app.controller("reportsCtrl", ($scope, $http) => {
     $scope.setCurrentReport = (data) => {
         $scope.reportRaw = `${data}`;
         $scope.reportUrl = Boneless.CreateFile($scope.reportRaw);
-        const reportData = Boneless.ParseCsv(data);
+        const reportData = Boneless.ParseCsv($scope.reportRaw);
         $scope.reportHeaders = reportData[0];
         let tempData = [];
         for (let i = 1; i < reportData.length; i++) {
-            tempData.push(reportData[i]);
+            if (reportData[i][0] !== "") {
+                tempData.push({
+                    data: reportData[i],
+                    index: Math.random() * 100,
+                });
+            }
         }
         $scope.reportContent = tempData;
+        $scope.reportGenerated = $scope.reportHeaders.length > 0;
     };
 
     $scope.setChart = (reportType: string) => {
         let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
-        let chartData = translateChartData("stock");
-        let chart = new Chart(chartOutput.getContext('2d'), chartData as any);
-        console.log(chart);
+        let chartData = translateChartData(reportType);
+        if ($scope.currentChart !== null) {
+            $scope.currentChart.destroy();
+        }
+        $scope.currentChart = new Chart(chartOutput.getContext('2d'), chartData as any);
+    };
+
+    $scope.niceTime = (dateString: string) => {
+        const newDate = new Date(dateString);
+        return `${newDate.toLocaleTimeString()} ${newDate.toDateString()}`;
     };
 
     /**
@@ -118,19 +136,20 @@ app.controller("reportsCtrl", ($scope, $http) => {
      * @param reportType the type of report
      * @param data the data being used for the chart
      */
-    const translateChartData = (reportType: string, data = $scope.reportData) => {
+    const translateChartData = (reportType: string) => {
+        $scope.isChartedReport = true;
         switch (reportType) {
-            case "stock":
+            case "Stock Report":
                 return {
                     data: {
                         datasets: [
                             {
                                 backgroundColor: 'rgb(3, 155, 229)',
-                                data: ($scope.reportContent as number[][]).map((r) => r[1]),
+                                data: ($scope.reportContent).map((r) => r.data[2]),
                                 label: "Item Amount Sold",
                             },
                         ],
-                        labels: ($scope.reportContent as number[][]).map((r) => r[0]),
+                        labels: ($scope.reportContent).map((r) => r.data[1]),
                     },
                     options: {
                         scales: {
@@ -144,9 +163,44 @@ app.controller("reportsCtrl", ($scope, $http) => {
                     type: 'bar',
                 };
             default:
+                $scope.isChartedReport = false;
                 break;
         }
     };
+
+    $scope.getSavedReports = () => {
+        $http(Boneless.CreateRequest("api/Reports", "get")).then((res) => {
+            $scope.savedReports = (res.data as ReportFile[]);
+        }, (errorRes) => {
+            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+        });
+    };
+
+    $scope.selectSavedReport = () => {
+        $http(Boneless.CreateRequest(`api/ReportData/${$scope.savedReports[$scope.savedReportId].fileName}`, "GET"))
+            .then((res) => {
+                $scope.setCurrentReport(res.data);
+                $scope.setChart($scope.savedReports[$scope.savedReportId].type);
+            }, (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
+    };
+
+    $('.dropdown-button').dropdown({
+        alignment: 'left', // Displays dropdown with edge aligned to the left of button
+        belowOrigin: false, // Displays dropdown below the button
+        constrainWidth: false, // Does not change width of dropdown to that of the activator
+        gutter: 0, // Spacing from edge
+        hover: true, // Activate on hover
+        inDuration: 300,
+        outDuration: 225,
+        stopPropagation: false, // Stops event propagation
+    });
+
+    $('label').addClass('active');
+
+    $scope.getSavedReports();
+
+    $scope.openReportModal = () => $('#modalReportView').modal('open');
+
 });
 
 $(".button-collapse").sideNav();

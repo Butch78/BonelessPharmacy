@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class SalesRecordsController : Controller
     {
         // GET api/SalesRecords
@@ -46,7 +48,7 @@ namespace BonelessPharmacyBackend.Controllers
             {
                 using (var db = new Db())
                 {
-                    await db.SalesRecords.AddAsync(value);
+                    await db.SalesRecords.AddAsync(await value.ProcessSalesRecord());
                     await updateStockOnHandAsync(db, value.ItemId, value.Quantity);
                     await db.SaveChangesAsync();
                     return Created("api/SalesRecords", value);

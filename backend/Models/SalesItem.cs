@@ -82,5 +82,17 @@ namespace BonelessPharmacyBackend
         /// </summary>
         /// <returns></returns>
         public virtual Measurement Measurement { get; set; }
+
+        [Required]
+        /// <summary>
+        /// Checking if item is archived (Deleted) or not
+        /// Storage type = Integer (SQLite does not support boolean or bit)
+        /// </summary>
+        /// <example>
+        /// 0 = false (Default), 1 = true
+        /// </example>
+        /// <returns></returns>
+        public int IsArchived { get; set; }
+
     }
 }

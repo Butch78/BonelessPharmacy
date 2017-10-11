@@ -34,6 +34,7 @@ class Boneless {
      */
     public static readonly SetToken = (token) => {
         localStorage.setItem('boneless-token', token);
+        localStorage.setItem('boneless-lastloggedin', `${(new Date()).getDate()}`);
         Boneless.loggedIn = true;
         console.log(token);
         return token;
@@ -67,6 +68,7 @@ class Boneless {
      */
     public static readonly Logout = () => {
         localStorage.removeItem('boneless-user');
+        localStorage.removeItem('boneless-lastloggedin');
         localStorage.removeItem('boneless-token');
         window.location.reload();
     }
@@ -89,7 +91,13 @@ class Boneless {
     /**
      * Getter for logged in status
      */
-    public static readonly IsLoggedIn = () => Boneless.Login() !== null;
+    public static readonly IsLoggedIn = () => Boneless.Login() !== null && Boneless.IsValidDay();
+
+    /**
+     * Ensure the user has logged in for the day
+     */
+    public static readonly IsValidDay = () =>
+        `${(new Date()).getDate()}` === localStorage.getItem('boneless-lastloggedin')
 
     /**
      * Generate a new URL based file for text

@@ -11,8 +11,8 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20171003101546_Reports now recorded")]
-    partial class Reportsnowrecorded
+    [Migration("20171009082453_Added SalesPrice field")]
+    partial class AddedSalesPricefield
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -145,6 +145,8 @@ namespace BonelessPharmacyBackend.Migrations
 
                     b.Property<int>("Amount");
 
+                    b.Property<int>("IsArchived");
+
                     b.Property<int>("MeasurementId");
 
                     b.Property<string>("Name")
@@ -173,6 +175,8 @@ namespace BonelessPharmacyBackend.Migrations
                     b.Property<int>("Quantity");
 
                     b.Property<int>("SaleId");
+
+                    b.Property<double>("SalePrice");
 
                     b.HasKey("Id");
 

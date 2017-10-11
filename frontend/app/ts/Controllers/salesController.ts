@@ -15,6 +15,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItemName = "Enter a Barcode/PLU number";
         $scope.searchValue = "";
     };
+
     $scope.initValues();
     $scope.getSales = () => $http(Boneless.CreateRequest("api/Sales", "get")).then(
         (res) => {
@@ -23,15 +24,33 @@ app.controller("salesCtrl", ($scope, $http) => {
         },
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
+    $scope.checkDailyReport = () => $http(Boneless.CreateRequest("api/DailySalesReport", "get")).then(
+        (res) => {
+            if (res.data) {
+                Boneless.NotifyCustom("Daily Sales report generated, view in the Reports section.");
+            }
+        }, (errorRes) => {
+            console.log(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
+        },
+    );
+
     $scope.getSales();
+    $scope.checkDailyReport();
 
     /**
      * Retrieve the total value of a sales contents
      */
     $scope.totalValue = (sale: Sale) => `$${
         sale.contents
-            .map((sr) => sr.quantity * sr.salesItem.price)
+            .map((sr) => sr.quantity * sr.salePrice)
             .reduce((prev, curr) => prev + curr)}`;
+
+    $scope.niceDate = (sale: Sale) => `${
+        new Date(sale.createdAt).toDateString()}`;
+
+    $scope.getTime = (sale: Sale) => `${
+        new Date(sale.createdAt).toLocaleTimeString()}`;
 
     // GET SalesItems
     $http(Boneless.CreateRequest("api/SalesItems", "get")).then(

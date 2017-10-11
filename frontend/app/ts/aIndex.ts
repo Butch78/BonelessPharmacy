@@ -4,7 +4,7 @@
 const app = angular.module("bonelessPharmacy", ['ngRoute']);
 
 app.controller("homeCtrl", ($scope, $location, $http) => {
-    $location.path(Boneless.GetToken() !== null ? '/sales' : '/staff');
+    $location.path(Boneless.IsLoggedIn() ? '/sales' : '/staff');
     $scope.IsLoggedIn = Boneless.IsLoggedIn();
     $scope.initiateLogout = () => {
         Boneless.Logout();

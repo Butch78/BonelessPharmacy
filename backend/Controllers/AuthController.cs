@@ -38,7 +38,7 @@ namespace BonelessPharmacyBackend.Controllers
                 issuer: _configuration["Tokens:Issuer"],
                 audience: _configuration["Tokens:Issuer"],
                 claims: claims,
-                expires: DateTime.Now,
+                expires: DateTime.Now.AddDays(1),
                 signingCredentials: creds
                 );
 
