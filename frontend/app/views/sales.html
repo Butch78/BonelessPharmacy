@@ -40,7 +40,7 @@
     </ul>-->
 
     <div class="fixed-action-btn">
-        <a id="addSale" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
+        <a id="addSale" data-ng-class="{'pulse' : sales.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
       <i class="large material-icons">add</i>
     </a>
     </div>
