@@ -27,7 +27,7 @@ app.controller("helpCtrl", ($scope) => {
             desc: ["1. Press the Edit Button next to the Sale item you wish to edit", "2. Change the relevant details", "3. Press Save changes to save the changes"],
         },{
             title:"Deleting a Stock Item", 
-            desc: ["1. Press the Edit Button next to the Sale item you wish to delete", "2. Press the Delete Item Button", "3.Press confirm to delete the item", "The items are not delete, instead they are archived"],
+            desc: ["1. Press the Edit Button next to the Sale item you wish to delete", "2. Press the Delete Item Button", "3.Press confirm to delete the item", "The items are not deleted, instead they are archived"],
         },{
             title:"Viewing information about a Stock Item", 
             desc: ["1. Press the More Button next to the Sale item you wish to view"],
