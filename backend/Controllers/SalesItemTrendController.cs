@@ -21,9 +21,11 @@ namespace BonelessPharmacyBackend.Controllers
                 List<int> result = new List<int>();
                 for (int i = 5; i >= 0; i--)
                 {
-                    result.Add(Sale.ValidSales(db).Where(s =>
-                        s.CreatedAt.DayOfYear == DateTime.Today.Subtract(new TimeSpan(i * 30, 0, 0, 0)).DayOfYear)
-                        .SelectMany(s => s.Contents).Where(sr => sr.ItemId == id).Sum(sr => sr.Quantity));
+                    var sales = Sale.ValidSales(db).Where(s =>
+                        s.CreatedAt.DayOfYear > DateTime.Today.Subtract(new TimeSpan(i * 30, 0, 0, 0)).DayOfYear && 
+                        s.CreatedAt.DayOfYear  <= DateTime.Today.Subtract(new TimeSpan((i - 1) * 30, 0, 0, 0)).DayOfYear);
+                    var quantity = sales.SelectMany(s => s.Contents).Where(sr => sr.ItemId == id).Sum(sr => sr.Quantity);
+                    result.Add(quantity);
                 }
                 return result;
             }

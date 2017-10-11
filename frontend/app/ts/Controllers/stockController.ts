@@ -70,12 +70,12 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
         $scope.currentChart = new Chart(chartOutput.getContext('2d'), {
             data: {
                 labels: [
-                    '5 months ago',
-                    '4 months ago',
-                    '3 months ago',
-                    '2 months ago',
-                    '1 month ago',
-                    'Current month',
+                    '4-5 Months Ago',
+                    '3-4 Months Ago',
+                    '2-3 Months Ago',
+                    '1-2 Months Ago',
+                    'Past Month',
+                    'Today',
                 ],
                 // tslint:disable-next-line:object-literal-sort-keys
                 datasets: [{
