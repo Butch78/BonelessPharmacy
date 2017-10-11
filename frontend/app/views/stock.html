@@ -1,5 +1,7 @@
+<h2>Stock</h2>
 <div>
-    <ul class="tabs cyan darken-1">
+    <ul class="tabs cyan darken-2">
+            <div class="indicator purple darken-4"></div>
         <li class="tab">
             <a class="white-text active" href="#stock">Stock</a>
         </li>
@@ -9,7 +11,6 @@
     </ul>
 
     <div id="stock">
-        <h2>Stock</h2>
         <table class="striped">
             <thead>
                 <tr>
@@ -30,17 +31,30 @@
                     <td>{{s.amount}} {{s.measurement.suffix}}</td>
                     <td>{{s.stockOnHand}}</td>
                     <td>
-                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
-                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockFacts($index)">More</a>
+                        <a class="waves-effect waves-light btn teal lighten-1" data-ng-click="openModalStockDetails($index)">Edit</a>
+                        <a class="waves-effect waves-light btn teal lighten-1" data-ng-click="openModalStockFacts($index)">More</a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <br>
+        <div>
+            <i data-ng-click="discoverStockFeature()" class="fake-link">Need to add a stock item?</i>
+        </div>
 
     <div class="fixed-action-btn">
-        <a data-ng-class="{'pulse' : salesItems.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
+        <a id="addStock" data-ng-class="{'pulse' : salesItems.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
       <i class="large material-icons">add</i>
     </a>
+    </div>
+
+    <div class="tap-target purple lighten-3" data-activates="addStock" >
+        <div class="tap-target-content">
+            <h5>Add Stock</h5>
+            <p>
+                Use this button to add a new item of stock!
+            </p>
+        </div>
     </div>
       
 
@@ -169,7 +183,7 @@
     </div>
 
     <div id="archive" data-ng-controller="archiveCtrl">
-        <h2>Archive</h2>
+       
         <table class="striped">
             <thead>
                 <tr>

@@ -26,3 +26,17 @@
 {
     width: 120px !important;
 }
+
+.side-nav > li> a:hover {
+    background-color: #00838f;
+    color: white;
+}
+
+.tabs > .tab > a:hover {
+    background-color: #00838f;
+}
+
+.dropdown-content > li > a:hover {
+    background-color: #00838f;
+    color: white;
+}

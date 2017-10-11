@@ -93,6 +93,10 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
         $('#modalDeleteStockItem').modal('open');
     };
 
+    $scope.discoverStockFeature = () => {
+        $('.tap-target').tapTarget('open');
+    };
+
     $scope.addNewStockItem = () => {
         if ($scope.newStock.stockOnHand > 0) {
             console.log($scope.newStock);
