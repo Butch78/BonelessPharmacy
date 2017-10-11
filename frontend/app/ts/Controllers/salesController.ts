@@ -14,6 +14,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItems = [];
         $scope.searchItemName = "Enter a Barcode/PLU number";
         $scope.searchValue = "";
+        $scope.viewedSale = {};
     };
 
     $scope.initValues();
@@ -24,14 +25,26 @@ app.controller("salesCtrl", ($scope, $http) => {
         },
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
+    $scope.checkDailyReport = () => $http(Boneless.CreateRequest("api/DailySalesReport", "get")).then(
+        (res) => {
+            if (res.data) {
+                Boneless.NotifyCustom("Daily Sales report generated, view in the Reports section.");
+            }
+        }, (errorRes) => {
+            console.log(errorRes.data);
+            Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
+        },
+    );
+
     $scope.getSales();
+    $scope.checkDailyReport();
 
     /**
      * Retrieve the total value of a sales contents
      */
     $scope.totalValue = (sale: Sale) => `$${
         sale.contents
-            .map((sr) => sr.quantity * sr.salesItem.price)
+            .map((sr) => sr.quantity * sr.salePrice)
             .reduce((prev, curr) => prev + curr)}`;
 
     $scope.niceDate = (sale: Sale) => `${
@@ -91,7 +104,8 @@ app.controller("salesCtrl", ($scope, $http) => {
     };
 
     // Will need to be adjusted later so that it takes in the ID of a sale, meaning it can present the relevant details
-    $scope.openModalSaleDetails = () => {
+    $scope.openModalSaleDetails = (index: number) => {
+        $scope.viewedSale = $scope.sales[index];
         $('#modalSaleDetails').modal('open');
     };
 

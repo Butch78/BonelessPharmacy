@@ -18,7 +18,9 @@
                 <td>{{niceDate(x)}}</td>
                 <td>{{getTime(x)}}</td>
                 <td>{{totalValue(x)}}</td>
-                <td></td>
+                <td>
+                    <a class="waves-effect waves-light btn" data-ng-click="openModalSaleDetails($index)">More</a>
+                </td>
             </tr>
 
         </tbody>
@@ -80,10 +82,10 @@
                     <tr data-ng-repeat="s in newSaleRecords">
                         <td>{{s.salesItem.id}}</td>
                         <td>{{s.salesItem.name}}</td>
-                        <td>{{s.salesItem.price}}</td>
+                        <td>${{s.salesItem.price}}</td>
                         <td><input type="number" name="{{s.salesItem.id}}-quantity" id="{{s.salesItem.id}}-quantity" data-ng-model="s.quantity" class="number-small"></td>
                         <td>{{s.salesItem.stockOnHand}}</td>
-                        <td>{{s.salesItem.price * s.quantity | number:2}}</td>
+                        <td>${{s.salesItem.price * s.quantity | number:2}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -97,8 +99,29 @@
 
     <div id="modalSaleDetails" class="modal">
         <div class="modal-content">
-            <h4>Details</h4>
-            <p>Details and whatnot</p>
+            <h4>Order Number : {{viewedSale.id}}</h4>
+            <h5>Sale Items</h5>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Item PLU</th>
+                        <th>Item Name</th>
+                        <th>Retail Price</th>
+                        <th>Quantity</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr data-ng-repeat="x in viewedSale.contents">
+                        <td>{{x.salesItem.id}}</td>
+                        <td>{{x.salesItem.name}}</td>
+                        <td>${{x.salePrice}}</td>
+                        <td>{{x.quantity}}</td>
+                        <td>${{x.salePrice * x.quantity | number:2}}</td>
+                    </tr>
+                </tbody>
+            </table> 
         </div>
         <div class="modal-footer">
             <a href="#/sales" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>

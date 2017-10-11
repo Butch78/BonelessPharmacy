@@ -2,31 +2,39 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BonelessPharmacyBackend.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class SalesItemsLowController : Controller
     {
         /// <summary>
-        /// Return how many stock items are low (for now, we'll say this is a quantity of less than 5)
+        /// Return how many stock items are low by default this value is 5.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<SalesItem>> Get() => await Task.Run<IEnumerable<SalesItem>>(() =>
         {
-            var items = new List<SalesItem>();
             using (var db = new Db())
             {
-                foreach (SalesItem item in db.SalesItems)
-                {
-                    if (item.StockOnHand < 5)
-                        items.Add(item);
-                }
+                return db.SalesItems.Where(s => s.StockOnHand < 5).ToList();
             }
-            return items;
+        });
+        /// <summary>
+        /// Return how many stock items are low by default this value is 5.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{amount}")]
+        public async Task<IEnumerable<SalesItem>> Get(int amount = 5) => await Task.Run<IEnumerable<SalesItem>>(() =>
+        {
+            using (var db = new Db())
+            {
+                return db.SalesItems.Where(s => s.StockOnHand < amount).ToList();
+            }
         });
     }
 }

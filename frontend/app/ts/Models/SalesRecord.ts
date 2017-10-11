@@ -10,4 +10,6 @@ interface SalesRecord {
     salesItem?: SalesItem;
 
     quantity: number;
+
+    salePrice: number;
 }

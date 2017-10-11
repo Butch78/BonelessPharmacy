@@ -2,21 +2,33 @@
  * Stock Controller
  * Controller associated with the home page of the application
  */
-app.controller("stockCtrl", ($scope, $http) => {
+app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     // init the modal so it can actually be opened properly (href doesn't play nicely with routing)
     $('.modal').modal();
     $('#stockMeasureInput').material_select();
+    $('.tabs').tabs();
     $scope.newStock = {};
     $scope.editingStock = {};
     $scope.deletingStock = {};
+    $scope.postValue = {};
+    $scope.currentChart = null;
+
     // GET SalesItems
-    $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
-        (res) => {
-            $scope.salesItems = res.data as SalesItem[];
-        },
-        (errorRes) => {
-            Boneless.Notify(BonelessStatusMessage.INVALID_GET);
-        });
+    $scope.updateStockPage = () => {
+        $http(Boneless.CreateRequest("api/SalesItems", "get")).then(
+            (res) => {
+                $scope.salesItems = res.data as SalesItem[];
+            },
+            (errorRes) => {
+                Boneless.Notify(BonelessStatusMessage.INVALID_GET);
+            });
+    };
+    $scope.updateStockPage();
+
+    // Allows other controllers to update the page
+    $scope.$on('updateStockPage', () => {
+        $scope.updateStockPage();
+    });
 
     // GET Measurements
     $http(Boneless.CreateRequest("api/Measurements", "get")).then(
@@ -32,6 +44,48 @@ app.controller("stockCtrl", ($scope, $http) => {
     $scope.openModalStockDetails = (index: number) => {
         $scope.editingStock = $scope.salesItems[index];
         $("#modalStockDetails").modal('open');
+    };
+
+    $scope.openModalStockFacts = (index: number) => {
+        $scope.editingStock = $scope.salesItems[index];
+        $http(Boneless.CreateRequest(`api/Predictions/${$scope.editingStock.id}`, "get")).then(
+            (res) => {
+                $scope.editingPrediction = res.data;
+                console.log($scope.editingPrediction);
+                $http(Boneless.CreateRequest(`api/SalesItemTrend/${$scope.editingStock.id}`, 'get')).then(
+                    (resChart) => {
+                        $scope.applyStockFactChart(resChart.data);
+                        $("#modalStockFacts").modal('open');
+                    },
+                    (errorResChart) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
+            },
+            (erroRes) => Boneless.Notify(BonelessStatusMessage.INVALID_GET));
+    };
+
+    $scope.applyStockFactChart = (data: number[]) => {
+        let chartOutput = document.getElementById("chartOutput") as HTMLCanvasElement;
+        if ($scope.currentChart !== null) {
+            $scope.currentChart.destroy();
+        }
+        $scope.currentChart = new Chart(chartOutput.getContext('2d'), {
+            data: {
+                labels: [
+                    '5 months ago',
+                    '4 months ago',
+                    '3 months ago',
+                    '2 months ago',
+                    '1 month ago',
+                    'Current month',
+                ],
+                // tslint:disable-next-line:object-literal-sort-keys
+                datasets: [{
+                    data,
+                    label: 'Monthly Sales',
+                }],
+            },
+            type: 'line',
+        } as any);
+        console.log($scope.currentChart);
     };
 
     $scope.openModalDeleteStockItem = () => {
@@ -66,17 +120,20 @@ app.controller("stockCtrl", ($scope, $http) => {
             ensure you are connected and all fields are valid`, 4000));
     };
 
-    $scope.deleteStockItem = () => {
-        const updatedObject = $scope.deletingStock as SalesItem;
-        $http(Boneless.CreateRequest(`api/SalesItems/${updatedObject.id}`, "delete"))
+    $scope.deleteStockItem = (stock: SalesItem) => {
+        stock.isArchived = 1;
+
+        let successVar = `${stock.name} ${stock.amount}  ${stock.measurement.suffix}`;
+        $http(Boneless.CreateRequest(`api/SalesItems/${stock.id}`, "put", stock))
             .then((res) => {
-                Materialize.toast(`${updatedObject.name} Deleted`, 4000);
-                const removalIndex = ($scope.salesItems as SalesItem[]).indexOf(updatedObject);
-                ($scope.salesItems as SalesItem[]).splice(removalIndex, 1);
                 $('#modalDeleteStockItem').modal('close');
-            }, (err) => {
-                console.log(err);
-                Materialize.toast(`Error deleting Item`, 4000);
-            });
+                $('#modalStockDetails').modal('close');
+
+                $scope.updateStockPage();
+                $rootScope.$broadcast('updateRestorePage');
+
+                Materialize.toast(successVar + ` ( PLU : ${stock.id} ) archived Successfully`, 4000);
+                console.log(stock);
+            }, (err) => Materialize.toast(`Error Archiving item`, 4000));
     };
 });

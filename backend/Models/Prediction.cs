@@ -27,17 +27,26 @@ namespace BonelessPharmacyBackend
             PopulateData();
         }
 
-        private async void PopulateData() => await Task.Run(() =>
+        /// <summary>
+        /// Using a synchronous database connection, populate the Prediction objects data.
+        /// </summary>
+        private void PopulateData()
         {
             using (var db = new Db())
             {
                 var pastWeekSales = Sale.ValidSales(db)
                     .Where(s => s.CreatedAt >= DateTime.Today.Subtract(new TimeSpan(7,0,0,0))).ToList();
+                var pastMonthSales = Sale.ValidSales(db)
+                    .Where(s => s.CreatedAt >= DateTime.Today.Subtract(new TimeSpan(30,0,0,0,0))).ToList();
+
                 var pastWeekItems = pastWeekSales.Count > 0 ? pastWeekSales.SelectMany(s => s.Contents)
+                    .Where(s => s.ItemId == _item.Id).ToList() : new List<SalesRecord>();
+                var pastMonthItems = pastMonthSales.Count > 0 ? pastWeekSales.SelectMany(s => s.Contents)
                     .Where(s => s.ItemId == _item.Id).ToList() : new List<SalesRecord>();
 
                 _expectedSales["weekly"] = pastWeekItems.Count > 0 ? pastWeekItems.Average(s => s.Quantity) : 0;
+                _expectedSales["monthly"] = pastMonthItems.Count > 0 ? pastMonthItems.Average(s => s.Quantity) : 0;
             }
-        });
+        }
     }
 }

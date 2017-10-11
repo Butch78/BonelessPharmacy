@@ -11,8 +11,8 @@ using System;
 namespace BonelessPharmacyBackend.Migrations
 {
     [DbContext(typeof(Db))]
-    [Migration("20170923031647_SOH now an int")]
-    partial class SOHnowanint
+    [Migration("20171006133945_freshMigration")]
+    partial class freshMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -91,6 +91,24 @@ namespace BonelessPharmacyBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("BonelessPharmacyBackend.ReportFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<string>("FileName")
+                        .IsRequired();
+
+                    b.Property<string>("Type")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReportFiles");
                 });
 
             modelBuilder.Entity("BonelessPharmacyBackend.Role", b =>
