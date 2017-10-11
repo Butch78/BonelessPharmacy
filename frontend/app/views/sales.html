@@ -116,9 +116,9 @@
                     <tr data-ng-repeat="x in viewedSale.contents">
                         <td>{{x.salesItem.id}}</td>
                         <td>{{x.salesItem.name}}</td>
-                        <td>${{x.salesItem.price}}</td>
+                        <td>${{x.salePrice}}</td>
                         <td>{{x.quantity}}</td>
-                        <td>${{x.salesItem.price * x.quantity | number:2}}</td>
+                        <td>${{x.salePrice * x.quantity | number:2}}</td>
                     </tr>
                 </tbody>
             </table> 
