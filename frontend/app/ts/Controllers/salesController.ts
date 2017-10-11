@@ -14,6 +14,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         $scope.searchItems = [];
         $scope.searchItemName = "Enter a Barcode/PLU number";
         $scope.searchValue = "";
+        $scope.viewedSale = {};
     };
 
     $scope.initValues();
@@ -103,7 +104,8 @@ app.controller("salesCtrl", ($scope, $http) => {
     };
 
     // Will need to be adjusted later so that it takes in the ID of a sale, meaning it can present the relevant details
-    $scope.openModalSaleDetails = () => {
+    $scope.openModalSaleDetails = (index: number) => {
+        $scope.viewedSale = $scope.sales[index];
         $('#modalSaleDetails').modal('open');
     };
 

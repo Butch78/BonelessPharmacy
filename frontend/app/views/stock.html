@@ -97,17 +97,17 @@
                 <h4>{{editingStock.name}} ({{editingStock.amount + " " + editingStock.measurement.suffix}})</h4>
                 <div class="row input-field">
                     <i class="material-icons prefix">create</i>
-                    <label for="editStockName">Stock Name</label>
+                    <label class="active" for="editStockName">Stock Name</label>
                     <input type="text" id="editStockName" data-ng-model="editingStock.name">
                 </div>
                 <div class="row input-field">
                     <i class="material-icons prefix">attach_money</i>
-                    <label for="editStockPrice">Retail Price</label>
+                    <label class="active" for="editStockPrice">Retail Price</label>
                     <input type="number" id="editStockPrice" data-ng-model="editingStock.price">
                 </div>
                 <div class="row input-field">
                     <i class="material-icons prefix">poll</i>
-                    <label for="editStockQtyInput">Quantity</label>
+                    <label class="active" for="editStockQtyInput">Quantity</label>
                     <input type="number" min="0" id="editStockQtyInput" data-ng-model="editingStock.stockOnHand">
                 </div>
             </div>
