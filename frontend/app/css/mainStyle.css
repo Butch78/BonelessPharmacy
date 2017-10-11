@@ -40,3 +40,8 @@
     background-color: #00838f;
     color: white;
 }
+
+tbody tr:hover {
+    background: #bbdefb;
+}
+  
