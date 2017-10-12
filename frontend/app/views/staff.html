@@ -2,18 +2,20 @@
     <h2>Staff Central</h2>
     <ul class="collapsible popout" data-collapsible="accordion">
         <li data-ng-repeat="x in staff">
-            <div class="collapsible-header"><i class="material-icons">{{enumerateRole(x.roleId)}}</i> {{x.name}} ({{getRole(x.roleId).name}})
+            <div class="collapsible-header">
+                <i class="material-icons">{{enumerateRole(x.roleId)}}</i> {{x.name}} ({{getRole(x.roleId).name}})
             </div>
             <div class="collapsible-body">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">lock_outline</i>
-                    <input type="password" id="input-password-{{x.id}}" data-ng-keypress="submitLogin($event, x)" class="validate" autofocus />
+                    <input type="password" id="input-password-{{x.id}}" data-ng-keypress="submitLogin($event, x)" class="validate" autofocus
+                    />
                     <label for="password">Password - Enter here</label>
                     <div>
                         <!-- Can put this in a form and make the button "submit" -->
                         <button class="btn waves-effect waves-light" data-ng-click="changeStaff(x)" type="btn">Login
-                                <i class="material-icons right">send</i>
-                            </button>
+                            <i class="material-icons right">send</i>
+                        </button>
                     </div>
                 </div>
                 <!-- Add required and/or validate (materialize) tag above later -->
@@ -30,10 +32,54 @@
         <div class="card-action">
             <button class="btn" data-ng-click="callCurrent()">Call</button>
             <button class="btn red" data-ng-click="initiateLogout()">Logout</button>
+            <div data-ng-show="currentRole.name === 'Manager'">
+                <br>
+                <button class="btn" data-ng-click="openCreateUserModal()">Create New User</button>
+            </div>
         </div>
     </div>
-    <div class="card">
-        <i>Need a new user?</i>
+</div>
+<div id="openCreateUserModal" class="modal">
+    <div class="modal-content">
+        <h4>New User</h4>
+        <div class="row input-field">
+            <i class="material-icons prefix">person</i>
+            <label class="active" for="editStockName">Name</label>
+            <input type="text" id="editStockName" data-ng-model="newUser.name">
+        </div>
+        <div class="row input-field">
+            <i class="material-icons prefix">phone</i>
+            <label class="active" for="editStockPrice">Phone Number</label>
+            <input type="number" id="editStockPrice" data-ng-model="newUser.phone">
+        </div>
+        <div class="row input-field">
+            <i class="material-icons prefix">poll</i>
+            <label class="active" for="editStockQtyInput">Role</label>
+            <div class="select-wrapper">
+                <select id="userRoleId" data-ng-model="newUser.roleid">
+                    <option value="1">Manager</option>
+                    <option value="2">Pharmacist</option>
+                    <option value="3" selected>Sales Assistant</option>
+                </select>
+            </div>
+        </div>
+        <a href="#/staff" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        <a class="waves-effect waves-light btn green" data-ng-click="createAccount()">Create Account</a>
     </div>
+</div>
 
+<div id="newUserConfirmModal" class="modal">
+    <div class="modal-content">
+        <h4>New User Created!</h4>
+        <p>
+            Make sure you save this password, you will need to contact support to change it in future.
+        </p>
+        <div class="row input-field">
+            <i class="material-icons prefix">lock</i>
+            <label class="active" for="newUserPassword">Password</label>
+            <input type="text" name="newUserPassword" id="newUserPassword" data-ng-model="newUserPassword">
+
+        </div>
+        <a href="#/staff" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
 </div>

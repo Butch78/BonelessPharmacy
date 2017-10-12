@@ -111,11 +111,9 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
                 }
             }, (err) => Materialize.toast(`Error Adding Item,
             ensure you are connected and all fields are valid`, 4000));
-        }
-        else {
+        } else {
             Materialize.toast("Please enter a positive number for stock quantity", 4000);
         }
-        
     };
 
     $scope.updateStockItem = () => {
