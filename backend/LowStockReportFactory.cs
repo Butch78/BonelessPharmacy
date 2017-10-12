@@ -33,14 +33,14 @@ namespace BonelessPharmacyBackend
         /// <param name="begin"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        private async void PopulateLowStock()
+        private void PopulateLowStock()
         {
             using (var db = new Db())
             {
-                _stock = await db.SalesItems
+                _stock = db.SalesItems
                     .Include(s => s.Measurement)
                     .Where(s => s.StockOnHand <= _lowThreshold)
-                    .ToListAsync();
+                    .ToList();
             }
         }
 

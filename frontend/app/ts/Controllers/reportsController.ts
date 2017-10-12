@@ -91,15 +91,14 @@ app.controller("reportsCtrl", ($scope, $http) => {
                 threshold: `${$scope.minStockThreshold}`,
                 type: "low",
             })).then((res) => {
+                $scope.setCurrentReport(res.data);
                 $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
             }, (errorRes) => {
                 Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
             });
-        }
-        else {
+        } else {
             Materialize.toast("Threshold for low stock must be at least 0", 4000);
         }
-        
     };
 
     /**
