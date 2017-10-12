@@ -88,7 +88,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         console.log("BEFORE");
         // console.log($scope.newSaleRecords.indexOf(salesItem));
 
-        if (e.which === 13 && salesItem !== undefined) {
+        if (e == "CLICK" && salesItem !== undefined || e !== "CLICK" && e.which === 13 && salesItem !== undefined) {
             const currentItems = ($scope.newSaleRecords as SalesRecord[])
                 .filter((s) => s.itemId === salesItem.id);
             if (currentItems.length === 0) {
