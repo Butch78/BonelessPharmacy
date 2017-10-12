@@ -44,8 +44,8 @@ namespace BonelessPharmacyBackend
                 var pastMonthItems = pastMonthSales.Count > 0 ? pastWeekSales.SelectMany(s => s.Contents)
                     .Where(s => s.ItemId == _item.Id).ToList() : new List<SalesRecord>();
 
-                _expectedSales["weekly"] = pastWeekItems.Count > 0 ? pastWeekItems.Average(s => s.Quantity) : 0;
-                _expectedSales["monthly"] = pastMonthItems.Count > 0 ? pastMonthItems.Average(s => s.Quantity) : 0;
+                _expectedSales["weekly"] = pastWeekItems.Count > 0 ? Math.Floor(pastWeekItems.Average(s => s.Quantity)) : 0;
+                _expectedSales["monthly"] = pastMonthItems.Count > 0 ? Math.Floor(pastMonthItems.Average(s => s.Quantity)) : 0;
             }
         }
     }

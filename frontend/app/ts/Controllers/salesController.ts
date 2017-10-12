@@ -88,7 +88,8 @@ app.controller("salesCtrl", ($scope, $http) => {
         console.log("BEFORE");
         // console.log($scope.newSaleRecords.indexOf(salesItem));
 
-        if (e == "CLICK" && salesItem !== undefined || e !== "CLICK" && e.which === 13 && salesItem !== undefined) {
+        if (e === "Click, a film by Adam Sandler" && salesItem !== undefined 
+            || e !== "Click, a film by Adam Sandler" && e.which === 13 && salesItem !== undefined) {
             const currentItems = ($scope.newSaleRecords as SalesRecord[])
                 .filter((s) => s.itemId === salesItem.id);
             if (currentItems.length === 0) {
