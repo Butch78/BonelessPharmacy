@@ -16,6 +16,9 @@ Out of the box, Boneless Pharmacy features
 - A secure, powerful, flexible set of API endpoints for interacting with the solution from any solution
 - An easy to manage, file-based SQLite database system
 
+It is with these features and more that Boneless Pharmacy aims to not only be a powerful sales tool
+but a fully fledged business intelligence tool.
+
 [Further documentation can be found in our Wiki](https://github.com/Butch78/BonelessPharmacy/wiki)
 
 ## Getting Started
