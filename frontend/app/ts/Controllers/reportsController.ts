@@ -85,15 +85,21 @@ app.controller("reportsCtrl", ($scope, $http) => {
     };
 
     $scope.genLowStockReport = () => {
-        $('#modalReportView').modal('open');
-        $http(Boneless.CreateRequest("api/Reports", "post", {
-            threshold: `${$scope.minStockThreshold}`,
-            type: "low",
-        })).then((res) => {
-            $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
-        }, (errorRes) => {
-            Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
-        });
+        if ($scope.minStockThreshold > 0) {
+            $('#modalReportView').modal('open');
+            $http(Boneless.CreateRequest("api/Reports", "post", {
+                threshold: `${$scope.minStockThreshold}`,
+                type: "low",
+            })).then((res) => {
+                $scope.reportName = `Low Stock (Min ${$scope.minStockThreshold} SOH)`;
+            }, (errorRes) => {
+                Boneless.Notify(BonelessStatusMessage.INVALID_REPORT);
+            });
+        }
+        else {
+            Materialize.toast("Threshold for low stock must be at least 0", 4000);
+        }
+        
     };
 
     /**

@@ -112,6 +112,11 @@ namespace BonelessPharmacyBackend
             {
                 Suffix = "capsule/s",
                 Description = "Capsules"
+            },
+            new Measurement()
+            {
+                Suffix = "unit/s",
+                Description = "Units"
             }
         };
 

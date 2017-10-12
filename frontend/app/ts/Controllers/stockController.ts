@@ -70,12 +70,12 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
         $scope.currentChart = new Chart(chartOutput.getContext('2d'), {
             data: {
                 labels: [
-                    '5 months ago',
-                    '4 months ago',
-                    '3 months ago',
-                    '2 months ago',
-                    '1 month ago',
-                    'Current month',
+                    '4-5 Months Ago',
+                    '3-4 Months Ago',
+                    '2-3 Months Ago',
+                    '1-2 Months Ago',
+                    'Past Month',
+                    'Today',
                 ],
                 // tslint:disable-next-line:object-literal-sort-keys
                 datasets: [{
@@ -93,19 +93,27 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
         $('#modalDeleteStockItem').modal('open');
     };
 
+    $scope.discoverStockFeature = () => {
+        $('.tap-target').tapTarget('open');
+    };
+
     $scope.addNewStockItem = () => {
-        console.log($scope.newStock);
-        $scope.newStock.measurementId = (document.getElementById("stockMeasureInput") as HTMLSelectElement).value;
-        $http(Boneless.CreateRequest("api/SalesItems", "post", $scope.newStock)).then((res) => {
-            if (res.status === 201) {
-                const data = res.data as SalesItem;
-                ($scope.salesItems as SalesItem[]).push(data);
-                $('#modalAddStock').modal('close');
-                Materialize.toast(`${data.name} added to SOH`, 4000);
-                $scope.newStock = {};
-            }
-        }, (err) => Materialize.toast(`Error Adding Item,
-        ensure you are connected and all fields are valid`, 4000));
+        if ($scope.newStock.stockOnHand > 0) {
+            console.log($scope.newStock);
+            $scope.newStock.measurementId = (document.getElementById("stockMeasureInput") as HTMLSelectElement).value;
+            $http(Boneless.CreateRequest("api/SalesItems", "post", $scope.newStock)).then((res) => {
+                if (res.status === 201) {
+                    const data = res.data as SalesItem;
+                    ($scope.salesItems as SalesItem[]).push(data);
+                    $('#modalAddStock').modal('close');
+                    Materialize.toast(`${data.name} added to SOH`, 4000);
+                    $scope.newStock = {};
+                }
+            }, (err) => Materialize.toast(`Error Adding Item,
+            ensure you are connected and all fields are valid`, 4000));
+        } else {
+            Materialize.toast("Please enter a positive number for stock quantity", 4000);
+        }
     };
 
     $scope.updateStockItem = () => {

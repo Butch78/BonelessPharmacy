@@ -1,5 +1,7 @@
+<h2>Stock Management</h2>
 <div>
-    <ul class="tabs cyan darken-1">
+    <ul class="tabs cyan darken-2">
+            <div class="indicator purple darken-4"></div>
         <li class="tab">
             <a class="white-text active" href="#stock">Stock</a>
         </li>
@@ -9,8 +11,7 @@
     </ul>
 
     <div id="stock">
-        <h2>Stock</h2>
-        <table class="striped">
+        <table>
             <thead>
                 <tr>
                     <th>PLU</th>
@@ -31,19 +32,33 @@
                     <td>{{s.stockOnHand}}</td>
                     <td>
                         <a class="waves-effect waves-light btn" data-ng-click="openModalStockDetails($index)">Edit</a>
-                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockFacts($index)">More</a>
+                        <a class="waves-effect waves-light btn" data-ng-click="openModalStockFacts($index)">Stats</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-
-        <div class="fixed-action-btn">
-            <a class="pulse waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
-                <i class="large material-icons">add</i>
-            </a>
+        <br>
+        <div>
+            <i data-ng-click="discoverStockFeature()" class="fake-link">Need to add a stock item?</i>
         </div>
 
-        <div id="modalAddStock" class="modal">
+    <div class="fixed-action-btn">
+        <a id="addStock" data-ng-class="{'pulse' : salesItems.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalAddStock()">
+      <i class="large material-icons">add</i>
+    </a>
+    </div>
+
+    <div class="tap-target purple lighten-3" data-activates="addStock" >
+        <div class="tap-target-content">
+            <h5>Add Stock</h5>
+            <p>
+                Use this button to add a new item of stock!
+            </p>
+        </div>
+    </div>
+      
+
+        <div id="modalAddStock" class="modal bottom-sheet full-screen-modal">
             <div class="modal-content">
                 <h4>New Item</h4>
                 <div class="row input-field">
@@ -76,13 +91,14 @@
                             <option value="3">Milliletres (ml)</option>
                             <option value="4">Tablets (tablet/s)</option>
                             <option value="5">Capsules (capsule/s)</option>
+                            <option value="6">Unit (single item)</option>
                         </select>
                     </div>
                     <label for="stockMeasureInput">Measurement</label>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#/stock" class="modal-action modal-close btn-flat white-text">Close</a>
+                <a href="#/stock" class="modal-action modal-close btn-flat">Close</a>
                 <a class="waves-effect waves-light btn grey darken-4 white-text" data-ng-click="addNewStockItem()">Add</a>
             </div>
         </div>
@@ -167,8 +183,8 @@
     </div>
 
     <div id="archive" data-ng-controller="archiveCtrl">
-        <h2>Archive</h2>
-        <table class="striped">
+       
+        <table>
             <thead>
                 <tr>
                     <th>PLU</th>

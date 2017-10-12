@@ -1,6 +1,6 @@
 <div>
     <h2>Sales</h2>
-    <table class="striped">
+    <table>
         <thead>
             <tr>
                 <th>Order Number</th>
@@ -40,16 +40,16 @@
     </ul>-->
 
     <div class="fixed-action-btn">
-        <a id="addSale" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
+        <a id="addSale" data-ng-class="{'pulse' : sales.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
       <i class="large material-icons">add</i>
     </a>
     </div>
 
-    <div class="tap-target" data-activates="addSale">
+    <div class="tap-target purple lighten-3" data-activates="addSale">
         <div class="tap-target-content">
-            <h5>Add Button</h5>
+            <h5>Add Sale</h5>
             <p>
-                Look for this button throughout the application when you need to add relevant entries to Boneless Pharmacy.
+               Use this button to add a new sale!
             </p>
         </div>
     </div>
