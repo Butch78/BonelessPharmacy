@@ -2,6 +2,20 @@
 
 > Pharmacy Software for the Modern Era
 
+## What is Boneless Pharmacy?
+
+Boneless Pharmacy is a simple, portable pharmacy server solution for working with sales data,
+especially in a pharmaceutical setting. Using Boneless Pharmacy, businesses are able to input,
+read, edit and process retail data in an easy to understand, readable manner. Boneless Pharmacy
+is made to work with your existing POS solution, taking only minutes to deploy. 
+
+Out of the box, Boneless Pharmacy features
+
+- A fully featured user interface for interacting with all parts of the solution
+- Pre-configured employee account roles
+- A secure, powerful, flexible set of API endpoints for interacting with the solution from any solution
+- An easy to manage, file-based SQLite database system
+
 [Further documentation can be found in our Wiki](https://github.com/Butch78/BonelessPharmacy/wiki)
 
 ## Getting Started
