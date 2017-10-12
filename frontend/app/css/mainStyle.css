@@ -44,4 +44,7 @@
 tbody tr:hover {
     background: #bbdefb;
 }
-  
+
+.saleTable {
+    overflow-y: auto;
+}
