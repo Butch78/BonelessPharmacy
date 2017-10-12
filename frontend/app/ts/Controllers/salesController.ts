@@ -25,6 +25,7 @@ app.controller("salesCtrl", ($scope, $http) => {
         },
         (errorRes) => (Boneless.Notify(BonelessStatusMessage.INVALID_GET)),
     );
+
     $scope.checkDailyReport = () => $http(Boneless.CreateRequest("api/DailySalesReport", "get")).then(
         (res) => {
             if (res.data) {
@@ -84,18 +85,30 @@ app.controller("salesCtrl", ($scope, $http) => {
 
     $scope.submitNewSalesItem = (e) => {
         const salesItem: SalesItem = $scope.searchItems[0];
+        console.log("BEFORE");
+        // console.log($scope.newSaleRecords.indexOf(salesItem));
+
         if (e.which === 13 && salesItem !== undefined) {
-            const salesRecord: SalesRecord = {
-                itemId: salesItem.id,
-                quantity: 1,
-                sale: $scope.newSale,
-                saleId: $scope.newSale.id,
-                salesItem,
-            };
-            $scope.newSaleRecords.push(salesRecord);
-            console.log($scope.newSaleRecords);
+            const currentItems = ($scope.newSaleRecords as SalesRecord[])
+                .filter((s) => s.itemId === salesItem.id);
+            if (currentItems.length === 0) {
+                const salesRecord: SalesRecord = {
+                    itemId: salesItem.id,
+                    quantity: 1,
+                    sale: $scope.newSale,
+                    saleId: $scope.newSale.id,
+                    salePrice: salesItem.price,
+                    salesItem,
+                };
+                $scope.newSaleRecords.push(salesRecord);
+                console.log($scope.newSaleRecords);
+            } else {
+                $scope.newSaleRecords[($scope.newSaleRecords as SalesRecord[]).indexOf(currentItems[0])].quantity += 1;
+            }
             $scope.searchValue = "";
-            // Manually applying to fix error with angular
+        } else {
+            console.log("else");
+            console.log($scope.newSaleRecords);
         }
     };
 
@@ -112,6 +125,7 @@ app.controller("salesCtrl", ($scope, $http) => {
     $scope.addNewSale = () => {
         let postSuccess = true;
         const successfullPosts: SalesRecord[] = [];
+
         for (const sr of $scope.newSaleRecords as SalesRecord[]) {
             if (sr.quantity === undefined) {
                 sr.quantity = 0;

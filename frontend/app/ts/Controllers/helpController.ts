@@ -31,7 +31,7 @@ app.controller("helpCtrl", ($scope) => {
         },{
             title:"Viewing information about a Stock Item", 
             desc: ["1. Press the More Button next to the Sale item you wish to view"],
-        }{
+        },{
             title:"Restoring a Stock Item", 
             desc: ["1. On the Stock Page, press the Archive Button","2. Press the Restore Button next to the Sale item you wish to restore", "3. Press the Confirm Button"],
         },
@@ -42,6 +42,5 @@ app.controller("helpCtrl", ($scope) => {
             title:"Viewing a Report", 
             desc: ["1. Select the View button on the Reports & Prediction Page","2. Choose from the drop down menu which save report you would like to view", "3. Press the Stats Button to Download the Report or receive further information"],
         },
-];
+    ];
 });
-
