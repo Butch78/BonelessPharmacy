@@ -40,7 +40,8 @@
     </ul>-->
 
     <div class="fixed-action-btn">
-        <a id="addSale" data-ng-class="{'pulse' : sales.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4" data-ng-click="openModalNewSale()">
+        <a id="addSale" data-ng-class="{'pulse' : sales.length <= 0}" class="waves-effect waves-light btn-floating btn-large purple darken-4"
+            data-ng-click="openModalNewSale()">
       <i class="large material-icons">add</i>
     </a>
     </div>
@@ -49,7 +50,7 @@
         <div class="tap-target-content">
             <h5>Add Sale</h5>
             <p>
-               Use this button to add a new sale!
+                Use this button to add a new sale!
             </p>
         </div>
     </div>
@@ -58,13 +59,19 @@
         <div class="modal-content grey lighten-3">
             <h4>New Sale</h4>
             <div class="row input-field">
-                <i class="material-icons prefix">add_shopping_cart</i>
-                <label for="stockSearchInput">Product PLU</label>
-                <input class="col sm10" 
-                    type="text" id="stockSearchInput" 
-                    data-ng-keypress="submitNewSalesItem($event)" 
-                    data-ng-keyup="processNewSalesItem($event)"
-                    data-ng-model="searchValue">
+                
+                <div class="row">
+                    <div class="col s9">
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <label for="stockSearchInput">Product PLU</label>
+                        <input class="col sm10" type="text" id="stockSearchInput" data-ng-keypress="submitNewSalesItem($event)" data-ng-keyup="processNewSalesItem($event)"
+                            data-ng-model="searchValue">
+                    </div>
+                    <div class="col s3 center-align">
+                        <a class="waves-effect waves-light btn" data-ng-click="submitNewSalesItem('CLICK')">Add Item</a>
+                    </div>
+                </div>
+
                 <i>{{searchItemName}}</i>
             </div>
             <table>
@@ -83,7 +90,8 @@
                         <td>{{s.salesItem.id}}</td>
                         <td>{{s.salesItem.name}}</td>
                         <td>${{s.salesItem.price}}</td>
-                        <td><input type="number" name="{{s.salesItem.id}}-quantity" id="{{s.salesItem.id}}-quantity" data-ng-model="s.quantity" class="number-small"></td>
+                        <td><input type="number" name="{{s.salesItem.id}}-quantity" id="{{s.salesItem.id}}-quantity" data-ng-model="s.quantity"
+                                class="number-small"></td>
                         <td>{{s.salesItem.stockOnHand}}</td>
                         <td>${{s.salesItem.price * s.quantity | number:2}}</td>
                     </tr>
@@ -96,7 +104,7 @@
         </div>
 
     </div>
-
+    <!-- submitNewSalesItem(null) -->
     <div id="modalSaleDetails" class="modal">
         <div class="modal-content">
             <h4>Order Number : {{viewedSale.id}}</h4>
@@ -111,7 +119,7 @@
                         <th>Total Cost</th>
                     </tr>
                 </thead>
-        
+
                 <tbody>
                     <tr data-ng-repeat="x in viewedSale.contents">
                         <td>{{x.salesItem.id}}</td>
@@ -121,7 +129,7 @@
                         <td>${{x.salePrice * x.quantity | number:2}}</td>
                     </tr>
                 </tbody>
-            </table> 
+            </table>
         </div>
         <div class="modal-footer">
             <a href="#/sales" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>

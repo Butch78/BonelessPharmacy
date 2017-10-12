@@ -84,7 +84,8 @@ app.controller("salesCtrl", ($scope, $http) => {
 
     $scope.submitNewSalesItem = (e) => {
         const salesItem: SalesItem = $scope.searchItems[0];
-        if (e.which === 13 && salesItem !== undefined) {
+        console.log(e == null && salesItem !== undefined);
+        if (e == "CLICK" && salesItem !== undefined || e != "CLICK" && e.which === 13 && salesItem !== undefined) {
             const salesRecord: SalesRecord = {
                 itemId: salesItem.id,
                 quantity: 1,
