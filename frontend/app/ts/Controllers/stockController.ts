@@ -10,6 +10,7 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
     $scope.newStock = {};
     $scope.editingStock = {};
     $scope.deletingStock = {};
+    // $scope.newTitle = {};
     $scope.postValue = {};
     $scope.currentChart = null;
 
@@ -23,6 +24,7 @@ app.controller("stockCtrl", ($scope, $http, $rootScope) => {
                 Boneless.Notify(BonelessStatusMessage.INVALID_GET);
             });
     };
+
     $scope.updateStockPage();
 
     // Allows other controllers to update the page
