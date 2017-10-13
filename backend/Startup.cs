@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,8 +10,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace BonelessPharmacyBackend
 {
@@ -58,6 +61,22 @@ namespace BonelessPharmacyBackend
                     };
                 });
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new Info
+                {
+                    Title = "Boneless Pharmacy API Docs",
+                    Description = "The Swagger Docs for the REST API, packaged in with Boneless Pharmacy.\n" +
+                    "Note that _'Try It Out'_ will not work as currently these endpoints do not allow anonymous connections.\n" +
+                    "Please ensure that you obtain a valid Json Web Token from the `Auth` endpoint using your staff credentials.\n",
+                    Version = "v1"
+                });
+                // Ignoring for first release
+                // var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                // var xmlPath = Path.Combine(basePath, "BonelessPharmacyAPI.xml");
+                // s.IncludeXmlComments(xmlPath);
+            });
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -72,6 +91,14 @@ namespace BonelessPharmacyBackend
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            // Swagger API Docs Init
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Boneless Pharmacy v1");
+                c.ShowJsonEditor();
+            });
 
             app.UseAuthentication();
 

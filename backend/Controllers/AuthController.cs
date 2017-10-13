@@ -12,17 +12,32 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace BonelessPharmacyBackend.Controllers
 {
+    /// <summary>
+    /// The Authentication controller, used for generating JWT access tokens for API access.
+    /// </summary>
     [Route("auth")]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         IConfiguration _configuration;
 
+        /// <summary>
+        /// The initializer for authentication, used to receive configuration file.
+        /// </summary>
+        /// <param name="configuration">The configuration singleton</param>
         public AuthController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
         // POST api/Auth
+        /// <summary>
+        /// The authentication endpoint for Boneless Pharmacy's API.
+        /// 
+        /// Requires a Staff member's login credentials to receive a 24 hour JWT.
+        /// </summary>
+        /// <param name="value">A JSON object containing a staff member's `name` and `password`</param>
+        /// <returns>A single JWT</returns>
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Dictionary<string, string> value) => await Task.Run<IActionResult>(() =>

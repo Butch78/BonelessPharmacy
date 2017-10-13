@@ -35,6 +35,7 @@ namespace BonelessPharmacyBackend.Controllers
 
         // GET api/SalesItems/Archived/
         [Route("Archived")]
+        [HttpGet]
         public async Task<IEnumerable<SalesItem>> GetArchived() => await Task.Run<IEnumerable<SalesItem>>(() =>
         {
             using (var db = new Db())

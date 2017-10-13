@@ -49,6 +49,7 @@ namespace BonelessPharmacyBackend.Controllers
         });
 
         //PUT api/ItemTypes/5
+        [HttpPut]
         public async Task<IActionResult> Put(int id, [FromBody]ItemType value) => await Task.Run<IActionResult>(async () =>
         {
             if (ModelState.IsValid)
@@ -66,6 +67,7 @@ namespace BonelessPharmacyBackend.Controllers
         });
 
         // DELETE api/ItemTypes/5
+        [HttpDelete]
         public async Task<IActionResult> Delete(int id) => await Task.Run<IActionResult>(async () =>
         {
             using (var db = new Db())
